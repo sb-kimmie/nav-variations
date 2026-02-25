@@ -1,0 +1,447 @@
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
+
+const NAV = [
+  {
+    label: 'Home',
+    href: '/join-the-pack',
+  },
+  {
+    id: 'future-students',
+    label: 'Future Students',
+    href: '/join-the-pack/future-students',
+    description: 'Discover everything CSUSB has to offer — from exploring campus and choosing a major to applying and understanding the cost of attendance.',
+    sections: [
+      {
+        heading: 'Explore CSUSB',
+        href: '/join-the-pack/future-students/explore-csusb',
+        links: [
+          { label: 'Why Choose CSUSB',              href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
+          { label: 'Campus Tours',                   href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
+          { label: 'Education Abroad',               href: '/join-the-pack/future-students/explore-csusb/education-abroad' },
+          { label: 'Visit San Bernardino',           href: '/join-the-pack/future-students/explore-csusb/visit-san-bernardino' },
+          { label: 'CSUSB Traditions and Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
+        ],
+      },
+      {
+        heading: 'Apply',
+        href: '/join-the-pack/future-students/apply',
+        links: [
+          { label: 'Application Workshops',                 href: '/join-the-pack/future-students/apply/application-workshops' },
+          { label: 'Freshmen Admissions Requirements',      href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
+          { label: 'Transfer Admissions Requirements',      href: '/join-the-pack/future-students/apply/transfer-admissions-requirements' },
+          { label: 'Returning Students',                    href: '/join-the-pack/future-students/apply/returning-students' },
+          { label: 'Graduate Admissions Requirements',      href: '/join-the-pack/future-students/apply/graduate-admissions-requirements' },
+          { label: 'International Admissions Requirements', href: 'https://www.csusb.edu/node/540620' },
+          { label: 'After Admission: Your Next Steps',      href: '/join-the-pack/future-students/apply/after-admission-your-next-steps' },
+        ],
+      },
+      {
+        heading: 'Program Specific Requirements',
+        href: '/join-the-pack/future-students/program-specific-requirements',
+        links: [
+          { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
+          { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
+          { label: 'EOP',                         href: '/join-the-pack/future-students/program-specific-requirements/educational-opportunity-program-eop' },
+          { label: 'High School Dual Enrollment', href: '/join-the-pack/future-students/program-specific-requirements/high-school-dual-enrollment' },
+          { label: 'Non-degree Programs',         href: '/join-the-pack/future-students/program-specific-requirements/non-degree-programs' },
+          { label: 'Over 60 Program',             href: '/join-the-pack/future-students/program-specific-requirements/over-60-program' },
+          { label: 'University Honors College',   href: '/join-the-pack/future-students/program-specific-requirements/university-honors-college' },
+        ],
+      },
+      {
+        heading: 'Campus Life',
+        href: '/join-the-pack/future-students/campus-life',
+        links: [
+          { label: 'Student Recreation & Wellness',      href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
+          { label: 'Living on Campus',                   href: '/join-the-pack/future-students/living-campus' },
+          { label: 'Connect with an Outreach Counselor', href: '/join-the-pack/future-students/connect-outreach-counselor' },
+          { label: 'Learn about Palm Desert Campus',     href: '/join-the-pack/future-students/learn-about-palm-desert-campus' },
+          { label: 'Cost of Attendance',                 href: '/join-the-pack/future-students/cost-attendance' },
+          { label: 'Tuition Calculator',                 href: 'https://app.meadowfi.com/csusb' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'newly-admitted',
+    label: 'Newly Admitted',
+    href: '/join-the-pack/newly-admitted-students',
+    description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
+    sections: [
+      {
+        heading: 'By Student Type',
+        href: '/join-the-pack/newly-admitted-students',
+        links: [
+          { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
+          { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
+          { label: 'International Students',  href: 'https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students' },
+          { label: 'Transfer Students',       href: '/join-the-pack/newly-admitted-students/transfer-students' },
+          { label: 'Returning Students',      href: '/join-the-pack/newly-admitted-students/returning-students' },
+          { label: 'Graduate Students',       href: '/join-the-pack/newly-admitted-students/graduate-students' },
+        ],
+      },
+      {
+        heading: 'Getting Started',
+        href: '/join-the-pack/newly-admitted-students',
+        links: [
+          { label: 'Financial Aid, Scholarships & Grants', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
+          { label: 'Orientation Overview',                 href: '/join-the-pack/newly-admitted-students/orientation-overview' },
+          { label: 'Join Nearpeer',                        href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'parents',
+    label: 'Parents & Guardians',
+    href: '/join-the-pack/parents-guardians',
+    description: null,
+    sections: [
+      {
+        heading: 'Resources',
+        href: '/join-the-pack/parents-guardians',
+        links: [
+          { label: 'Financial Aid Overview',        href: '/join-the-pack/parents-guardians/financial-aid-overview' },
+          { label: 'Campus Tours & Virtual Visits', href: '/join-the-pack/parents-guardians/campus-tours-virtual-visits' },
+          { label: 'Campus Safety',                 href: '/join-the-pack/parents-guardians/campus-safety' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'counselors',
+    label: 'Counselors',
+    href: '/join-the-pack/counselors',
+    description: 'Find the tools, programs and connections to guide your students toward a successful future at Cal State San Bernardino.',
+    sections: [
+      {
+        heading: 'Apply & Admissions',
+        href: 'https://www.csusb.edu/join-the-pack/future-students/apply',
+        links: [
+          { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
+          { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
+        ],
+      },
+      {
+        heading: 'Available Programs',
+        href: '/join-the-pack/counselors/available-programs',
+        links: [
+          { label: 'Direct Admissions Program',        href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
+          { label: 'High School Dual Enrollment',      href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
+          { label: 'Transfer Pathways & Articulation', href: '/join-the-pack/counselors/available-programs/transfer-pathways-articulation' },
+        ],
+      },
+      {
+        heading: 'Making College Happen',
+        href: '/join-the-pack/counselors/making-college-happen',
+        links: [
+          { label: 'Affordability & Financial Aid', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid' },
+          { label: 'Parent & Family Communication', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication' },
+          { label: 'Visiting CSUSB',                href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#campus-tours' },
+        ],
+      },
+      {
+        heading: 'More',
+        href: '/join-the-pack/counselors',
+        links: [
+          { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
+          { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
+          { label: 'Request an Outreach Counselor', href: '/join-the-pack/counselors/request-outreach-counselor' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'admissions-forms',
+    label: 'Admissions Forms',
+    href: '/join-the-pack/admissions-forms',
+    description: null,
+    sections: null,
+  },
+  {
+    id: 'program-finder',
+    label: 'Program Finder',
+    href: 'https://www.csusb.edu/join-the-pack/program-finder',
+    description: 'Explore over 70 majors, concentrations and certificate programs at CSUSB designed to launch your career.',
+    sections: [
+      {
+        heading: 'Certificates',
+        href: '/join-the-pack/program-finder',
+        links: [
+          { label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' },
+        ],
+      },
+    ],
+  },
+];
+
+const UTILITY = [
+  { label: 'Apply',    href: '/join-the-pack/future-students/apply' },
+  { label: 'Visit',    href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
+  { label: 'myCoyote', href: 'https://my.csusb.edu' },
+  { label: 'Give',     href: '/advancement/development/how-give/make-a-gift' },
+];
+
+const IcoClose = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </svg>
+);
+const IcoMenu = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </svg>
+);
+const IcoArrow = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const IcoChev = ({ open }) => (
+  <svg
+    width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+    className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+  >
+    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+function MegaPanel({ item, onClose }) {
+  return (
+    <div className="bg-white border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)] animate-[megaIn_0.18s_ease]">
+      <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
+        <div className="flex flex-col gap-3">
+          <h2 className="text-[22px] font-bold text-[#002060] m-0 leading-tight">{item.label}</h2>
+          {item.description && (
+            <p className="text-[14px] leading-[1.65] text-[#555] m-0">{item.description}</p>
+          )}
+          <Link
+            href={item.href}
+            onClick={onClose}
+            className="group inline-flex items-center gap-2 text-[14px] font-bold text-[#003DA5] no-underline mt-1 transition-all duration-150 hover:text-[#002060]"
+          >
+            {item.label}
+            <span className="flex items-center transition-transform duration-150 group-hover:translate-x-1">
+              <IcoArrow />
+            </span>
+          </Link>
+        </div>
+        <div className="bg-[#e0e0e0] self-stretch min-h-[100px]" aria-hidden="true" />
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
+          {item.sections.map((sec) => (
+            <div key={sec.heading} className="flex flex-col gap-2">
+              <Link
+                href={sec.href}
+                onClick={onClose}
+                className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] transition-colors duration-150 hover:text-[#003DA5]"
+              >
+                {sec.heading}
+              </Link>
+              <ul className="list-none m-0 p-0">
+                {sec.links.map((lk) => (
+                  <li key={lk.label}>
+                    <Link
+                      href={lk.href}
+                      onClick={onClose}
+                      className="block text-[13.5px] text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug transition-all duration-[120ms] hover:text-[#003DA5] hover:pl-[5px]"
+                    >
+                      {lk.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobSection({ sec }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b border-white/5">
+      <button
+        className="w-full flex items-center justify-between bg-none border-none cursor-pointer font-[inherit] text-[13.5px] font-semibold text-white/70 px-9 py-[10px] text-left transition-colors duration-[120ms] hover:text-white"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span>{sec.heading}</span>
+        <IcoChev open={open} />
+      </button>
+      {open && (
+        <ul className="list-none m-0 p-0 py-[2px] pb-[6px] bg-black/15">
+          {sec.links.map((lk) => (
+            <li key={lk.label}>
+              <Link href={lk.href} className="block px-12 py-[7px] text-[13px] text-white/60 no-underline transition-colors duration-[120ms] hover:text-[#C8A84B]">
+                {lk.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function MobItem({ item }) {
+  const [open, setOpen] = useState(false);
+
+  if (!item.sections) {
+    return (
+      <div className="border-b border-white/[0.08]">
+        <Link href={item.href} className="w-full flex items-center justify-between text-[15px] font-semibold text-white/85 no-underline px-6 py-[15px] transition-colors duration-[120ms] hover:bg-white/[0.04] hover:text-white">
+          {item.label}
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-b border-white/[0.08]">
+      <button
+        className={`w-full flex items-center justify-between bg-none border-none cursor-pointer font-[inherit] text-[15px] font-semibold px-6 py-[15px] text-left transition-colors duration-[120ms] hover:bg-white/[0.04] ${open ? 'text-white' : 'text-white/85'}`}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span>{item.label}</span>
+        <IcoChev open={open} />
+      </button>
+      {open && (
+        <div className="bg-black/[0.18] border-t border-white/[0.06] pt-1 pb-2">
+          <Link href={item.href} className="flex items-center gap-2 px-7 py-[10px] text-[13px] font-bold text-[#C8A84B] no-underline border-b border-white/[0.07] mb-1">
+            View all: {item.label} <IcoArrow />
+          </Link>
+          {item.sections.map((sec) => (
+            <MobSection key={sec.heading} sec={sec} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function CSUSBNav() {
+  const [activeId, setActiveId] = useState(null);
+  const [mobOpen,  setMobOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const closeTimer = useRef(null);
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+
+  useEffect(() => {
+    const fn = () => { if (window.innerWidth > 767) setMobOpen(false); };
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+
+  useEffect(() => {
+    const fn = (e) => { if (e.key === 'Escape') { setActiveId(null); setMobOpen(false); } };
+    document.addEventListener('keydown', fn);
+    return () => document.removeEventListener('keydown', fn);
+  }, []);
+
+  const cancelClose = () => {
+    if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
+  };
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setActiveId(null), 120);
+  };
+
+  const activeItem = NAV.find((n) => n.id === activeId);
+
+  return (
+    <>
+      <header
+        className={[
+          'relative sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif] transition-shadow duration-250',
+          scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.12)]' : '',
+        ].join(' ')}
+      >
+        {/* ── Main bar ── */}
+        <div className="border-b border-black/[0.08]">
+          <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
+
+            {/* Desktop nav */}
+            <nav className="flex-1 overflow-hidden hidden md:block" aria-label="Primary navigation">
+              <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
+                {NAV.map((item) => (
+                  <li
+                    key={item.id || item.label}
+                    onMouseEnter={() => { cancelClose(); if (item.sections) setActiveId(item.id); }}
+                    onMouseLeave={scheduleClose}
+                  >
+                    {item.sections ? (
+                      <button
+                        className={[
+                          'inline-flex items-center h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap transition-all duration-150',
+                          activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
+                        ].join(' ')}
+                        aria-expanded={activeId === item.id}
+                        aria-haspopup="true"
+                      >
+                        {item.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap transition-all duration-150 border-b-[3px] border-b-transparent hover:border-b-[#004a8a]"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Hamburger — mobile only */}
+            <div className="flex items-center flex-shrink-0 ml-auto">
+              <button
+                className="md:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white p-2 rounded transition-colors duration-150 hover:bg-white/10"
+                onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
+                aria-label={mobOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobOpen}
+              >
+                {mobOpen ? <IcoClose /> : <IcoMenu />}
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        {/* ── Mega panel — absolute, floats over page content ── */}
+        {activeId && activeItem?.sections && (
+          <div
+            className="absolute left-0 right-0"
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+          >
+            <MegaPanel item={activeItem} onClose={() => setActiveId(null)} />
+          </div>
+        )}
+
+        {/* ── Mobile overlay ── */}
+        {mobOpen && (
+          <div className="md:hidden bg-[#002060] border-t-2 border-[#004a8a] overflow-y-auto max-h-[calc(100vh-68px)] animate-[fadeIn_0.2s_ease]">
+            <nav aria-label="Mobile navigation">
+              {NAV.map((item) => (
+                <MobItem key={item.id || item.label} item={item} />
+              ))}
+            </nav>
+          </div>
+        )}
+
+      </header>
+    </>
+  );
+}
