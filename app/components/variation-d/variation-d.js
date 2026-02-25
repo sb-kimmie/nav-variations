@@ -444,7 +444,7 @@ export default function VariationD() {
 
           {/* Desktop nav */}
           <nav aria-label="Primary navigation" className="flex-1 flex items-stretch">
-            <ul role="list" className="hidden md:flex items-stretch list-none m-0 p-0 flex-1">
+            <ul role="list" className="hidden lg:flex items-stretch list-none m-0 p-0 flex-wrap">
               {NAV.map((item) => (
                 <li
                   key={item.id || item.label}
@@ -498,7 +498,7 @@ export default function VariationD() {
             aria-controls="csusb-mobile-nav"
             onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
             className="
-              md:hidden flex items-center justify-center self-center ml-auto
+              lg:hidden flex items-center justify-center self-center ml-auto
               text-white cursor-pointer
             "
           >
@@ -524,7 +524,7 @@ export default function VariationD() {
         <nav
           id="csusb-mobile-nav"
           aria-label="Mobile navigation"
-          className="md:hidden bg-[#004a8a] border-t-4 border-t-white/20 max-h-[calc(100vh-102px)] overflow-y-auto"
+          className="lg:hidden bg-[#004a8a] border-t-4 border-t-white/20 max-h-[calc(100vh-102px)] overflow-y-auto"
           style={{ animation: 'mobSlide 0.22s ease' }}
         >
           {NAV.map((item) => (

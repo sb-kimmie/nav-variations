@@ -206,7 +206,7 @@ export default function OriginalNav() {
 
       {/* Mobile toggle — visible below lg (1024px) */}
       <button
-        className="lg:hidden flex items-center justify-center w-full gap-2 text-white rounded px-3 py-2 m-2 text-sm"
+        className="lg:hidden flex items-center justify-center w-full gap-2 text-white rounded px-3 py-2 text-sm"
         onClick={() => setMobileOpen((v) => !v)}
         aria-expanded={mobileOpen}
       >

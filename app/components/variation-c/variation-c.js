@@ -67,7 +67,7 @@ const NAV = [
   },
   {
     id: 'newly-admitted',
-    label: 'Newly Admitted',
+    label: 'Newly Admitted Students',
     href: '/join-the-pack/newly-admitted-students',
     description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
@@ -184,12 +184,12 @@ const ChevronIcon = ({ open }) => (
   <svg
     width="11" height="11" viewBox="0 0 24 24" fill="none"
     aria-hidden="true" focusable="false"
-    className={`shrink-0 ${open ? 'rotate-180' : 'rotate-0'}`}
+    style={{ transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+    className="shrink-0"
   >
     <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
-
 
 const ArrowIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
@@ -215,7 +215,29 @@ const CloseIcon = () => (
 const isExternal = (href) => href?.startsWith('http');
 
 /* ─────────────────────────────────────────────
-   DESKTOP — MEGA PANEL  (doc 10 styling)
+   DESKTOP — NAV ITEM STYLES
+   Matches the screenshot: bottom white underline
+   on hover/active, slight background tint
+───────────────────────────────────────────── */
+const navItemBase = `
+  inline-flex items-center gap-[5px] h-full
+  px-3 py-2
+  text-[13.5px] font-normal text-white
+  whitespace-nowrap no-underline
+  bg-transparent border-0 cursor-pointer
+  relative
+  transition-colors
+  after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px]
+  after:bg-white after:scale-x-0 after:origin-center
+
+  hover:bg-[#005cbf] hover:after:scale-x-100
+  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-4px]
+`;
+
+const navItemActive = `bg-[#005cbf] after:!scale-x-100`;
+
+/* ─────────────────────────────────────────────
+   DESKTOP — MEGA PANEL
 ───────────────────────────────────────────── */
 function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
@@ -225,12 +247,13 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
       aria-label={`${item.label} menu`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`
-        absolute left-0 right-0 top-full z-[400]
-        ${isOpen
-          ? 'pointer-events-auto opacity-100 translate-y-0'
-          : 'pointer-events-none opacity-0 -translate-y-1.5'}
-      `}
+      style={{
+        transition: 'opacity 0.18s ease, transform 0.18s ease',
+        opacity: isOpen ? 1 : 0,
+        transform: isOpen ? 'translateY(0)' : 'translateY(-6px)',
+        pointerEvents: isOpen ? 'auto' : 'none',
+      }}
+      className="absolute left-0 right-0 top-full z-[400]"
     >
       <div className="bg-[#004a8a] border-t border-white/10 border-b-4 border-b-white/30 shadow-[0_24px_64px_rgba(0,0,0,0.3),0_4px_16px_rgba(0,0,0,0.15)]">
         <div className="max-w-[1280px] mx-auto px-8 py-10 grid grid-cols-[240px_1fr] gap-x-12 items-start">
@@ -258,7 +281,7 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
           </div>
 
           {/* Section columns */}
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-x-2">
+          <div className="grid grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-2">
             {item.sections.map((sec) => (
               <div key={sec.heading} className="flex flex-col">
                 <Link
@@ -306,7 +329,7 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
 }
 
 /* ─────────────────────────────────────────────
-   MOBILE — section accordion  (doc 16)
+   MOBILE — section accordion
 ───────────────────────────────────────────── */
 function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
@@ -323,7 +346,6 @@ function MobSection({ sec }) {
           text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
           text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50 border-y-0 border-r-0
           px-[18px] py-[11px] cursor-pointer
-          transition-colors duration-[120ms]
           hover:text-white hover:bg-[#01346a]/80
           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
         "
@@ -345,7 +367,6 @@ function MobSection({ sec }) {
                 className="
                   block px-[22px] py-[9px] pl-[34px]
                   text-[13.5px] font-normal text-white/60 no-underline
-                  transition-all duration-[120ms]
                   hover:text-white hover:pl-[40px] hover:bg-white/[0.05]
                   focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                 "
@@ -362,7 +383,7 @@ function MobSection({ sec }) {
 }
 
 /* ─────────────────────────────────────────────
-   MOBILE — top-level item  (doc 16)
+   MOBILE — top-level item
 ───────────────────────────────────────────── */
 function MobItem({ item }) {
   const [open, setOpen] = useState(false);
@@ -376,8 +397,7 @@ function MobItem({ item }) {
           className="
             w-full flex items-center justify-between
             text-[15px] font-semibold text-white/[0.88] no-underline
-            px-[22px] py-[10px]
-            transition-colors duration-[120ms]
+            px-[22px] py-[17px]
             hover:bg-white/[0.05] hover:text-white
             focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
           "
@@ -398,8 +418,7 @@ function MobItem({ item }) {
         className="
           w-full flex items-center justify-between gap-2
           text-[15px] font-semibold text-white/[0.88] text-left
-          bg-transparent border-none px-[22px] py-[10px] cursor-pointer
-          transition-colors duration-[120ms]
+          bg-transparent border-none px-[22px] py-[17px] cursor-pointer
           hover:bg-white/[0.05] hover:text-white
           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
         "
@@ -428,14 +447,7 @@ function MobItem({ item }) {
 export default function CSUSBNav() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef(null);
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 4);
-    window.addEventListener('scroll', fn, { passive: true });
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
 
   useEffect(() => {
     const fn = () => { if (window.innerWidth > 860) setMobOpen(false); };
@@ -460,110 +472,144 @@ export default function CSUSBNav() {
   };
 
   return (
-    <header role="banner" className="sticky top-0 z-[500]">
+    <>
+      {/* Inject the pseudo-element styles Tailwind can't handle inline */}
+      <style>{`
+        .nav-item {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          height: 100%;
+          padding: 8px 12px;
+          font-size: 13.5px;
+          color: #fff;
+          white-space: nowrap;
+          text-decoration: none;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          transition: background 0.15s ease;
+          font-family: inherit;
+        }
+        .nav-item::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #fff;
+          transform: scaleX(0);
+          transform-origin: center;
+          transition: transform 0.2s ease;
+        }
+        .nav-item:hover,
+        .nav-item.active {
+          background: #005cbf;
+        }
+        .nav-item:hover::after,
+        .nav-item.active::after {
+          transform: scaleX(1);
+        }
+        .nav-item:focus-visible {
+          outline: 3px solid #fff;
+          outline-offset: -4px;
+        }
+        @keyframes mobSlide {
+          from { opacity: 0; transform: translateY(-10px); }
+          to   { opacity: 1; transform: none; }
+        }
+      `}</style>
 
-      {/* ── Primary nav bar ── */}
-      <div className={`bg-[#0573D7] relative ${scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.2)]' : ''}`}>
-        <div className="max-w-[1280px] mx-auto px-8 flex items-stretch py-2">
+      <header role="banner" className="sticky top-0 z-[500]">
 
-          {/* Desktop nav */}
-          <nav aria-label="Primary navigation" className="flex-1 flex items-stretch">
-            <ul role="list" className="hidden md:flex items-stretch list-none m-0 p-0 flex-1">
-              {NAV.map((item) => (
-                <li
-                  key={item.id || item.label}
-                  className="flex items-stretch"
-                  onMouseEnter={() => { cancelClose(); if (item.sections) setActiveId(item.id); }}
-                  onMouseLeave={scheduleClose}
-                >
-                  {item.sections ? (
-                    <button
-                      aria-haspopup="true"
-                      aria-expanded={activeId === item.id}
-                      aria-controls={`mega-${item.id}`}
-                      onClick={() => setActiveId(activeId === item.id ? null : item.id)}
-                      className={`
-                        inline-flex items-center gap-1.5
-                        px-4 bg-transparent border-0 border-b-[3px] border-t-[3px] cursor-pointer
-                        text-[14.5px] text-white/85 whitespace-nowrap
-                        hover:text-white hover:bg-white/[0.08] hover:border-b-white
-                        focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-4px]
-                        ${activeId === item.id
-                          ? 'text-white bg-white/[0.12] border-b-white border-t-transparent'
-                          : 'border-b-transparent border-t-transparent'}
-                      `}
+        {/* ── Primary nav bar ── */}
+        <div className="bg-[#0573D7] relative">
+          <div className="max-w-[1280px] mx-auto px-4 flex items-stretch" style={{ minHeight: 48 }}>
+
+            {/* Desktop nav */}
+            <nav aria-label="Primary navigation" className="flex-1 flex items-stretch">
+              <ul role="list" className="hidden lg:flex items-stretch list-none m-0 p-0 flex-1">
+                {NAV.map((item) => {
+                  const isActive = activeId === item.id;
+                  return (
+                    <li
+                      key={item.id || item.label}
+                      className="flex items-stretch"
+                      onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
+                      onMouseLeave={scheduleClose}
                     >
-                      {item.label}
-                      <ChevronIcon open={activeId === item.id} />
-                    </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="
-                        inline-flex items-center gap-1.5
-                        px-4 border-b-[3px] border-t-[3px] border-transparent
-                        text-[14.5px] text-white/85 whitespace-nowrap no-underline
-                        hover:text-white hover:bg-white/[0.08] hover:border-b-white
-                        focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-4px]
-                      "
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
+                      {item.sections ? (
+                        <button
+                          aria-haspopup="true"
+                          aria-expanded={isActive}
+                          aria-controls={`mega-${item.id}`}
+                          onClick={() => setActiveId(isActive ? null : item.id)}
+                          className={`nav-item${isActive ? ' active' : ''}`}
+                        >
+                          {item.label}
+                          <ChevronIcon open={isActive} />
+                        </button>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="nav-item"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
 
-          {/* Hamburger — mobile only */}
-          <button
-            aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={mobOpen}
-            aria-controls="csusb-mobile-nav"
-            onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
-            className="
-              md:hidden flex items-center justify-center self-center ml-auto
-              text-white cursor-pointer
-            "
-          >
-            {mobOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
+            {/* Hamburger — mobile only */}
+            <button
+              aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobOpen}
+              aria-controls="csusb-mobile-nav"
+              onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
+              className="
+                lg:hidden flex items-center justify-center self-center ml-auto
+                text-white cursor-pointer
+                focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
+              "
+            >
+              {mobOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
 
+          </div>
+
+          {/* Mega panels */}
+          {NAV.filter((n) => n.sections).map((item) => (
+            <MegaPanel
+              key={item.id}
+              item={item}
+              isOpen={activeId === item.id}
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+              onClose={() => setActiveId(null)}
+            />
+          ))}
         </div>
 
-        {/* Mega panels */}
-        {NAV.filter((n) => n.sections).map((item) => (
-          <MegaPanel
-            key={item.id}
-            item={item}
-            isOpen={activeId === item.id}
-            onMouseEnter={cancelClose}
-            onMouseLeave={scheduleClose}
-            onClose={() => setActiveId(null)}
-          />
-        ))}
-      </div>
+        {/* ── Mobile drawer ── */}
+        {mobOpen && (
+          <nav
+            id="csusb-mobile-nav"
+            aria-label="Mobile navigation"
+            className="lg:hidden bg-[#004a8a] max-h-[calc(100vh-102px)] overflow-y-auto"
+            style={{ animation: 'mobSlide 0.22s ease' }}
+          >
+            {NAV.map((item) => (
+              <MobItem key={item.id || item.label} item={item} />
+            ))}
+          </nav>
+        )}
 
-      {/* ── Mobile drawer (doc 16) ── */}
-      {mobOpen && (
-        <nav
-          id="csusb-mobile-nav"
-          aria-label="Mobile navigation"
-          className="md:hidden bg-[#004a8a] border-t-4 border-t-white/20 max-h-[calc(100vh-102px)] overflow-y-auto"
-          style={{ animation: 'mobSlide 0.22s ease' }}
-        >
-          <style>{`
-            @keyframes mobSlide {
-              from { opacity: 0; transform: translateY(-10px); }
-              to   { opacity: 1; transform: none; }
-            }
-          `}</style>
-          {NAV.map((item) => (
-            <MobItem key={item.id || item.label} item={item} />
-          ))}
-        </nav>
-      )}
-
-    </header>
+      </header>
+    </>
   );
 }

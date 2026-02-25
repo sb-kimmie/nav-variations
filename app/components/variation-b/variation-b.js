@@ -197,7 +197,7 @@ const IcoArrow = () => (
 function Chevron({ open }) {
   return (
     <svg
-      className={`w-[10px] h-[7px] flex-shrink-0 ${open ? 'rotate-180' : ''}`}
+      className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
       viewBox="0 0 12 8"
       fill="none"
     >
@@ -250,7 +250,7 @@ function MegaPanel({ item, onClose }) {
                     <Link
                       href={lk.href}
                       onClick={onClose}
-                      className="block text-[13.5px] text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5] hover:pl-[5px]"
+                      className="block text-[13.5px] text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5]"
                     >
                       {lk.label}
                     </Link>
@@ -267,10 +267,6 @@ function MegaPanel({ item, onClose }) {
 
 // ─── Mobile Components ────────────────────────────────────────────────────────
 
-/**
- * Level 2 — static section heading label + Level 3 links
- * Reads from the NAV `sections` shape: { heading, href, links[] }
- */
 function MobileSection({ sec }) {
   if (!sec.heading) {
     return (
@@ -290,14 +286,12 @@ function MobileSection({ sec }) {
 
   return (
     <div className="mb-1">
-      {/* Level 2 heading — small uppercase label + rule */}
       <div className="px-5 pt-5 pb-2">
         <p className="m-0 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8]">
           {sec.heading}
         </p>
         <div className="mt-[10px] h-px bg-[#0255a3]" />
       </div>
-      {/* Level 3 links */}
       <div>
         {sec.links.map((link) => (
           <Link
@@ -313,9 +307,6 @@ function MobileSection({ sec }) {
   );
 }
 
-/**
- * Level 1 — top-level accordion row
- */
 function MobileAccordionItem({ item }) {
   const [open, setOpen] = useState(false);
   const hasSections = item.sections?.length > 0;
@@ -335,7 +326,6 @@ function MobileAccordionItem({ item }) {
 
   return (
     <div className="border-b border-[#0462bc]">
-      {/* Level 1 button */}
       <button
         className={`w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white text-left border-none cursor-pointer font-[inherit] ${
           open ? 'bg-[#0462bc]' : 'bg-[#0573D7] hover:bg-[#0462bc]'
@@ -408,7 +398,7 @@ export default function VariationB() {
         <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
 
           {/* Desktop nav */}
-          <nav className="flex-1 overflow-hidden hidden md:block" aria-label="Primary navigation">
+          <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">
             <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
               {NAV.map((item) => (
                 <li
@@ -419,13 +409,14 @@ export default function VariationB() {
                   {item.sections ? (
                     <button
                       className={[
-                        'inline-flex items-center h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap',
+                        'inline-flex items-center gap-[6px] h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap',
                         activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
                       ].join(' ')}
                       aria-expanded={activeId === item.id}
                       aria-haspopup="true"
                     >
                       {item.label}
+                      <Chevron open={false} />
                     </button>
                   ) : (
                     <Link
@@ -443,7 +434,7 @@ export default function VariationB() {
           {/* Hamburger — mobile only */}
           <div className="flex items-center flex-shrink-0 ml-auto">
             <button
-              className="md:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white rounded hover:bg-white/10"
+              className="lg:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white rounded hover:bg-white/10"
               onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
               aria-label={mobOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobOpen}
@@ -468,7 +459,7 @@ export default function VariationB() {
 
       {/* ── Mobile menu ── */}
       {mobOpen && (
-        <div className="md:hidden bg-[#0573D7] overflow-y-auto max-h-[calc(100vh-68px)]">
+        <div className="lg:hidden bg-[#0573D7] overflow-y-auto max-h-[calc(100vh-68px)]">
           <nav aria-label="Mobile navigation">
             {NAV.map((item) => (
               <MobileAccordionItem key={item.id || item.label} item={item} />

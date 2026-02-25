@@ -163,9 +163,9 @@ const navItems = [
   },
 ];
 
-function Chevron({ open }) {
+function Chevron() {
   return (
-    <svg className={`w-[10px] h-[7px] flex-shrink-0 ${open ? 'rotate-180' : ''}`} viewBox="0 0 12 8" fill="none">
+    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none">
       <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -183,7 +183,7 @@ function MobileColumn({ col }) {
           aria-expanded={open}
         >
           <span>{col.heading}</span>
-          <Chevron open={open} />
+          <Chevron />
         </button>
         {open && (
           <div className="bg-[#edf0f9] border-t border-[#d8def0] py-1">
@@ -231,7 +231,7 @@ function MobileAccordionItem({ item }) {
         aria-expanded={open}
       >
         <span>{item.label}</span>
-        <Chevron open={open} />
+        <Chevron />
       </button>
       {open && (
         <div className="bg-[#f4f6fb] border-t border-[#dde3f0] pt-1 pb-3">
@@ -270,7 +270,7 @@ export default function VariationA() {
     <header className="font-['Source_Sans_Pro',Helvetica,Arial,sans-serif] top-0 shadow-[0_2px_10px_rgba(0,0,0,0.18)]">
 
       {/* Nav bar */}
-      <div className="bg-[#0273D7] border-b-4 border-[#0273D7] relative">
+      <div className="bg-[#0273D7] relative">
         <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
 
           {/* Desktop nav */}
@@ -292,7 +292,7 @@ export default function VariationA() {
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <Chevron open={activeMenu === item.label} />
+                      <Chevron />
                     </button>
                   ) : (
                     <Link
@@ -369,7 +369,7 @@ export default function VariationA() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t-[3px] border-[#003DA5] overflow-y-auto max-h-[calc(100vh-68px)]">
+        <div className="lg:hidden bg-white overflow-y-auto max-h-[calc(100vh-68px)]">
           <nav aria-label="Mobile navigation">
             {navItems.map((item) => (
               <MobileAccordionItem key={item.label} item={item} />
