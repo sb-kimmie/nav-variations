@@ -3,11 +3,10 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
+// ─── Nav Data ────────────────────────────────────────────────────────────────
+
 const NAV = [
-  {
-    label: 'Home',
-    href: '/join-the-pack',
-  },
+  { label: 'Home', href: '/join-the-pack' },
   {
     id: 'future-students',
     label: 'Future Students',
@@ -158,7 +157,6 @@ const NAV = [
     id: 'admissions-forms',
     label: 'Admissions Forms',
     href: '/join-the-pack/admissions-forms',
-    description: null,
     sections: null,
   },
   {
@@ -178,12 +176,7 @@ const NAV = [
   },
 ];
 
-const UTILITY = [
-  { label: 'Apply',    href: '/join-the-pack/future-students/apply' },
-  { label: 'Visit',    href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
-  { label: 'myCoyote', href: 'https://my.csusb.edu' },
-  { label: 'Give',     href: '/advancement/development/how-give/make-a-gift' },
-];
+// ─── Icons ───────────────────────────────────────────────────────────────────
 
 const IcoClose = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -200,19 +193,26 @@ const IcoArrow = () => (
     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
-const IcoChev = ({ open }) => (
-  <svg
-    width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"
-    className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-  >
-    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+
+function Chevron({ open }) {
+  return (
+    <svg
+      className={`w-[10px] h-[7px] flex-shrink-0 ${open ? 'rotate-180' : ''}`}
+      viewBox="0 0 12 8"
+      fill="none"
+    >
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+// ─── Desktop Mega Panel ───────────────────────────────────────────────────────
 
 function MegaPanel({ item, onClose }) {
   return (
-    <div className="bg-white border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)] animate-[megaIn_0.18s_ease]">
+    <div className="bg-white border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
+        {/* Left: title + description + view-all link */}
         <div className="flex flex-col gap-3">
           <h2 className="text-[22px] font-bold text-[#002060] m-0 leading-tight">{item.label}</h2>
           {item.description && (
@@ -221,22 +221,26 @@ function MegaPanel({ item, onClose }) {
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-2 text-[14px] font-bold text-[#003DA5] no-underline mt-1 transition-all duration-150 hover:text-[#002060]"
+            className="group inline-flex items-center gap-2 text-[14px] font-bold text-[#003DA5] no-underline mt-1 hover:text-[#002060]"
           >
             {item.label}
-            <span className="flex items-center transition-transform duration-150 group-hover:translate-x-1">
+            <span className="flex items-center group-hover:translate-x-1">
               <IcoArrow />
             </span>
           </Link>
         </div>
+
+        {/* Divider */}
         <div className="bg-[#e0e0e0] self-stretch min-h-[100px]" aria-hidden="true" />
+
+        {/* Right: sections grid */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
           {item.sections.map((sec) => (
             <div key={sec.heading} className="flex flex-col gap-2">
               <Link
                 href={sec.href}
                 onClick={onClose}
-                className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] transition-colors duration-150 hover:text-[#003DA5]"
+                className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5]"
               >
                 {sec.heading}
               </Link>
@@ -246,7 +250,7 @@ function MegaPanel({ item, onClose }) {
                     <Link
                       href={lk.href}
                       onClick={onClose}
-                      className="block text-[13.5px] text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug transition-all duration-[120ms] hover:text-[#003DA5] hover:pl-[5px]"
+                      className="block text-[13.5px] text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5] hover:pl-[5px]"
                     >
                       {lk.label}
                     </Link>
@@ -261,40 +265,68 @@ function MegaPanel({ item, onClose }) {
   );
 }
 
-function MobSection({ sec }) {
-  const [open, setOpen] = useState(false);
+// ─── Mobile Components ────────────────────────────────────────────────────────
+
+/**
+ * Level 2 — static section heading label + Level 3 links
+ * Reads from the NAV `sections` shape: { heading, href, links[] }
+ */
+function MobileSection({ sec }) {
+  if (!sec.heading) {
+    return (
+      <div className="pt-2">
+        {sec.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:bg-[rgba(255,255,255,0.1)]"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className="border-b border-white/5">
-      <button
-        className="w-full flex items-center justify-between bg-none border-none cursor-pointer font-[inherit] text-[13.5px] font-semibold text-white/70 px-9 py-[10px] text-left transition-colors duration-[120ms] hover:text-white"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-      >
-        <span>{sec.heading}</span>
-        <IcoChev open={open} />
-      </button>
-      {open && (
-        <ul className="list-none m-0 p-0 py-[2px] pb-[6px] bg-black/15">
-          {sec.links.map((lk) => (
-            <li key={lk.label}>
-              <Link href={lk.href} className="block px-12 py-[7px] text-[13px] text-white/60 no-underline transition-colors duration-[120ms] hover:text-[#C8A84B]">
-                {lk.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="mb-1">
+      {/* Level 2 heading — small uppercase label + rule */}
+      <div className="px-5 pt-5 pb-2">
+        <p className="m-0 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8]">
+          {sec.heading}
+        </p>
+        <div className="mt-[10px] h-px bg-[#0255a3]" />
+      </div>
+      {/* Level 3 links */}
+      <div>
+        {sec.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:underline"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
 
-function MobItem({ item }) {
+/**
+ * Level 1 — top-level accordion row
+ */
+function MobileAccordionItem({ item }) {
   const [open, setOpen] = useState(false);
+  const hasSections = item.sections?.length > 0;
 
-  if (!item.sections) {
+  if (!hasSections) {
     return (
-      <div className="border-b border-white/[0.08]">
-        <Link href={item.href} className="w-full flex items-center justify-between text-[15px] font-semibold text-white/85 no-underline px-6 py-[15px] transition-colors duration-[120ms] hover:bg-white/[0.04] hover:text-white">
+      <div className="border-b border-[#0462bc]">
+        <Link
+          href={item.href}
+          className="flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white no-underline bg-[#0573D7] hover:bg-[#0462bc]"
+        >
           {item.label}
         </Link>
       </div>
@@ -302,22 +334,23 @@ function MobItem({ item }) {
   }
 
   return (
-    <div className="border-b border-white/[0.08]">
+    <div className="border-b border-[#0462bc]">
+      {/* Level 1 button */}
       <button
-        className={`w-full flex items-center justify-between bg-none border-none cursor-pointer font-[inherit] text-[15px] font-semibold px-6 py-[15px] text-left transition-colors duration-[120ms] hover:bg-white/[0.04] ${open ? 'text-white' : 'text-white/85'}`}
-        onClick={() => setOpen((o) => !o)}
+        className={`w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white text-left border-none cursor-pointer font-[inherit] ${
+          open ? 'bg-[#0462bc]' : 'bg-[#0573D7] hover:bg-[#0462bc]'
+        }`}
+        onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
         <span>{item.label}</span>
-        <IcoChev open={open} />
+        <Chevron open={open} />
       </button>
+
       {open && (
-        <div className="bg-black/[0.18] border-t border-white/[0.06] pt-1 pb-2">
-          <Link href={item.href} className="flex items-center gap-2 px-7 py-[10px] text-[13px] font-bold text-[#C8A84B] no-underline border-b border-white/[0.07] mb-1">
-            View all: {item.label} <IcoArrow />
-          </Link>
-          {item.sections.map((sec) => (
-            <MobSection key={sec.heading} sec={sec} />
+        <div className="bg-[#013F7E] border-t border-[#0255a3] pb-4">
+          {item.sections.map((sec, i) => (
+            <MobileSection key={i} sec={sec} />
           ))}
         </div>
       )}
@@ -325,10 +358,12 @@ function MobItem({ item }) {
   );
 }
 
-export default function CSUSBNav() {
-  const [activeId, setActiveId] = useState(null);
-  const [mobOpen,  setMobOpen]  = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+// ─── Main Nav ─────────────────────────────────────────────────────────────────
+
+export default function VariationB() {
+  const [activeId,  setActiveId]  = useState(null);
+  const [mobOpen,   setMobOpen]   = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
   const closeTimer = useRef(null);
 
   useEffect(() => {
@@ -344,7 +379,9 @@ export default function CSUSBNav() {
   }, []);
 
   useEffect(() => {
-    const fn = (e) => { if (e.key === 'Escape') { setActiveId(null); setMobOpen(false); } };
+    const fn = (e) => {
+      if (e.key === 'Escape') { setActiveId(null); setMobOpen(false); }
+    };
     document.addEventListener('keydown', fn);
     return () => document.removeEventListener('keydown', fn);
   }, []);
@@ -360,88 +397,86 @@ export default function CSUSBNav() {
   const activeItem = NAV.find((n) => n.id === activeId);
 
   return (
-    <>
-      <header
-        className={[
-          'relative sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif] transition-shadow duration-250',
-          scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.12)]' : '',
-        ].join(' ')}
-      >
-        {/* ── Main bar ── */}
-        <div className="border-b border-black/[0.08]">
-          <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
+    <header
+      className={[
+        'relative sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif]',
+        scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.12)]' : '',
+      ].join(' ')}
+    >
+      {/* ── Main bar ── */}
+      <div className="border-b border-black/[0.08]">
+        <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
 
-            {/* Desktop nav */}
-            <nav className="flex-1 overflow-hidden hidden md:block" aria-label="Primary navigation">
-              <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
-                {NAV.map((item) => (
-                  <li
-                    key={item.id || item.label}
-                    onMouseEnter={() => { cancelClose(); if (item.sections) setActiveId(item.id); }}
-                    onMouseLeave={scheduleClose}
-                  >
-                    {item.sections ? (
-                      <button
-                        className={[
-                          'inline-flex items-center h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap transition-all duration-150',
-                          activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
-                        ].join(' ')}
-                        aria-expanded={activeId === item.id}
-                        aria-haspopup="true"
-                      >
-                        {item.label}
-                      </button>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap transition-all duration-150 border-b-[3px] border-b-transparent hover:border-b-[#004a8a]"
-                      >
-                        {item.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {/* Hamburger — mobile only */}
-            <div className="flex items-center flex-shrink-0 ml-auto">
-              <button
-                className="md:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white p-2 rounded transition-colors duration-150 hover:bg-white/10"
-                onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
-                aria-label={mobOpen ? 'Close menu' : 'Open menu'}
-                aria-expanded={mobOpen}
-              >
-                {mobOpen ? <IcoClose /> : <IcoMenu />}
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-        {/* ── Mega panel — absolute, floats over page content ── */}
-        {activeId && activeItem?.sections && (
-          <div
-            className="absolute left-0 right-0"
-            onMouseEnter={cancelClose}
-            onMouseLeave={scheduleClose}
-          >
-            <MegaPanel item={activeItem} onClose={() => setActiveId(null)} />
-          </div>
-        )}
-
-        {/* ── Mobile overlay ── */}
-        {mobOpen && (
-          <div className="md:hidden bg-[#002060] border-t-2 border-[#004a8a] overflow-y-auto max-h-[calc(100vh-68px)] animate-[fadeIn_0.2s_ease]">
-            <nav aria-label="Mobile navigation">
+          {/* Desktop nav */}
+          <nav className="flex-1 overflow-hidden hidden md:block" aria-label="Primary navigation">
+            <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
               {NAV.map((item) => (
-                <MobItem key={item.id || item.label} item={item} />
+                <li
+                  key={item.id || item.label}
+                  onMouseEnter={() => { cancelClose(); if (item.sections) setActiveId(item.id); }}
+                  onMouseLeave={scheduleClose}
+                >
+                  {item.sections ? (
+                    <button
+                      className={[
+                        'inline-flex items-center h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap',
+                        activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
+                      ].join(' ')}
+                      aria-expanded={activeId === item.id}
+                      aria-haspopup="true"
+                    >
+                      {item.label}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] border-b-transparent hover:border-b-[#004a8a]"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
               ))}
-            </nav>
-          </div>
-        )}
+            </ul>
+          </nav>
 
-      </header>
-    </>
+          {/* Hamburger — mobile only */}
+          <div className="flex items-center flex-shrink-0 ml-auto">
+            <button
+              className="md:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white rounded hover:bg-white/10"
+              onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
+              aria-label={mobOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobOpen}
+            >
+              {mobOpen ? <IcoClose /> : <IcoMenu />}
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ── Desktop mega panel ── */}
+      {activeId && activeItem?.sections && (
+        <div
+          className="absolute left-0 right-0"
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+        >
+          <MegaPanel item={activeItem} onClose={() => setActiveId(null)} />
+        </div>
+      )}
+
+      {/* ── Mobile menu ── */}
+      {mobOpen && (
+        <div className="md:hidden bg-[#0573D7] overflow-y-auto max-h-[calc(100vh-68px)]">
+          <nav aria-label="Mobile navigation">
+            {NAV.map((item) => (
+              <MobileAccordionItem key={item.id || item.label} item={item} />
+            ))}
+          </nav>
+        </div>
+      )}
+
+    </header>
   );
 }

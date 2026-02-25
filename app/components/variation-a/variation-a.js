@@ -13,7 +13,6 @@ const navItems = [
         columns: [
           {
             heading: 'Explore CSUSB',
-            href: '/join-the-pack/future-students/explore-csusb',
             links: [
               { label: 'Why Choose CSUSB', href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
               { label: 'Campus Tours', href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
@@ -24,7 +23,6 @@ const navItems = [
           },
           {
             heading: 'Apply',
-            href: '/join-the-pack/future-students/apply',
             links: [
               { label: 'Application Workshops', href: '/join-the-pack/future-students/apply/application-workshops' },
               { label: 'Freshmen Admissions Requirements', href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
@@ -37,7 +35,6 @@ const navItems = [
           },
           {
             heading: 'Program Specific Requirements',
-            href: '/join-the-pack/future-students/program-specific-requirements',
             links: [
               { label: 'Transfer Success Pathway', href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
               { label: 'Veteran Admissions Requirements', href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -50,7 +47,6 @@ const navItems = [
           },
           {
             heading: 'Campus Life',
-            href: '/join-the-pack/future-students/campus-life',
             links: [
               { label: 'Student Recreation & Wellness Center', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
               { label: 'Living on Campus', href: '/join-the-pack/future-students/living-campus' },
@@ -182,7 +178,7 @@ function MobileColumn({ col }) {
     return (
       <div className="border-b border-[#e8ecf4]">
         <button
-          className="w-full flex items-center justify-between px-6 py-[11px] text-[14px] font-semibold text-[#333] text-left bg-transparent border-none cursor-pointer font-[inherit] hover:text-[#003DA5]"
+          className="w-full flex items-center justify-between px-6 py-[13px] text-[14px] font-semibold text-[#333] text-left bg-transparent border-none cursor-pointer font-[inherit] hover:text-[#003DA5]"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
@@ -191,11 +187,6 @@ function MobileColumn({ col }) {
         </button>
         {open && (
           <div className="bg-[#edf0f9] border-t border-[#d8def0] py-1">
-            {col.href && (
-              <Link href={col.href} className="block px-8 py-2 text-[#003DA5] text-[11px] font-bold uppercase tracking-[0.05em] border-b border-[#d8def0] mb-1 no-underline">
-                View all: {col.heading}
-              </Link>
-            )}
             {col.links.map((link) => (
               <Link key={link.label} href={link.href} className="block px-8 py-[7px] text-[#555] text-[13px] no-underline hover:text-[#003DA5]">
                 {link.label}
@@ -235,7 +226,7 @@ function MobileAccordionItem({ item }) {
   return (
     <div className="border-b border-[#e8ecf4]">
       <button
-        className="w-full flex items-center justify-between px-5 py-3 text-[13px] text-[#222] text-left bg-transparent border-none cursor-pointer font-[inherit] hover:text-[#003DA5]"
+        className="w-full flex items-center justify-between px-5 py-3 text-[13px] text-[#004a8a] text-left bg-transparent border-none cursor-pointer font-[inherit] hover:text-[#003DA5]"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
@@ -244,9 +235,6 @@ function MobileAccordionItem({ item }) {
       </button>
       {open && (
         <div className="bg-[#f4f6fb] border-t border-[#dde3f0] pt-1 pb-3">
-          <Link href={item.href} className="block px-6 py-[10px] text-[#003DA5] text-[13px] font-bold no-underline border-b border-[#dde3f0] mb-1">
-            View all: {item.label}
-          </Link>
           {item.rows.map((row, ri) =>
             row.columns.map((col, ci) => <MobileColumn key={`${ri}-${ci}`} col={col} />)
           )}
@@ -256,7 +244,7 @@ function MobileAccordionItem({ item }) {
   );
 }
 
-export default function CSUSBNav() {
+export default function VariationA() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef(null);
@@ -343,9 +331,6 @@ export default function CSUSBNav() {
             onMouseLeave={scheduleClose}
           >
             <div className="max-w-[1380px] mx-auto px-6 pt-[22px] pb-7">
-              <div className="flex items-baseline gap-5 mb-4 pb-3 border-b-[3px] border-[#004a8a]">
-                <h2 className="text-[18px] font-extrabold text-[#003DA5] m-0">{activeItem.label}</h2>
-              </div>
               {activeItem.rows.map((row, rowIdx) => (
                 <div
                   key={rowIdx}
@@ -355,11 +340,11 @@ export default function CSUSBNav() {
                     <div key={colIdx} className="min-w-0">
                       {col.heading && (
                         col.href ? (
-                          <Link href={col.href} className="block text-[11px] font-bold uppercase tracking-[0.09em] text-[#003DA5] no-underline mb-2 pb-[6px] border-b border-[#dde3f0] hover:text-[#024988]">
+                          <Link href={col.href} className="block text-[13px] font-bold uppercase tracking-[0.09em] text-[#013f7e] no-underline mb-2 pb-[6px] border-b border-[#dde3f0] hover:text-[#024988]">
                             {col.heading}
                           </Link>
                         ) : (
-                          <span className="block text-[11px] font-bold uppercase tracking-[0.09em] text-[#888] mb-2 pb-[6px] border-b border-[#dde3f0]">
+                          <span className="block text-[13px] font-bold uppercase tracking-[0.09em] text-[#013f7e] mb-2 pb-[6px] border-b border-[#dde3f0]">
                             {col.heading}
                           </span>
                         )
@@ -367,7 +352,7 @@ export default function CSUSBNav() {
                       <ul className="list-none m-0 p-0 flex flex-col gap-[2px]">
                         {col.links.map((link) => (
                           <li key={link.label}>
-                            <Link href={link.href} className="block px-[6px] py-1 text-[#333] text-[13.5px] leading-snug rounded-[3px] no-underline hover:bg-[rgba(0,61,165,0.07)] hover:text-[#003DA5] hover:pl-[10px]">
+                            <Link href={link.href} className="block px-[6px] py-1 text-[#333] text-[13.5px] leading-snug rounded-[3px] no-underline hover:bg-[rgba(0,61,165,0.07)] hover:text-[#003DA5]">
                               {link.label}
                             </Link>
                           </li>

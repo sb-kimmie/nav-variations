@@ -12,6 +12,7 @@ const NAV = [
     id: 'future-students',
     label: 'Future Students',
     href: '/join-the-pack/future-students',
+    description: 'Discover everything CSUSB has to offer — from exploring campus and choosing a major to applying and understanding the cost of attendance.',
     sections: [
       {
         heading: 'Explore CSUSB',
@@ -68,6 +69,7 @@ const NAV = [
     id: 'newly-admitted',
     label: 'Newly Admitted',
     href: '/join-the-pack/newly-admitted-students',
+    description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
         heading: 'By Student Type',
@@ -96,6 +98,7 @@ const NAV = [
     id: 'parents',
     label: 'Parents & Guardians',
     href: '/join-the-pack/parents-guardians',
+    description: "Resources to help you support your student's journey to becoming a CSUSB Coyote.",
     sections: [
       {
         heading: 'Resources',
@@ -112,6 +115,7 @@ const NAV = [
     id: 'counselors',
     label: 'Counselors',
     href: '/join-the-pack/counselors',
+    description: 'Tools, programs, and connections to guide your students toward a successful future at Cal State San Bernardino.',
     sections: [
       {
         heading: 'Apply & Admissions',
@@ -160,6 +164,7 @@ const NAV = [
     id: 'program-finder',
     label: 'Program Finder',
     href: 'https://www.csusb.edu/join-the-pack/program-finder',
+    description: 'Explore over 70 majors, concentrations, and certificate programs at CSUSB.',
     sections: [
       {
         heading: 'Certificates',
@@ -185,6 +190,7 @@ const ChevronIcon = ({ open }) => (
   </svg>
 );
 
+
 const ArrowIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -209,7 +215,7 @@ const CloseIcon = () => (
 const isExternal = (href) => href?.startsWith('http');
 
 /* ─────────────────────────────────────────────
-   MEGA PANEL
+   DESKTOP — MEGA PANEL  (doc 10 styling)
 ───────────────────────────────────────────── */
 function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
@@ -227,24 +233,42 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
       `}
     >
       <div className="bg-[#004a8a] border-t border-white/10 border-b-4 border-b-white/30 shadow-[0_24px_64px_rgba(0,0,0,0.3),0_4px_16px_rgba(0,0,0,0.15)]">
-        <div className="max-w-[1280px] mx-auto px-8 py-10">
+        <div className="max-w-[1280px] mx-auto px-8 py-10 grid grid-cols-[240px_1fr] gap-x-12 items-start">
 
-          {/* Section columns — full width */}
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-x-10">
+          {/* Left card */}
+          <div className="bg-[#01346a] rounded-lg p-6 flex flex-col gap-4 self-stretch">
+            <h2 className="text-2xl font-bold text-white leading-tight m-0">{item.label}</h2>
+            {item.description && (
+              <p className="text-[13.5px] leading-[1.7] text-white/70 m-0 flex-1">{item.description}</p>
+            )}
+            <Link
+              href={item.href}
+              onClick={onClose}
+              className="
+                inline-flex items-center gap-2 w-fit mt-auto
+                text-[12px] font-bold tracking-[0.07em] uppercase
+                text-white no-underline px-4 py-2 rounded
+                border border-white/40
+                hover:bg-white hover:text-[#01346a] hover:border-white hover:gap-3
+                focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-2
+              "
+            >
+              View all <ArrowIcon />
+            </Link>
+          </div>
+
+          {/* Section columns */}
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-x-2">
             {item.sections.map((sec) => (
               <div key={sec.heading} className="flex flex-col">
-
-                {/* Heading */}
                 <Link
                   href={sec.href}
                   onClick={onClose}
                   className="
                     flex items-center
                     text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
-                    text-white bg-[#01346a]
-                    px-3 py-[9px] mb-0
-                    border-l-4 border-l-white
-                    no-underline transition-colors duration-150
+                    text-white bg-[#01346a] px-3 py-[9px] mb-0
+                    border-l-4 border-l-white no-underline
                     hover:bg-black/20
                     focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
                   "
@@ -252,22 +276,16 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                 >
                   {sec.heading}
                 </Link>
-
-                {/* Sub-links */}
-                <ul
-                  className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4"
-                  aria-label={`${sec.heading} links`}
-                >
+                <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
                   {sec.links.map((lk) => (
                     <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
                       <Link
                         href={lk.href}
                         onClick={onClose}
                         className="
-                          block text-[13px] font-normal text-white/80 no-underline leading-[1.4]
+                          block text-[13px] text-white/80 no-underline leading-[1.4]
                           px-3 py-[6px]
-                          transition-all duration-[120ms]
-                          hover:text-white hover:pl-5 hover:bg-white/[0.08]
+                          hover:text-white hover:bg-white/[0.08]
                           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-1px] focus-visible:rounded-sm
                         "
                         {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -277,7 +295,6 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                     </li>
                   ))}
                 </ul>
-
               </div>
             ))}
           </div>
@@ -289,7 +306,7 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
 }
 
 /* ─────────────────────────────────────────────
-   MOBILE — section accordion
+   MOBILE — section accordion  (doc 16)
 ───────────────────────────────────────────── */
 function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
@@ -345,7 +362,7 @@ function MobSection({ sec }) {
 }
 
 /* ─────────────────────────────────────────────
-   MOBILE — top-level item
+   MOBILE — top-level item  (doc 16)
 ───────────────────────────────────────────── */
 function MobItem({ item }) {
   const [open, setOpen] = useState(false);
@@ -359,7 +376,7 @@ function MobItem({ item }) {
           className="
             w-full flex items-center justify-between
             text-[15px] font-semibold text-white/[0.88] no-underline
-            px-[22px] py-[17px]
+            px-[22px] py-[10px]
             transition-colors duration-[120ms]
             hover:bg-white/[0.05] hover:text-white
             focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
@@ -381,7 +398,7 @@ function MobItem({ item }) {
         className="
           w-full flex items-center justify-between gap-2
           text-[15px] font-semibold text-white/[0.88] text-left
-          bg-transparent border-none px-[22px] py-[17px] cursor-pointer
+          bg-transparent border-none px-[22px] py-[10px] cursor-pointer
           transition-colors duration-[120ms]
           hover:bg-white/[0.05] hover:text-white
           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
@@ -396,22 +413,6 @@ function MobItem({ item }) {
           id={`mobitem-${uid}`}
           className="bg-black/[0.25] border-t border-white/[0.05]"
         >
-          <Link
-            href={item.href}
-            className="
-              flex items-center gap-2
-              px-[26px] py-[13px]
-              text-[12px] font-bold tracking-[0.07em] uppercase
-              text-white/80 no-underline
-              border-b border-white/[0.07]
-              transition-all duration-[120ms]
-              hover:text-white hover:gap-3
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
-          >
-            View all: {item.label} <ArrowIcon />
-          </Link>
-
           {item.sections.map((sec) => (
             <MobSection key={sec.heading} sec={sec} />
           ))}
@@ -427,7 +428,14 @@ function MobItem({ item }) {
 export default function CSUSBNav() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef(null);
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 4);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
 
   useEffect(() => {
     const fn = () => { if (window.innerWidth > 860) setMobOpen(false); };
@@ -453,8 +461,9 @@ export default function CSUSBNav() {
 
   return (
     <header role="banner" className="sticky top-0 z-[500]">
+
       {/* ── Primary nav bar ── */}
-      <div className="bg-[#0573D7] shadow-[0_2px_0_rgba(255,255,255,0.15),0_4px_20px_rgba(0,0,0,0.25)] relative">
+      <div className={`bg-[#0573D7] relative ${scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.2)]' : ''}`}>
         <div className="max-w-[1280px] mx-auto px-8 flex items-stretch py-2">
 
           {/* Desktop nav */}
@@ -514,14 +523,12 @@ export default function CSUSBNav() {
             onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
             className="
               md:hidden flex items-center justify-center self-center ml-auto
-              bg-white/[0.10] border border-white/[0.25] rounded-md p-[9px]
               text-white cursor-pointer
-              hover:bg-white/[0.18]
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
             "
           >
             {mobOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
+
         </div>
 
         {/* Mega panels */}
@@ -537,12 +544,12 @@ export default function CSUSBNav() {
         ))}
       </div>
 
-      {/* ── Mobile drawer ── */}
+      {/* ── Mobile drawer (doc 16) ── */}
       {mobOpen && (
         <nav
           id="csusb-mobile-nav"
           aria-label="Mobile navigation"
-          className="md:hidden bg-[#011e42] border-t-4 border-t-white/20 max-h-[calc(100vh-102px)] overflow-y-auto"
+          className="md:hidden bg-[#004a8a] border-t-4 border-t-white/20 max-h-[calc(100vh-102px)] overflow-y-auto"
           style={{ animation: 'mobSlide 0.22s ease' }}
         >
           <style>{`
@@ -551,12 +558,12 @@ export default function CSUSBNav() {
               to   { opacity: 1; transform: none; }
             }
           `}</style>
-
           {NAV.map((item) => (
             <MobItem key={item.id || item.label} item={item} />
           ))}
         </nav>
       )}
+
     </header>
   );
 }
