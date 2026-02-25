@@ -244,6 +244,12 @@ function MobileAccordionItem({ item }) {
   );
 }
 
+// Shared nav item classes — identical height, padding, and border treatment for both
+// buttons (with chevron) and links (without).
+const navItemBase =
+  'inline-flex items-center gap-1 px-3 py-2 h-full text-[13.3px] text-white whitespace-nowrap border-b-4 border-b-transparent hover:bg-[#004A8A] hover:border-b-[#003DA5]';
+const navItemActive = 'bg-[#004A8A] border-b-[#003DA5]';
+
 export default function VariationA() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -271,22 +277,21 @@ export default function VariationA() {
 
       {/* Nav bar */}
       <div className="bg-[#0273D7] relative">
-        <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
+        <div className="max-w-[1280px] mx-auto px-8 flex items-stretch">
 
           {/* Desktop nav */}
           <nav className="flex-1 hidden lg:block" aria-label="Primary navigation">
-            <ul className="list-none m-0 p-0 flex items-center">
+            <ul className="list-none m-0 p-0 flex items-stretch h-full">
               {navItems.map((item) => (
                 <li
                   key={item.label}
+                  className="flex items-stretch"
                   onMouseEnter={() => { cancelClose(); if (item.rows) setActiveMenu(item.label); }}
                   onMouseLeave={scheduleClose}
                 >
                   {item.rows ? (
                     <button
-                      className={`bg-transparent border-none border-b-4 -mb-1 cursor-pointer flex items-center gap-1 px-3 text-[13px] font-[inherit] text-white whitespace-nowrap ${
-                        activeMenu === item.label ? 'bg-[#004A8A] border-b-[#003DA5]' : 'border-b-transparent hover:bg-[#004A8A] hover:border-b-[#003DA5]'
-                      }`}
+                      className={`${navItemBase} bg-transparent border-none cursor-pointer font-[inherit] ${activeMenu === item.label ? navItemActive : ''}`}
                       onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)}
                       aria-expanded={activeMenu === item.label}
                       aria-haspopup="true"
@@ -295,10 +300,7 @@ export default function VariationA() {
                       <Chevron />
                     </button>
                   ) : (
-                    <Link
-                      href={item.href}
-                      className="flex items-center gap-1 px-3 py-2 text-[13.3px] text-white no-underline whitespace-nowrap border-b-4 border-b-transparent -mb-1 hover:bg-[#004A8A] hover:border-b-[#003DA5]"
-                    >
+                    <Link href={item.href} className={navItemBase}>
                       {item.label}
                     </Link>
                   )}
@@ -308,7 +310,7 @@ export default function VariationA() {
           </nav>
 
           {/* Mobile hamburger */}
-          <div className="ml-auto lg:hidden">
+          <div className="ml-auto lg:hidden flex items-center">
             <button
               className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10"
               onClick={() => setMobileOpen(!mobileOpen)}
