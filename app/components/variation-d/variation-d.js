@@ -264,10 +264,10 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                         href={lk.href}
                         onClick={onClose}
                         className="
-                          block text-[13px] font-normal text-white/80 no-underline leading-[1.4]
+                          block text-[13px] font-semibold text-white/80 no-underline leading-[1.4]
                           px-3 py-[6px]
                           transition-all duration-[120ms]
-                          hover:text-white hover:pl-5 hover:bg-white/[0.08]
+                          hover:text-white hover:bg-white/[0.08]
                           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-1px] focus-visible:rounded-sm
                         "
                         {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -329,7 +329,7 @@ function MobSection({ sec }) {
                   block px-[22px] py-[9px] pl-[34px]
                   text-[13.5px] font-normal text-white/60 no-underline
                   transition-all duration-[120ms]
-                  hover:text-white hover:pl-[40px] hover:bg-white/[0.05]
+                  hover:text-white hover:bg-white/[0.05]
                   focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                 "
                 {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -449,7 +449,7 @@ export default function VariationD() {
                 <li
                   key={item.id || item.label}
                   className="flex items-stretch"
-                  onMouseEnter={() => { cancelClose(); if (item.sections) setActiveId(item.id); }}
+                  onMouseEnter={() => {cancelClose(); setActiveId(item.sections ? item.id : null);}}
                   onMouseLeave={scheduleClose}
                 >
                   {item.sections ? (

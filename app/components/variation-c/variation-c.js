@@ -222,7 +222,7 @@ const isExternal = (href) => href?.startsWith('http');
 const navItemBase = `
   inline-flex items-center gap-[5px] h-full
   px-3 py-2
-  text-[13.5px] font-normal text-white
+  text-[13.5px] font-semibold text-white
   whitespace-nowrap no-underline
   bg-transparent border-0 cursor-pointer
   relative
@@ -307,7 +307,7 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                         onClick={onClose}
                         className="
                           block text-[13px] text-white/80 no-underline leading-[1.4]
-                          px-3 py-[6px]
+                          px-3 py-[6px] font-semibold
                           hover:text-white hover:bg-white/[0.08]
                           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-1px] focus-visible:rounded-sm
                         "
@@ -366,7 +366,7 @@ function MobSection({ sec }) {
                 href={lk.href}
                 className="
                   block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-normal text-white/60 no-underline
+                  text-[13.5px] font-bold text-white/60 no-underline
                   hover:text-white hover:pl-[40px] hover:bg-white/[0.05]
                   focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                 "
@@ -444,7 +444,7 @@ function MobItem({ item }) {
 /* ─────────────────────────────────────────────
    ROOT COMPONENT
 ───────────────────────────────────────────── */
-export default function CSUSBNav() {
+export default function VariationC() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
   const closeTimer = useRef(null);

@@ -163,9 +163,15 @@ const navItems = [
   },
 ];
 
-function Chevron() {
+function Chevron({ isOpen }) {
   return (
-    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none">
+    <svg
+      className="w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200"
+      style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+      viewBox="0 0 12 8"
+      fill="none"
+      aria-hidden="true"
+    >
       <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -176,32 +182,71 @@ function MobileColumn({ col }) {
 
   if (col.heading) {
     return (
-      <div className="border-b border-[#e8ecf4]">
+      <div className="border-b border-[#dde3f0]">
         <button
-          className="w-full flex items-center justify-between px-6 py-[13px] text-[14px] font-semibold text-[#333] text-left bg-transparent border-none cursor-pointer font-[inherit] hover:text-[#003DA5]"
+          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+          style={{ minHeight: '44px' }}
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
-          <span>{col.heading}</span>
-          <Chevron />
+          {/* Left accent bar on heading */}
+          <span className="flex items-center gap-2 min-w-0">
+            <span
+              className="flex-shrink-0 w-[3px] rounded-full self-stretch"
+              style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
+              aria-hidden="true"
+            />
+            <span className="truncate">{col.heading}</span>
+          </span>
+          <Chevron isOpen={open} />
         </button>
+
         {open && (
-          <div className="bg-[#edf0f9] border-t border-[#d8def0] py-1">
+          <ul
+            className="list-none m-0 p-0 pb-2"
+            style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
+            role="list"
+          >
             {col.links.map((link) => (
-              <Link key={link.label} href={link.href} className="block px-8 py-[7px] text-[#555] text-[13px] no-underline hover:text-[#003DA5]">
-                {link.label}
-              </Link>
+              <li key={link.label} role="listitem">
+                <Link
+                  href={link.href}
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                  style={{
+                    minHeight: '44px',
+                    transition: 'color 0.15s, background 0.15s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+                >
+                  {/* Arrow indicator */}
+                  <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {link.label}
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     );
   }
 
   return (
-    <div className="border-b border-[#e8ecf4]">
+    <div className="border-b border-[#dde3f0]">
       {col.links.map((link) => (
-        <Link key={link.label} href={link.href} className="block px-6 py-[10px] text-[#444] text-[14px] no-underline hover:text-[#003DA5]">
+        <Link
+          key={link.label}
+          href={link.href}
+          className="flex items-center gap-3 px-5 py-[11px] text-[#1a2a4a] text-[14px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+          style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+        >
+          <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-50" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
           {link.label}
         </Link>
       ))}
@@ -215,8 +260,14 @@ function MobileAccordionItem({ item }) {
 
   if (!hasRows) {
     return (
-      <div className="border-b border-[#e8ecf4]">
-        <Link href={item.href} className="block px-5 py-[15px] text-[15px] font-semibold text-[#222] no-underline hover:text-[#003DA5]">
+      <div className="border-b border-[#dde3f0]">
+        <Link
+          href={item.href}
+          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+          style={{ minHeight: '52px', background: 'transparent', transition: 'background 0.15s' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+        >
           {item.label}
         </Link>
       </div>
@@ -224,17 +275,59 @@ function MobileAccordionItem({ item }) {
   }
 
   return (
-    <div className="border-b border-[#e8ecf4]">
+    <div className="border-b border-[#1a5fa8]">
       <button
-        className="w-full flex items-center justify-between px-5 py-3 text-[13px] text-[#004a8a] text-left bg-transparent border-none cursor-pointer font-[inherit] hover:text-[#003DA5]"
+        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+        style={{
+          minHeight: '52px',
+          paddingTop: '14px',
+          paddingBottom: '14px',
+          background: open ? 'rgba(255,255,255,0.1)' : 'transparent',
+          transition: 'background 0.15s',
+        }}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
+        onMouseEnter={e => { if (!open) e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
+        onMouseLeave={e => { if (!open) e.currentTarget.style.background = 'transparent'; }}
       >
-        <span>{item.label}</span>
-        <Chevron />
+        <span className="flex items-center gap-3">
+          {/* Subtle indicator dot */}
+          <span
+            className="flex-shrink-0 w-[6px] h-[6px] rounded-full"
+            style={{
+              background: open ? '#7ec8ff' : 'rgba(255,255,255,0.35)',
+              transition: 'background 0.2s',
+            }}
+            aria-hidden="true"
+          />
+          {item.label}
+        </span>
+        <span
+          className="flex-shrink-0 rounded-full p-[5px]"
+          style={{
+            background: open ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)',
+            transition: 'background 0.2s',
+          }}
+        >
+          <Chevron isOpen={open} />
+        </span>
       </button>
+
       {open && (
-        <div className="bg-[#f4f6fb] border-t border-[#dde3f0] pt-1 pb-3">
+        <div
+          className="border-t border-[#1a5fa8]"
+          style={{ background: '#ffffff' }}
+          role="region"
+          aria-label={`${item.label} submenu`}
+        >
+          {/* Section label strip */}
+          <div
+            className="px-5 py-[8px] text-[11px] font-bold uppercase tracking-[0.1em] text-[#0273D7]"
+            style={{ borderBottom: '1px solid #e4eaf5', background: '#f0f5ff' }}
+            aria-hidden="true"
+          >
+            {item.label}
+          </div>
           {item.rows.map((row, ri) =>
             row.columns.map((col, ci) => <MobileColumn key={`${ri}-${ci}`} col={col} />)
           )}
@@ -279,14 +372,14 @@ export default function VariationA() {
       <div className="bg-[#0273D7] relative">
         <div className="max-w-[1280px] mx-auto px-8 flex items-stretch">
 
-          {/* Desktop nav */}
+          {/* Desktop nav — UNCHANGED */}
           <nav className="flex-1 hidden lg:block" aria-label="Primary navigation">
             <ul className="list-none m-0 p-0 flex items-stretch h-full">
               {navItems.map((item) => (
                 <li
                   key={item.label}
                   className="flex items-stretch"
-                  onMouseEnter={() => { cancelClose(); if (item.rows) setActiveMenu(item.label); }}
+                  onMouseEnter={() => {cancelClose();setActiveMenu(item.rows?.length ? item.label : null);}}
                   onMouseLeave={scheduleClose}
                 >
                   {item.rows ? (
@@ -312,18 +405,31 @@ export default function VariationA() {
           {/* Mobile hamburger */}
           <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10"
+              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-[#0273D7] rounded"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle mobile menu"
+              aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
             >
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm" />
-              <span className={`block w-[22px] h-[2px] bg-white rounded-sm ${mobileOpen ? 'hidden' : ''}`} />
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm" />
+              {/* Animate hamburger → X */}
+              <span
+                className="block w-[22px] h-[2px] bg-white rounded-sm"
+                style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none' }}
+              />
+              <span
+                className="block w-[22px] h-[2px] bg-white rounded-sm"
+                style={{ transition: 'opacity 0.2s', opacity: mobileOpen ? 0 : 1 }}
+                aria-hidden="true"
+              />
+              <span
+                className="block w-[22px] h-[2px] bg-white rounded-sm"
+                style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }}
+              />
             </button>
           </div>
         </div>
 
-        {/* Mega dropdown */}
+        {/* Desktop mega dropdown — UNCHANGED */}
         {activeMenu && activeItem?.rows && (
           <div
             className="absolute top-full left-0 right-0 bg-[#F5F5F5] border-t border-[#dde3f0] shadow-[0_10px_30px_rgba(0,0,0,0.13)]"
@@ -354,7 +460,7 @@ export default function VariationA() {
                       <ul className="list-none m-0 p-0 flex flex-col gap-[2px]">
                         {col.links.map((link) => (
                           <li key={link.label}>
-                            <Link href={link.href} className="block px-[6px] py-1 text-[#333] text-[13.5px] leading-snug rounded-[3px] no-underline hover:bg-[rgba(0,61,165,0.07)] hover:text-[#003DA5]">
+                            <Link href={link.href} className="block px-[6px] py-1 text-[#333] text-[13.5px] font-semibold leading-snug rounded-[3px] no-underline hover:bg-[rgba(0,61,165,0.07)] hover:text-[#003DA5]">
                               {link.label}
                             </Link>
                           </li>
@@ -369,14 +475,28 @@ export default function VariationA() {
         )}
       </div>
 
-      {/* Mobile menu */}
+      {/* ── Mobile menu ── */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white overflow-y-auto max-h-[calc(100vh-68px)]">
+        <div
+          id="mobile-nav"
+          className="lg:hidden overflow-y-auto"
+          style={{
+            maxHeight: 'calc(100vh - 52px)',
+            background: '#0057a8', // slightly lighter than nav bar for separation
+          }}
+        >
           <nav aria-label="Mobile navigation">
             {navItems.map((item) => (
               <MobileAccordionItem key={item.label} item={item} />
             ))}
           </nav>
+
+          {/* Bottom decorative strip */}
+          <div
+            className="h-[4px]"
+            style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }}
+            aria-hidden="true"
+          />
         </div>
       )}
 

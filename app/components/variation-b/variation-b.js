@@ -250,7 +250,7 @@ function MegaPanel({ item, onClose }) {
                     <Link
                       href={lk.href}
                       onClick={onClose}
-                      className="block text-[13.5px] text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5]"
+                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5]"
                     >
                       {lk.label}
                     </Link>
@@ -403,14 +403,14 @@ export default function VariationB() {
               {NAV.map((item) => (
                 <li
                   key={item.id || item.label}
-                  onMouseEnter={() => { cancelClose(); if (item.sections) setActiveId(item.id); }}
+                  onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
                   onMouseLeave={scheduleClose}
                 >
                   {item.sections ? (
                     <button
                       className={[
                         'inline-flex items-center gap-[6px] h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap',
-                        activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
+                        activeId === item.id ? 'border-b-[#004a8a]' : 'hover:border-b-[#004a8a]',
                       ].join(' ')}
                       aria-expanded={activeId === item.id}
                       aria-haspopup="true"

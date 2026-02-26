@@ -223,7 +223,7 @@ export default function OriginalNav() {
             return (
               <li
                 key={i}
-                onMouseEnter={() => { cancelClose(); if (hasDropdown) setActiveMenu(item.label); }}
+                onMouseEnter={() => { cancelClose(); setActiveMenu(item.columns?.length ? item.label : null);}}
                 onMouseLeave={scheduleClose}
               >
                 <Link
