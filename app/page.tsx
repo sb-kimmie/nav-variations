@@ -39,7 +39,7 @@ export default function Home() {
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation A:</strong>
               <ul>
-                <li>1. The desktop menu uses a light #F5F5F5 background with dark text, which is easier to read than the original's white-on-dark-blue dropdown</li>
+                <li>1. Variation A uses uppercase tracking, a bottom border separator, and consistent sizing to clearly distinguish column headings from links. </li>
                 <li>2. The mobile menu has a clear section label strip (light #f0f5ff header) when a section opens, giving users visual context for where they are</li>
                 <li>3. Sub-items in the mobile menu have a left accent bar and small arrow indicators, creating visual hierarchy — the original is a flat unstyled list</li>
               </ul>
@@ -63,6 +63,7 @@ export default function Home() {
                 <li>1. The left-column blurb in Variation B provides context for the section, giving users immediate context for the section, reducing cognitive load.</li>
                 <li>2. Variation B uses horizontal and vertical lines to visually separate sections and items, whereas the Original does not have these visual separators.</li>
                 <li>3. Added a border at the bottom of the desktop dropdown menu to create a visual separation from the page area.</li>
+                <li>4. Light gray background for the deaktop dropdown instead of the blue background.</li>        
               </ul>
             </h3>
           </div>
@@ -78,9 +79,6 @@ export default function Home() {
             <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation C</h2>
           </div>
           <div className="mb-3 flex items-center gap-3">
-            <h3 className="text-sm font-normal text-black">
-              The left-column blurb in Variation B improves UX by giving users immediate context for the section, reducing cognitive load, and highlighting a “View All” call-to-action for quick access.
-            </h3>
           </div>
           <div className="mb-3 flex items-center gap-3">
             <h3 className="text-sm font-normal text-black">

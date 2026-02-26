@@ -204,7 +204,7 @@ function Chevron({ open }) {
 
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-white border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+    <div className="bg-[#f8f8f8] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
         {/* Left: title + description + view-all link */}
         <div className="flex flex-col gap-3">
@@ -244,7 +244,7 @@ function Desktop({ item, onClose }) {
                     <Link
                       href={lk.href}
                       onClick={onClose}
-                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5] hover:border-b hover:border-[#efefef] "
+                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5]"
                     >
                       {lk.label}
                     </Link>

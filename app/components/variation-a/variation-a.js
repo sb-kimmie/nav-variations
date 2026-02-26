@@ -400,7 +400,8 @@ export default function VariationA() {
 
         {activeMenu && activeItem?.rows && (
           <div
-            className="absolute top-full left-0 right-0 bg-[#F5F5F5] shadow-[0_10px_30px_rgba(0,0,0,0.13)]"
+            className="absolute top-full left-0 right-0 shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
+            style={{ background: '#004A8A' }}
             role="region"
             aria-label={`${activeItem.label} menu`}
             onMouseEnter={cancelClose}
@@ -410,17 +411,34 @@ export default function VariationA() {
               {activeItem.rows.map((row, rowIdx) => (
                 <div
                   key={rowIdx}
-                  className={`grid gap-x-8 grid-cols-[repeat(auto-fit,minmax(180px,1fr))] ${rowIdx > 0 ? 'mt-5 pt-5 border-t border-[#eef0f6]' : ''}`}
+                  className={`grid gap-x-8 grid-cols-[repeat(auto-fit,minmax(180px,1fr))] ${rowIdx > 0 ? 'mt-5 pt-5' : ''}`}
+                  style={rowIdx > 0 ? { borderTop: '1px solid rgba(255,255,255,0.18)' } : {}}
                 >
                   {row.columns.map((col, colIdx) => (
                     <div key={colIdx} className="min-w-0">
                       {col.heading && (
                         col.href ? (
-                          <Link href={col.href} className="block text-[13px] font-bold uppercase tracking-[0.09em] text-[#013f7e] no-underline mb-2 pb-[6px] border-b border-[#dde3f0] hover:text-[#024988]">
+                          <Link
+                            href={col.href}
+                            className="block text-[13px] font-bold uppercase tracking-[0.09em] no-underline mb-2 pb-[6px]"
+                            style={{
+                              color: '#ffffff',
+                              borderBottom: '1px solid rgba(255,255,255,0.30)',
+                              // Underline on hover handled inline
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.color = '#7ec8ff'; }}
+                            onMouseLeave={e => { e.currentTarget.style.color = '#ffffff'; }}
+                          >
                             {col.heading}
                           </Link>
                         ) : (
-                          <span className="block text-[13px] font-bold uppercase tracking-[0.09em] text-[#013f7e] mb-2 pb-[6px] border-b border-[#dde3f0]">
+                          <span
+                            className="block text-[13px] font-bold uppercase tracking-[0.09em] mb-2 pb-[6px]"
+                            style={{
+                              color: '#ffffff',
+                              borderBottom: '1px solid rgba(255,255,255,0.30)',
+                            }}
+                          >
                             {col.heading}
                           </span>
                         )
@@ -428,7 +446,35 @@ export default function VariationA() {
                       <ul className="list-none m-0 p-0 flex flex-col gap-[2px]">
                         {col.links.map((link) => (
                           <li key={link.label}>
-                            <Link href={link.href} className="block px-[6px] py-1 text-[#333] text-[13.5px] font-semibold leading-snug rounded-[3px] no-underline hover:bg-[rgba(0,61,165,0.07)] hover:text-[#003DA5]">
+                            <Link
+                              href={link.href}
+                              className="block px-[6px] py-1 text-[13.5px] font-semibold leading-snug rounded-[3px] no-underline focus:outline-none"
+                              style={{
+                                color: '#d9e8ff',
+                                transition: 'background 0.15s, color 0.15s',
+                                // Focus ring uses outline for ADA compliance
+                              }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.background = 'rgba(255,255,255,0.13)';
+                                e.currentTarget.style.color = '#ffffff';
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.background = '';
+                                e.currentTarget.style.color = '#d9e8ff';
+                              }}
+                              onFocus={e => {
+                                e.currentTarget.style.outline = '2px solid #7ec8ff';
+                                e.currentTarget.style.outlineOffset = '2px';
+                                e.currentTarget.style.background = 'rgba(255,255,255,0.13)';
+                                e.currentTarget.style.color = '#ffffff';
+                              }}
+                              onBlur={e => {
+                                e.currentTarget.style.outline = '';
+                                e.currentTarget.style.outlineOffset = '';
+                                e.currentTarget.style.background = '';
+                                e.currentTarget.style.color = '#d9e8ff';
+                              }}
+                            >
                               {link.label}
                             </Link>
                           </li>
@@ -443,7 +489,7 @@ export default function VariationA() {
         )}
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — unchanged */}
       {mobileOpen && (
         <div
           id="mobile-nav"
