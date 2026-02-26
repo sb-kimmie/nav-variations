@@ -69,8 +69,6 @@ const NAV = [
     description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
-        heading: 'By Student Type',
-        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -81,8 +79,6 @@ const NAV = [
         ],
       },
       {
-        heading: 'Getting Started',
-        href: '',
         links: [
           { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
           { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
@@ -141,8 +137,6 @@ const NAV = [
         ],
       },
       {
-        heading: 'More',
-        href: '',
         links: [
           { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
           { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
@@ -192,12 +186,11 @@ function ChevronB({ open }) {
   );
 }
 
-// ─── Desktop Mega Panel ───────────────────────────────────────────────────────
-
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#f8f8f8] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+    <div className="bg-[#f1f1f1] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
+        {/* Left panel */}
         <div className="flex flex-col gap-3">
           <h2 className="text-[22px] font-bold text-[#002060] m-0 leading-tight">{item.label}</h2>
           {item.description && (
@@ -209,49 +202,97 @@ function Desktop({ item, onClose }) {
             className="group inline-flex items-center gap-2 text-[14px] font-bold text-[#003DA5] no-underline mt-1 hover:text-[#002060]"
           >
             {item.label}
-            <span className="flex items-center group-hover:translate-x-1">
+            <span className="flex items-center group-hover:translate-x-1 transition-transform">
               <IcoArrow />
             </span>
           </Link>
         </div>
-        <div className="bg-[#e0e0e0] self-stretch min-h-[100px]" aria-hidden="true" />
+
+        {/* Vertical divider */}
+        <div className="bg-[#7a91a8] self-stretch min-h-[100px]" aria-hidden="true" />
+
+        {/* Columns */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
-          {item.sections.map((sec) => (
-            <div key={sec.heading} className="flex flex-col gap-2">
-              {sec.href ? (
-                <Link
-                  href={sec.href}
-                  onClick={onClose}
-                  className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5]"
-                >
-                  {sec.heading}
-                </Link>
-              ) : (
+          {item.sections.map((sec, i) => {
+            // No heading at all — childless links.
+            if (!sec.heading) {
+              return (
+                <div key={`orphan-${i}`} className="flex flex-col gap-2">
+                  <ul className="list-none m-0 p-0">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label}>
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            // ── Named section: clickable heading ──
+            if (sec.href) {
+              return (
+                <div key={sec.heading} className="flex flex-col gap-2">
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    className="group flex items-center gap-[4px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5]"
+                  >
+                    <span className="group-hover:underline underline-offset-[2px]">{sec.heading}</span>
+                    <IcoArrow />
+                  </Link>
+                  <ul className="list-none m-0 p-0">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label}>
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            // ── Named section: non-clickable heading (label only) ──
+            return (
+              <div key={sec.heading} className="flex flex-col gap-2">
                 <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] pb-[6px] border-b-2 border-[#004a8a]">
                   {sec.heading}
                 </span>
-              )}
-              <ul className="list-none m-0 p-0">
-                {sec.links.map((lk) => (
-                  <li key={lk.label}>
-                    <Link
-                      href={lk.href}
-                      onClick={onClose}
-                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
-                    >
-                      {lk.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                <ul className="list-none m-0 p-0">
+                  {sec.links.map((lk) => (
+                    <li key={lk.label}>
+                      <Link
+                        href={lk.href}
+                        onClick={onClose}
+                        className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
+                      >
+                        {lk.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
 
+// ─── Mobile ───────────────────────────────────────────────────────────────────
 
 function ChevronA() {
   return (
@@ -264,71 +305,73 @@ function ChevronA() {
 function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
 
-  if (sec.heading) {
+  // ── Headingless orphan group — flat links, no heading at all ──
+  if (!sec.heading) {
     return (
       <div className="border-b border-[#dde3f0]">
-        <button
-          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
-          style={{ minHeight: '44px' }}
-          onClick={() => setOpen(!open)}
-          aria-expanded={open}
-        >
-          <span className="flex items-center gap-2 min-w-0">
-            <span
-              className="flex-shrink-0 w-[3px] self-stretch"
-              style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
-              aria-hidden="true"
-            />
-            <span className="truncate">{sec.heading}</span>
-          </span>
-          <ChevronA />
-        </button>
-
-        {open && (
-          <ul
-            className="list-none m-0 p-0 pb-2"
-            style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
-            role="list"
+        {sec.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
           >
-            {sec.links.map((link) => (
-              <li key={link.label} role="listitem">
-                <Link
-                  href={link.href}
-                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
-                  style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
-                  onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
-                >
-                  <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
-                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+            <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {link.label}
+          </Link>
+        ))}
       </div>
     );
   }
 
+  // ── Named section ──
   return (
     <div className="border-b border-[#dde3f0]">
-      {sec.links.map((link) => (
-        <Link
-          key={link.label}
-          href={link.href}
-          className="flex items-center gap-3 px-5 py-[11px] text-[#1a2a4a] text-[14px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
-          style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
-          onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
-          onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+      <button
+        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+        style={{ minHeight: '44px' }}
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="flex items-center gap-2 min-w-0">
+          <span
+            className="flex-shrink-0 w-[3px] self-stretch"
+            style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
+            aria-hidden="true"
+          />
+          <span className="truncate">{sec.heading}</span>
+        </span>
+        <ChevronA />
+      </button>
+
+      {open && (
+        <ul
+          className="list-none m-0 p-0 pb-2"
+          style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
+          role="list"
         >
-          <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-50" viewBox="0 0 6 10" fill="none" aria-hidden="true">
-            <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          {link.label}
-        </Link>
-      ))}
+          {sec.links.map((link) => (
+            <li key={link.label} role="listitem">
+              <Link
+                href={link.href}
+                className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+              >
+                <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -507,7 +550,7 @@ export default function VariationB() {
         </div>
       </div>
 
-      {/* Desktop */}
+      {/* Desktop mega panel */}
       {activeId && activeItem?.sections && (
         <div
           className="absolute left-0 right-0"

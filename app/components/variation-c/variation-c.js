@@ -69,8 +69,6 @@ const NAV = [
     description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
-        heading: 'By Student Type',
-        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -81,8 +79,6 @@ const NAV = [
         ],
       },
       {
-        heading: 'Getting Started',
-        href: '',
         links: [
           { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
           { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
@@ -141,8 +137,6 @@ const NAV = [
         ],
       },
       {
-        heading: 'More',
-        href: '',
         links: [
           { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
           { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
@@ -214,6 +208,14 @@ const headingBaseClass = `
   border-l-4 border-l-white
 `;
 
+// Child link classes — shared between normal child links and orphan links
+const childLinkClass = `
+  block text-[13px] text-white/80 no-underline leading-[1.4]
+  px-3 py-[6px] font-semibold
+  hover:text-white hover:bg-white/[0.08]
+  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-1px] focus-visible:rounded-sm
+`;
+
 function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
     <div
@@ -257,45 +259,61 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
 
           {/* Section columns */}
           <div className="grid grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-2">
-            {item.sections.map((sec) => (
-              <div key={sec.heading} className="flex flex-col">
+            {item.sections.map((sec, i) => (
+              <div key={sec.heading ?? `orphan-${i}`} className="flex flex-col">
 
-                {/* Heading: Link if href exists, span if not */}
-                {sec.href ? (
-                  <Link
-                    href={sec.href}
-                    onClick={onClose}
-                    className={`${headingBaseClass} no-underline hover:bg-black/20
-                      focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
-                    {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  >
-                    {sec.heading}
-                  </Link>
+                {/* Orphan section: no heading property → render links as plain child links */}
+                {!sec.heading ? (
+                  <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className={childLinkClass}
+                          {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 ) : (
-                  <span className={headingBaseClass}>
-                    {sec.heading}
-                  </span>
+                  <>
+                    {/* Heading: Link if href exists, span if not */}
+                    {sec.href ? (
+                      <Link
+                        href={sec.href}
+                        onClick={onClose}
+                        className={`${headingBaseClass} no-underline hover:bg-black/20
+                          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
+                        {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        {sec.heading}
+                      </Link>
+                    ) : (
+                      <span className={headingBaseClass}>
+                        {sec.heading}
+                      </span>
+                    )}
+
+                    <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
+                      {sec.links.map((lk) => (
+                        <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
+                          <Link
+                            href={lk.href}
+                            onClick={onClose}
+                            className={childLinkClass}
+                            {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          >
+                            {lk.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 )}
 
-                <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
-                  {sec.links.map((lk) => (
-                    <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
-                      <Link
-                        href={lk.href}
-                        onClick={onClose}
-                        className="
-                          block text-[13px] text-white/80 no-underline leading-[1.4]
-                          px-3 py-[6px] font-semibold
-                          hover:text-white hover:bg-white/[0.08]
-                          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-1px] focus-visible:rounded-sm
-                        "
-                        {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                      >
-                        {lk.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
@@ -313,6 +331,33 @@ function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
 
+  // ── Orphan section: no heading property → flat links, no collapsible button ──
+  if (!sec.heading) {
+    return (
+      <div className="border-b border-white/[0.04]">
+        <ul className="list-none m-0 p-0 bg-black/[0.15]" aria-label="Additional links">
+          {sec.links.map((lk) => (
+            <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+              <Link
+                href={lk.href}
+                className="
+                  block px-[22px] py-[9px] pl-[34px]
+                  text-[13.5px] font-bold text-white/60 no-underline
+                  hover:text-white hover:bg-white/[0.05]
+                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+                "
+                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                {lk.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  // ── Named section ──
   return (
     <div className="border-b border-white/[0.04]">
       <button
@@ -408,8 +453,8 @@ function MobItem({ item }) {
           id={`mobitem-${uid}`}
           className="bg-black/[0.25] border-t border-white/[0.05]"
         >
-          {item.sections.map((sec) => (
-            <MobSection key={sec.heading} sec={sec} />
+          {item.sections.map((sec, i) => (
+            <MobSection key={sec.heading ?? `orphan-${i}`} sec={sec} />
           ))}
         </div>
       )}
