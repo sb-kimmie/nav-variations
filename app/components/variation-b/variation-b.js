@@ -250,7 +250,7 @@ function MegaPanel({ item, onClose }) {
                     <Link
                       href={lk.href}
                       onClick={onClose}
-                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5]"
+                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5] hover:border-b hover:border-[#efefef] "
                     >
                       {lk.label}
                     </Link>
@@ -409,8 +409,8 @@ export default function VariationB() {
                   {item.sections ? (
                     <button
                       className={[
-                        'inline-flex items-center gap-[6px] h-full px-[14px] bg-none border-none border-b-[3px] cursor-pointer font-[inherit] text-[13.5px] font-medium text-white whitespace-nowrap',
-                        activeId === item.id ? 'border-b-[#004a8a]' : 'hover:border-b-[#004a8a]',
+                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] border-b-transparent hover:border-b-[#004a8a] gap-[6px]',
+                        activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
                       ].join(' ')}
                       aria-expanded={activeId === item.id}
                       aria-haspopup="true"
@@ -434,7 +434,7 @@ export default function VariationB() {
           {/* Hamburger — mobile only */}
           <div className="flex items-center flex-shrink-0 ml-auto">
             <button
-              className="lg:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white rounded hover:bg-white/10"
+              className="lg:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white rounded"
               onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
               aria-label={mobOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobOpen}

@@ -163,11 +163,10 @@ const navItems = [
   },
 ];
 
-function Chevron({ isOpen }) {
+function Chevron() {
   return (
     <svg
-      className="w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200"
-      style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+      className="w-[10px] h-[7px] flex-shrink-0"
       viewBox="0 0 12 8"
       fill="none"
       aria-hidden="true"
@@ -177,6 +176,7 @@ function Chevron({ isOpen }) {
   );
 }
 
+// ── Inner submenu columns (on white background) — keep light border ──
 function MobileColumn({ col }) {
   const [open, setOpen] = useState(false);
 
@@ -189,16 +189,15 @@ function MobileColumn({ col }) {
           onClick={() => setOpen(!open)}
           aria-expanded={open}
         >
-          {/* Left accent bar on heading */}
           <span className="flex items-center gap-2 min-w-0">
             <span
-              className="flex-shrink-0 w-[3px] rounded-full self-stretch"
+              className="flex-shrink-0 w-[3px] self-stretch"
               style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
               aria-hidden="true"
             />
             <span className="truncate">{col.heading}</span>
           </span>
-          <Chevron isOpen={open} />
+          <Chevron />
         </button>
 
         {open && (
@@ -212,14 +211,10 @@ function MobileColumn({ col }) {
                 <Link
                   href={link.href}
                   className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
-                  style={{
-                    minHeight: '44px',
-                    transition: 'color 0.15s, background 0.15s',
-                  }}
+                  style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
                   onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
                 >
-                  {/* Arrow indicator */}
                   <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
                     <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -254,13 +249,15 @@ function MobileColumn({ col }) {
   );
 }
 
+// ── Top-level accordion items (on blue background) — border matches background ──
 function MobileAccordionItem({ item }) {
   const [open, setOpen] = useState(false);
   const hasRows = item.rows?.length > 0;
 
+  // border-[#0057a8] matches the mobile menu background so the line is invisible
   if (!hasRows) {
     return (
-      <div className="border-b border-[#dde3f0]">
+      <div className="border-b border-[#0057a8]">
         <Link
           href={item.href}
           className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
@@ -275,7 +272,7 @@ function MobileAccordionItem({ item }) {
   }
 
   return (
-    <div className="border-b border-[#1a5fa8]">
+    <div className="border-b border-[#0057a8]">
       <button
         className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
         style={{
@@ -288,39 +285,19 @@ function MobileAccordionItem({ item }) {
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         onMouseEnter={e => { if (!open) e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
-        onMouseLeave={e => { if (!open) e.currentTarget.style.background = 'transparent'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = open ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
       >
-        <span className="flex items-center gap-3">
-          {/* Subtle indicator dot */}
-          <span
-            className="flex-shrink-0 w-[6px] h-[6px] rounded-full"
-            style={{
-              background: open ? '#7ec8ff' : 'rgba(255,255,255,0.35)',
-              transition: 'background 0.2s',
-            }}
-            aria-hidden="true"
-          />
-          {item.label}
-        </span>
-        <span
-          className="flex-shrink-0 rounded-full p-[5px]"
-          style={{
-            background: open ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)',
-            transition: 'background 0.2s',
-          }}
-        >
-          <Chevron isOpen={open} />
-        </span>
+        <span>{item.label}</span>
+          <Chevron />
       </button>
 
       {open && (
         <div
-          className="border-t border-[#1a5fa8]"
+          className="border-t border-[#0057a8]"
           style={{ background: '#ffffff' }}
           role="region"
           aria-label={`${item.label} submenu`}
         >
-          {/* Section label strip */}
           <div
             className="px-5 py-[8px] text-[11px] font-bold uppercase tracking-[0.1em] text-[#0273D7]"
             style={{ borderBottom: '1px solid #e4eaf5', background: '#f0f5ff' }}
@@ -337,8 +314,6 @@ function MobileAccordionItem({ item }) {
   );
 }
 
-// Shared nav item classes — identical height, padding, and border treatment for both
-// buttons (with chevron) and links (without).
 const navItemBase =
   'inline-flex items-center gap-1 px-3 py-2 h-full text-[13.3px] text-white whitespace-nowrap border-b-4 border-b-transparent hover:bg-[#004A8A] hover:border-b-[#003DA5]';
 const navItemActive = 'bg-[#004A8A] border-b-[#003DA5]';
@@ -379,7 +354,7 @@ export default function VariationA() {
                 <li
                   key={item.label}
                   className="flex items-stretch"
-                  onMouseEnter={() => {cancelClose();setActiveMenu(item.rows?.length ? item.label : null);}}
+                  onMouseEnter={() => { cancelClose(); setActiveMenu(item.rows?.length ? item.label : null); }}
                   onMouseLeave={scheduleClose}
                 >
                   {item.rows ? (
@@ -411,7 +386,6 @@ export default function VariationA() {
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
             >
-              {/* Animate hamburger → X */}
               <span
                 className="block w-[22px] h-[2px] bg-white rounded-sm"
                 style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none' }}
@@ -429,10 +403,9 @@ export default function VariationA() {
           </div>
         </div>
 
-        {/* Desktop mega dropdown — UNCHANGED */}
         {activeMenu && activeItem?.rows && (
           <div
-            className="absolute top-full left-0 right-0 bg-[#F5F5F5] border-t border-[#dde3f0] shadow-[0_10px_30px_rgba(0,0,0,0.13)]"
+            className="absolute top-full left-0 right-0 bg-[#F5F5F5] shadow-[0_10px_30px_rgba(0,0,0,0.13)]"
             role="region"
             aria-label={`${activeItem.label} menu`}
             onMouseEnter={cancelClose}
@@ -475,23 +448,18 @@ export default function VariationA() {
         )}
       </div>
 
-      {/* ── Mobile menu ── */}
+      {/* Mobile menu */}
       {mobileOpen && (
         <div
           id="mobile-nav"
           className="lg:hidden overflow-y-auto"
-          style={{
-            maxHeight: 'calc(100vh - 52px)',
-            background: '#0057a8', // slightly lighter than nav bar for separation
-          }}
+          style={{ maxHeight: 'calc(100vh - 52px)', background: '#0057a8' }}
         >
           <nav aria-label="Mobile navigation">
             {navItems.map((item) => (
               <MobileAccordionItem key={item.label} item={item} />
             ))}
           </nav>
-
-          {/* Bottom decorative strip */}
           <div
             className="h-[4px]"
             style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }}

@@ -351,7 +351,7 @@ function MobSection({ sec }) {
         "
       >
         {sec.heading}
-        <ChevronIcon open={open} />
+        <ChevronIcon />
       </button>
 
       {open && (
@@ -549,7 +549,7 @@ export default function VariationC() {
                           className={`nav-item${isActive ? ' active' : ''}`}
                         >
                           {item.label}
-                          <ChevronIcon open={isActive} />
+                          <ChevronIcon />
                         </button>
                       ) : (
                         <Link
