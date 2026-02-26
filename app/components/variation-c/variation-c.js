@@ -13,7 +13,7 @@ const NAV = [
     sections: [
       {
         heading: 'Explore CSUSB',
-        href: '/join-the-pack/future-students/explore-csusb',
+        href: '',
         links: [
           { label: 'Why Choose CSUSB',            href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
           { label: 'Campus Tours',                 href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
@@ -24,7 +24,7 @@ const NAV = [
       },
       {
         heading: 'Apply',
-        href: '/join-the-pack/future-students/apply',
+        href: '',
         links: [
           { label: 'Application Workshops',                 href: '/join-the-pack/future-students/apply/application-workshops' },
           { label: 'Freshmen Admissions Requirements',      href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '/join-the-pack/future-students/program-specific-requirements',
+        href: '',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -50,7 +50,7 @@ const NAV = [
       },
       {
         heading: 'Campus Life',
-        href: '/join-the-pack/future-students/campus-life',
+        href: '',
         links: [
           { label: 'Student Recreation & Wellness', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
           { label: 'Living on Campus',              href: '/join-the-pack/future-students/living-campus' },
@@ -70,7 +70,7 @@ const NAV = [
     sections: [
       {
         heading: 'By Student Type',
-        href: '/join-the-pack/newly-admitted-students',
+        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -82,7 +82,7 @@ const NAV = [
       },
       {
         heading: 'Getting Started',
-        href: '/join-the-pack/newly-admitted-students',
+        href: '',
         links: [
           { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
           { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
@@ -99,7 +99,7 @@ const NAV = [
     sections: [
       {
         heading: 'Resources',
-        href: '/join-the-pack/parents-guardians',
+        href: '',
         links: [
           { label: 'Financial Aid Overview',        href: '/join-the-pack/parents-guardians/financial-aid-overview' },
           { label: 'Campus Tours & Virtual Visits', href: '/join-the-pack/parents-guardians/campus-tours-virtual-visits' },
@@ -116,7 +116,7 @@ const NAV = [
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: 'https://www.csusb.edu/join-the-pack/future-students/apply',
+        href: '',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -124,7 +124,7 @@ const NAV = [
       },
       {
         heading: 'Available Programs',
-        href: '/join-the-pack/counselors/available-programs',
+        href: '',
         links: [
           { label: 'Direct Admissions Program',        href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
           { label: 'High School Dual Enrollment',      href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
@@ -133,7 +133,7 @@ const NAV = [
       },
       {
         heading: 'Making College Happen',
-        href: '/join-the-pack/counselors/making-college-happen',
+        href: '',
         links: [
           { label: 'Affordability & Financial Aid', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid' },
           { label: 'Parent & Family Communication', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication' },
@@ -142,7 +142,7 @@ const NAV = [
       },
       {
         heading: 'More',
-        href: '/join-the-pack/counselors',
+        href: '',
         links: [
           { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
           { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
@@ -165,7 +165,7 @@ const NAV = [
     sections: [
       {
         heading: 'Certificates',
-        href: '/join-the-pack/program-finder',
+        href: '',
         links: [
           { label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' },
         ],
@@ -204,9 +204,15 @@ const CloseIcon = () => (
   </svg>
 );
 
-
 const isExternal = (href) => href?.startsWith('http');
 
+// Shared heading label classes for both Link and span variants
+const headingBaseClass = `
+  flex items-center
+  text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
+  text-white bg-[#01346a] px-3 py-[9px] mb-0
+  border-l-4 border-l-white
+`;
 
 function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
@@ -253,21 +259,24 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
           <div className="grid grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-2">
             {item.sections.map((sec) => (
               <div key={sec.heading} className="flex flex-col">
-                <Link
-                  href={sec.href}
-                  onClick={onClose}
-                  className="
-                    flex items-center
-                    text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
-                    text-white bg-[#01346a] px-3 py-[9px] mb-0
-                    border-l-4 border-l-white no-underline
-                    hover:bg-black/20
-                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
-                  "
-                  {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                >
-                  {sec.heading}
-                </Link>
+
+                {/* Heading: Link if href exists, span if not */}
+                {sec.href ? (
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    className={`${headingBaseClass} no-underline hover:bg-black/20
+                      focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
+                    {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    {sec.heading}
+                  </Link>
+                ) : (
+                  <span className={headingBaseClass}>
+                    {sec.heading}
+                  </span>
+                )}
+
                 <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
                   {sec.links.map((lk) => (
                     <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
@@ -336,7 +345,7 @@ function MobSection({ sec }) {
                 className="
                   block px-[22px] py-[9px] pl-[34px]
                   text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:pl-[40px] hover:bg-white/[0.05]
+                  hover:text-white hover:bg-white/[0.05]
                   focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                 "
                 {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -351,9 +360,7 @@ function MobSection({ sec }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   MOBILE — top-level item
-───────────────────────────────────────────── */
+/* MOBILE — top-level item */
 function MobItem({ item }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
@@ -410,9 +417,6 @@ function MobItem({ item }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   ROOT COMPONENT
-───────────────────────────────────────────── */
 export default function VariationC() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
@@ -557,7 +561,7 @@ export default function VariationC() {
           ))}
         </div>
 
-        {/* ── Mobile drawer ── */}
+        {/* Mobile drawer */}
         {mobOpen && (
           <nav
             id="csusb-mobile-nav"

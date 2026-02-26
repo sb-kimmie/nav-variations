@@ -99,7 +99,7 @@ const NAV = [
     sections: [
       {
         heading: 'Resources',
-        href: '/join-the-pack/parents-guardians',
+        href: '',
         links: [
           { label: 'Financial Aid Overview',        href: '/join-the-pack/parents-guardians/financial-aid-overview' },
           { label: 'Campus Tours & Virtual Visits', href: '/join-the-pack/parents-guardians/campus-tours-virtual-visits' },
@@ -165,7 +165,7 @@ const NAV = [
     sections: [
       {
         heading: 'Certificates',
-        href: '/join-the-pack/program-finder',
+        href: '',
         links: [
           { label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' },
         ],
@@ -198,6 +198,13 @@ const CloseIcon = () => (
 
 const isExternal = (href) => href?.startsWith('http');
 
+const headingBaseClass = `
+  flex items-center
+  text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
+  text-white bg-[#01346a]
+  px-3 py-[9px] mb-0
+  border-l-4 border-l-white
+`;
 
 function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
@@ -221,24 +228,21 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
             {item.sections.map((sec) => (
               <div key={sec.heading} className="flex flex-col">
 
-                {/* Heading */}
-                <Link
-                  href={sec.href}
-                  onClick={onClose}
-                  className="
-                    flex items-center
-                    text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
-                    text-white bg-[#01346a]
-                    px-3 py-[9px] mb-0
-                    border-l-4 border-l-white
-                    no-underline transition-colors duration-150
-                    hover:bg-black/20
-                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
-                  "
-                  {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                >
-                  {sec.heading}
-                </Link>
+                {/* Heading: Link if href exists, span if not */}
+                {sec.href ? (
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    className={`${headingBaseClass} no-underline transition-colors duration-150 hover:bg-black/20 focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
+                    {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    {sec.heading}
+                  </Link>
+                ) : (
+                  <span className={headingBaseClass}>
+                    {sec.heading}
+                  </span>
+                )}
 
                 {/* Sub-links */}
                 <ul
@@ -378,7 +382,6 @@ function MobItem({ item }) {
           id={`mobitem-${uid}`}
           className="bg-black/[0.25] border-t border-white/[0.05]"
         >
-
           {item.sections.map((sec) => (
             <MobSection key={sec.heading} sec={sec} />
           ))}
@@ -471,7 +474,7 @@ export default function VariationD() {
             </ul>
           </nav>
 
-          {/* Hamburger — mobile only */}
+          {/* Hamburger */}
           <button
             aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobOpen}

@@ -99,7 +99,7 @@ const NAV = [
     sections: [
       {
         heading: 'Resources',
-        href: '/join-the-pack/parents-guardians',
+        href: '',
         links: [
           { label: 'Financial Aid Overview',        href: '/join-the-pack/parents-guardians/financial-aid-overview' },
           { label: 'Campus Tours & Virtual Visits', href: '/join-the-pack/parents-guardians/campus-tours-virtual-visits' },
@@ -165,7 +165,7 @@ const NAV = [
     sections: [
       {
         heading: 'Certificates',
-        href: '/join-the-pack/program-finder',
+        href: '',
         links: [
           { label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' },
         ],
@@ -173,8 +173,6 @@ const NAV = [
     ],
   },
 ];
-
-// ─── VariationB Desktop Icons & Components ────────────────────────────────────
 
 const IcoArrow = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -193,6 +191,8 @@ function ChevronB({ open }) {
     </svg>
   );
 }
+
+// ─── Desktop Mega Panel ───────────────────────────────────────────────────────
 
 function Desktop({ item, onClose }) {
   return (
@@ -218,20 +218,26 @@ function Desktop({ item, onClose }) {
         <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
           {item.sections.map((sec) => (
             <div key={sec.heading} className="flex flex-col gap-2">
-              <Link
-                href={sec.href}
-                onClick={onClose}
-                className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5]"
-              >
-                {sec.heading}
-              </Link>
+              {sec.href ? (
+                <Link
+                  href={sec.href}
+                  onClick={onClose}
+                  className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5]"
+                >
+                  {sec.heading}
+                </Link>
+              ) : (
+                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] pb-[6px] border-b-2 border-[#004a8a]">
+                  {sec.heading}
+                </span>
+              )}
               <ul className="list-none m-0 p-0">
                 {sec.links.map((lk) => (
                   <li key={lk.label}>
                     <Link
                       href={lk.href}
                       onClick={onClose}
-                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:text-[#003DA5]"
+                      className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
                     >
                       {lk.label}
                     </Link>
@@ -245,6 +251,7 @@ function Desktop({ item, onClose }) {
     </div>
   );
 }
+
 
 function ChevronA() {
   return (
@@ -261,7 +268,7 @@ function MobileSectionFromSections({ sec }) {
     return (
       <div className="border-b border-[#dde3f0]">
         <button
-          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
           style={{ minHeight: '44px' }}
           onClick={() => setOpen(!open)}
           aria-expanded={open}
@@ -448,19 +455,21 @@ export default function VariationB() {
                   {item.sections ? (
                     <button
                       className={[
-                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] gap-[6px]',
-                        activeId === item.id ? 'border-b-[#fff]' : 'border-b-transparent',
+                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white whitespace-nowrap gap-[6px]',
+                        'bg-transparent border-none cursor-pointer font-[inherit]',
+                        'underline-offset-[4px] decoration-white decoration-[1.5px]',
+                        activeId === item.id ? 'underline' : 'no-underline hover:underline',
                       ].join(' ')}
                       aria-expanded={activeId === item.id}
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <ChevronB open={false} />
+                      <ChevronB open={activeId === item.id} />
                     </button>
                   ) : (
                     <Link
                       href={item.href}
-                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] border-b-transparent hover:border-b-[#fff]"
+                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white whitespace-nowrap no-underline hover:underline underline-offset-[4px] decoration-white decoration-[1.5px]"
                     >
                       {item.label}
                     </Link>
@@ -498,6 +507,7 @@ export default function VariationB() {
         </div>
       </div>
 
+      {/* Desktop */}
       {activeId && activeItem?.sections && (
         <div
           className="absolute left-0 right-0"
