@@ -176,7 +176,6 @@ function Chevron() {
   );
 }
 
-// ── Inner submenu columns (on white background) — keep light border ──
 function MobileColumn({ col }) {
   const [open, setOpen] = useState(false);
 
@@ -249,12 +248,10 @@ function MobileColumn({ col }) {
   );
 }
 
-// ── Top-level accordion items (on blue background) — border matches background ──
 function MobileAccordionItem({ item }) {
   const [open, setOpen] = useState(false);
   const hasRows = item.rows?.length > 0;
 
-  // border-[#0057a8] matches the mobile menu background so the line is invisible
   if (!hasRows) {
     return (
       <div className="border-b border-[#0057a8]">
@@ -346,8 +343,6 @@ export default function VariationA() {
       {/* Nav bar */}
       <div className="bg-[#0273D7] relative">
         <div className="max-w-[1280px] mx-auto px-8 flex items-stretch">
-
-          {/* Desktop nav — UNCHANGED */}
           <nav className="flex-1 hidden lg:block" aria-label="Primary navigation">
             <ul className="list-none m-0 p-0 flex items-stretch h-full">
               {navItems.map((item) => (

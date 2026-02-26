@@ -204,7 +204,6 @@ export default function OriginalNav() {
   return (
     <nav role="navigation" aria-label="Join the Pack" className="relative bg-[#0273d7] w-full">
 
-      {/* Mobile toggle — visible below lg (1024px) */}
       <button
         className="lg:hidden flex items-center justify-center w-full gap-2 text-white rounded px-3 py-2 text-sm"
         onClick={() => setMobileOpen((v) => !v)}
@@ -214,7 +213,6 @@ export default function OriginalNav() {
         Page Menu
       </button>
 
-      {/* Desktop menu — visible at lg and above */}
       <div className="hidden lg:block max-w-[1280px] mx-auto px-8 py-2">
         <ul className="flex flex-row items-stretch list-none m-0 p-0 flex-wrap">
           {menuData.map((item, i) => {

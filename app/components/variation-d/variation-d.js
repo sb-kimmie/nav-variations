@@ -3,19 +3,17 @@
 import { useState, useRef, useEffect, useId } from 'react';
 import Link from 'next/link';
 
-/* ─────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────── */
 const NAV = [
   { label: 'Home', href: '/join-the-pack' },
   {
     id: 'future-students',
     label: 'Future Students',
     href: '/join-the-pack/future-students',
+    description: 'Discover everything CSUSB has to offer — from exploring campus and choosing a major to applying and understanding the cost of attendance.',
     sections: [
       {
         heading: 'Explore CSUSB',
-        href: '/join-the-pack/future-students/explore-csusb',
+        href: '',
         links: [
           { label: 'Why Choose CSUSB',            href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
           { label: 'Campus Tours',                 href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
@@ -26,7 +24,7 @@ const NAV = [
       },
       {
         heading: 'Apply',
-        href: '/join-the-pack/future-students/apply',
+        href: '',
         links: [
           { label: 'Application Workshops',                 href: '/join-the-pack/future-students/apply/application-workshops' },
           { label: 'Freshmen Admissions Requirements',      href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
@@ -39,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '/join-the-pack/future-students/program-specific-requirements',
+        href: '',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -52,7 +50,7 @@ const NAV = [
       },
       {
         heading: 'Campus Life',
-        href: '/join-the-pack/future-students/campus-life',
+        href: '',
         links: [
           { label: 'Student Recreation & Wellness', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
           { label: 'Living on Campus',              href: '/join-the-pack/future-students/living-campus' },
@@ -66,12 +64,13 @@ const NAV = [
   },
   {
     id: 'newly-admitted',
-    label: 'Newly Admitted',
+    label: 'Newly Admitted Students',
     href: '/join-the-pack/newly-admitted-students',
+    description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
         heading: 'By Student Type',
-        href: '/join-the-pack/newly-admitted-students',
+        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -83,7 +82,7 @@ const NAV = [
       },
       {
         heading: 'Getting Started',
-        href: '/join-the-pack/newly-admitted-students',
+        href: '',
         links: [
           { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
           { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
@@ -96,6 +95,7 @@ const NAV = [
     id: 'parents',
     label: 'Parents & Guardians',
     href: '/join-the-pack/parents-guardians',
+    description: "Resources to help you support your student's journey to becoming a CSUSB Coyote.",
     sections: [
       {
         heading: 'Resources',
@@ -112,10 +112,11 @@ const NAV = [
     id: 'counselors',
     label: 'Counselors',
     href: '/join-the-pack/counselors',
+    description: 'Tools, programs, and connections to guide your students toward a successful future at Cal State San Bernardino.',
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: 'https://www.csusb.edu/join-the-pack/future-students/apply',
+        href: '',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -123,7 +124,7 @@ const NAV = [
       },
       {
         heading: 'Available Programs',
-        href: '/join-the-pack/counselors/available-programs',
+        href: '',
         links: [
           { label: 'Direct Admissions Program',        href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
           { label: 'High School Dual Enrollment',      href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
@@ -132,7 +133,7 @@ const NAV = [
       },
       {
         heading: 'Making College Happen',
-        href: '/join-the-pack/counselors/making-college-happen',
+        href: '',
         links: [
           { label: 'Affordability & Financial Aid', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid' },
           { label: 'Parent & Family Communication', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication' },
@@ -141,7 +142,7 @@ const NAV = [
       },
       {
         heading: 'More',
-        href: '/join-the-pack/counselors',
+        href: '',
         links: [
           { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
           { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
@@ -160,6 +161,7 @@ const NAV = [
     id: 'program-finder',
     label: 'Program Finder',
     href: 'https://www.csusb.edu/join-the-pack/program-finder',
+    description: 'Explore over 70 majors, concentrations, and certificate programs at CSUSB.',
     sections: [
       {
         heading: 'Certificates',
@@ -172,9 +174,6 @@ const NAV = [
   },
 ];
 
-/* ─────────────────────────────────────────────
-   ICONS
-───────────────────────────────────────────── */
 const ChevronIcon = ({ open }) => (
   <svg
     width="11" height="11" viewBox="0 0 24 24" fill="none"
@@ -182,12 +181,6 @@ const ChevronIcon = ({ open }) => (
     className={`shrink-0 ${open ? 'rotate-180' : 'rotate-0'}`}
   >
     <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const ArrowIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -203,15 +196,10 @@ const CloseIcon = () => (
   </svg>
 );
 
-/* ─────────────────────────────────────────────
-   HELPERS
-───────────────────────────────────────────── */
 const isExternal = (href) => href?.startsWith('http');
 
-/* ─────────────────────────────────────────────
-   MEGA PANEL
-───────────────────────────────────────────── */
-function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
+
+function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
     <div
       id={`mega-${item.id}`}
@@ -226,10 +214,9 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
           : 'pointer-events-none opacity-0 -translate-y-1.5'}
       `}
     >
-      <div className="bg-[#004a8a] border-t border-white/10 border-b-4 border-b-white/30">
+      <div className="bg-[#004a8a]">
         <div className="max-w-[1280px] mx-auto px-8 py-10">
 
-          {/* Section columns — full width */}
           <div className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-x-10">
             {item.sections.map((sec) => (
               <div key={sec.heading} className="flex flex-col">
@@ -288,9 +275,6 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   MOBILE — section accordion
-───────────────────────────────────────────── */
 function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
@@ -344,9 +328,7 @@ function MobSection({ sec }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   MOBILE — top-level item
-───────────────────────────────────────────── */
+
 function MobItem({ item }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
@@ -406,9 +388,7 @@ function MobItem({ item }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   ROOT COMPONENT
-───────────────────────────────────────────── */
+
 export default function VariationD() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
@@ -506,9 +486,8 @@ export default function VariationD() {
           </button>
         </div>
 
-        {/* Mega panels */}
         {NAV.filter((n) => n.sections).map((item) => (
-          <MegaPanel
+          <Desktop
             key={item.id}
             item={item}
             isOpen={activeId === item.id}
@@ -519,12 +498,12 @@ export default function VariationD() {
         ))}
       </div>
 
-      {/* ── Mobile drawer ── */}
+      {/* Mobile */}
       {mobOpen && (
         <nav
           id="csusb-mobile-nav"
           aria-label="Mobile navigation"
-          className="lg:hidden bg-[#004a8a] border-t-4 border-t-white/20 max-h-[calc(100vh-102px)] overflow-y-auto"
+          className="lg:hidden bg-[#004a8a] max-h-[calc(100vh-102px)] overflow-y-auto"
           style={{ animation: 'mobSlide 0.22s ease' }}
         >
           {NAV.map((item) => (

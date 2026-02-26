@@ -3,9 +3,6 @@
 import { useState, useRef, useEffect, useId } from 'react';
 import Link from 'next/link';
 
-/* ─────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────── */
 const NAV = [
   { label: 'Home', href: '/join-the-pack' },
   {
@@ -209,37 +206,11 @@ const CloseIcon = () => (
   </svg>
 );
 
-/* ─────────────────────────────────────────────
-   HELPERS
-───────────────────────────────────────────── */
+
 const isExternal = (href) => href?.startsWith('http');
 
-/* ─────────────────────────────────────────────
-   DESKTOP — NAV ITEM STYLES
-   Matches the screenshot: bottom white underline
-   on hover/active, slight background tint
-───────────────────────────────────────────── */
-const navItemBase = `
-  inline-flex items-center gap-[5px] h-full
-  px-3 py-2
-  text-[13.5px] font-semibold text-white
-  whitespace-nowrap no-underline
-  bg-transparent border-0 cursor-pointer
-  relative
-  transition-colors
-  after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px]
-  after:bg-white after:scale-x-0 after:origin-center
 
-  hover:bg-[#005cbf] hover:after:scale-x-100
-  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-4px]
-`;
-
-const navItemActive = `bg-[#005cbf] after:!scale-x-100`;
-
-/* ─────────────────────────────────────────────
-   DESKTOP — MEGA PANEL
-───────────────────────────────────────────── */
-function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
+function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   return (
     <div
       id={`mega-${item.id}`}
@@ -329,7 +300,7 @@ function MegaPanel({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
 }
 
 /* ─────────────────────────────────────────────
-   MOBILE — section accordion
+   MOBILE
 ───────────────────────────────────────────── */
 function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
@@ -397,7 +368,7 @@ function MobItem({ item }) {
           className="
             w-full flex items-center justify-between
             text-[15px] font-semibold text-white/[0.88] no-underline
-            px-[22px] py-[17px]
+            px-[22px] py-[10px]
             hover:bg-white/[0.05] hover:text-white
             focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
           "
@@ -418,7 +389,7 @@ function MobItem({ item }) {
         className="
           w-full flex items-center justify-between gap-2
           text-[15px] font-semibold text-white/[0.88] text-left
-          bg-transparent border-none px-[22px] py-[17px] cursor-pointer
+          bg-transparent border-none px-[22px] py-[10px] cursor-pointer
           hover:bg-white/[0.05] hover:text-white
           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
         "
@@ -473,7 +444,6 @@ export default function VariationC() {
 
   return (
     <>
-      {/* Inject the pseudo-element styles Tailwind can't handle inline */}
       <style>{`
         .nav-item {
           position: relative;
@@ -515,10 +485,6 @@ export default function VariationC() {
         .nav-item:focus-visible {
           outline: 3px solid #fff;
           outline-offset: -4px;
-        }
-        @keyframes mobSlide {
-          from { opacity: 0; transform: translateY(-10px); }
-          to   { opacity: 1; transform: none; }
         }
       `}</style>
 
@@ -582,9 +548,8 @@ export default function VariationC() {
 
           </div>
 
-          {/* Mega panels */}
           {NAV.filter((n) => n.sections).map((item) => (
-            <MegaPanel
+            <Desktop
               key={item.id}
               item={item}
               isOpen={activeId === item.id}

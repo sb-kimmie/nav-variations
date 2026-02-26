@@ -3,8 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
-// ─── Nav Data ────────────────────────────────────────────────────────────────
-
 const NAV = [
   { label: 'Home', href: '/join-the-pack' },
   {
@@ -15,18 +13,18 @@ const NAV = [
     sections: [
       {
         heading: 'Explore CSUSB',
-        href: '/join-the-pack/future-students/explore-csusb',
+        href: '',
         links: [
-          { label: 'Why Choose CSUSB',              href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
-          { label: 'Campus Tours',                   href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
-          { label: 'Education Abroad',               href: '/join-the-pack/future-students/explore-csusb/education-abroad' },
-          { label: 'Visit San Bernardino',           href: '/join-the-pack/future-students/explore-csusb/visit-san-bernardino' },
-          { label: 'CSUSB Traditions and Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
+          { label: 'Why Choose CSUSB',            href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
+          { label: 'Campus Tours',                 href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
+          { label: 'Education Abroad',             href: '/join-the-pack/future-students/explore-csusb/education-abroad' },
+          { label: 'Visit San Bernardino',         href: '/join-the-pack/future-students/explore-csusb/visit-san-bernardino' },
+          { label: 'CSUSB Traditions & Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
         ],
       },
       {
         heading: 'Apply',
-        href: '/join-the-pack/future-students/apply',
+        href: '',
         links: [
           { label: 'Application Workshops',                 href: '/join-the-pack/future-students/apply/application-workshops' },
           { label: 'Freshmen Admissions Requirements',      href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
@@ -38,8 +36,8 @@ const NAV = [
         ],
       },
       {
-        heading: 'Program Specific Requirements',
-        href: '/join-the-pack/future-students/program-specific-requirements',
+        heading: 'Program Requirements',
+        href: '',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -52,27 +50,27 @@ const NAV = [
       },
       {
         heading: 'Campus Life',
-        href: '/join-the-pack/future-students/campus-life',
+        href: '',
         links: [
-          { label: 'Student Recreation & Wellness',      href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
-          { label: 'Living on Campus',                   href: '/join-the-pack/future-students/living-campus' },
-          { label: 'Connect with an Outreach Counselor', href: '/join-the-pack/future-students/connect-outreach-counselor' },
-          { label: 'Learn about Palm Desert Campus',     href: '/join-the-pack/future-students/learn-about-palm-desert-campus' },
-          { label: 'Cost of Attendance',                 href: '/join-the-pack/future-students/cost-attendance' },
-          { label: 'Tuition Calculator',                 href: 'https://app.meadowfi.com/csusb' },
+          { label: 'Student Recreation & Wellness', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
+          { label: 'Living on Campus',              href: '/join-the-pack/future-students/living-campus' },
+          { label: 'Connect with a Counselor',      href: '/join-the-pack/future-students/connect-outreach-counselor' },
+          { label: 'Palm Desert Campus',            href: '/join-the-pack/future-students/learn-about-palm-desert-campus' },
+          { label: 'Cost of Attendance',            href: '/join-the-pack/future-students/cost-attendance' },
+          { label: 'Tuition Calculator',            href: 'https://app.meadowfi.com/csusb' },
         ],
       },
     ],
   },
   {
     id: 'newly-admitted',
-    label: 'Newly Admitted',
+    label: 'Newly Admitted Students',
     href: '/join-the-pack/newly-admitted-students',
     description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
         heading: 'By Student Type',
-        href: '/join-the-pack/newly-admitted-students',
+        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -84,11 +82,11 @@ const NAV = [
       },
       {
         heading: 'Getting Started',
-        href: '/join-the-pack/newly-admitted-students',
+        href: '',
         links: [
-          { label: 'Financial Aid, Scholarships & Grants', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
-          { label: 'Orientation Overview',                 href: '/join-the-pack/newly-admitted-students/orientation-overview' },
-          { label: 'Join Nearpeer',                        href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
+          { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
+          { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
+          { label: 'Join Nearpeer',                href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
         ],
       },
     ],
@@ -97,7 +95,7 @@ const NAV = [
     id: 'parents',
     label: 'Parents & Guardians',
     href: '/join-the-pack/parents-guardians',
-    description: null,
+    description: "Resources to help you support your student's journey to becoming a CSUSB Coyote.",
     sections: [
       {
         heading: 'Resources',
@@ -114,11 +112,11 @@ const NAV = [
     id: 'counselors',
     label: 'Counselors',
     href: '/join-the-pack/counselors',
-    description: 'Find the tools, programs and connections to guide your students toward a successful future at Cal State San Bernardino.',
+    description: 'Tools, programs, and connections to guide your students toward a successful future at Cal State San Bernardino.',
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: 'https://www.csusb.edu/join-the-pack/future-students/apply',
+        href: '',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -126,7 +124,7 @@ const NAV = [
       },
       {
         heading: 'Available Programs',
-        href: '/join-the-pack/counselors/available-programs',
+        href: '',
         links: [
           { label: 'Direct Admissions Program',        href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
           { label: 'High School Dual Enrollment',      href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
@@ -135,7 +133,7 @@ const NAV = [
       },
       {
         heading: 'Making College Happen',
-        href: '/join-the-pack/counselors/making-college-happen',
+        href: '',
         links: [
           { label: 'Affordability & Financial Aid', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid' },
           { label: 'Parent & Family Communication', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication' },
@@ -144,7 +142,7 @@ const NAV = [
       },
       {
         heading: 'More',
-        href: '/join-the-pack/counselors',
+        href: '',
         links: [
           { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
           { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
@@ -163,7 +161,7 @@ const NAV = [
     id: 'program-finder',
     label: 'Program Finder',
     href: 'https://www.csusb.edu/join-the-pack/program-finder',
-    description: 'Explore over 70 majors, concentrations and certificate programs at CSUSB designed to launch your career.',
+    description: 'Explore over 70 majors, concentrations, and certificate programs at CSUSB.',
     sections: [
       {
         heading: 'Certificates',
@@ -175,8 +173,6 @@ const NAV = [
     ],
   },
 ];
-
-// ─── Icons ───────────────────────────────────────────────────────────────────
 
 const IcoClose = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -206,9 +202,7 @@ function Chevron({ open }) {
   );
 }
 
-// ─── Desktop Mega Panel ───────────────────────────────────────────────────────
-
-function MegaPanel({ item, onClose }) {
+function Desktop({ item, onClose }) {
   return (
     <div className="bg-white border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
@@ -453,7 +447,7 @@ export default function VariationB() {
           onMouseEnter={cancelClose}
           onMouseLeave={scheduleClose}
         >
-          <MegaPanel item={activeItem} onClose={() => setActiveId(null)} />
+          <Desktop item={activeItem} onClose={() => setActiveId(null)} />
         </div>
       )}
 
