@@ -39,9 +39,8 @@ export default function Home() {
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation A:</strong>
               <ul>
-                <li>1. Variation A uses uppercase tracking, a bottom border separator, and consistent sizing to clearly distinguish column headings from links. </li>
-                <li>2. The mobile menu has a clear section label strip (light #f0f5ff header) when a section opens, giving users visual context for where they are</li>
-                <li>3. Sub-items in the mobile menu have a left accent bar and small arrow indicators, creating visual hierarchy — the original is a flat unstyled list</li>
+                <li>1. Variation A uses uppercase tracking and a bottom border separator to clearly distinguish column headings from links. </li>
+                <li>2. The hover over menu items in the dropdown are highlighted a lighter shade of blue instead of underlined.</li>
               </ul>
             </h3>
           </div>
@@ -60,10 +59,12 @@ export default function Home() {
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation B:</strong>
               <ul>
-                <li>1. The left-column blurb in Variation B provides context for the section, giving users immediate context for the section, reducing cognitive load.</li>
-                <li>2. Variation B uses horizontal and vertical lines to visually separate sections and items, whereas the Original does not have these visual separators.</li>
-                <li>3. Added a border at the bottom of the desktop dropdown menu to create a visual separation from the page area.</li>
-                <li>4. Light gray background for the deaktop dropdown instead of the blue background.</li>        
+                <li>1. Light gray background for the desktop dropdown instead of the blue background.</li>
+                <li>2. The left-column in Variation B provides context for the section, giving users immediate context for the section.</li>
+                <li>3. Variation B uses horizontal and vertical lines to visually separate sections and items, whereas the Original does not have these visual separators.</li>
+                <li>4. The mobile menu has a clear section label strip (light #f0f5ff header) when a section opens, giving users visual context for where they are.</li>
+                <li>5. Sub-items in the mobile menu have a left accent bar and small arrow indicators, creating visual hierarchy.</li>
+                <li>6. Added a border at the bottom of the desktop dropdown menu to create a visual separation from the page area.</li>
               </ul>
             </h3>
           </div>
@@ -85,7 +86,7 @@ export default function Home() {
               <strong>Differences between the Original and Variation C:</strong>
               <ul>
                 <li>1. Section headings in the dropdown have a bold left white border accent and dark background pill, giving clear visual grouping — the original uses plain bold white text with no visual separation</li>
-                <li>2. Variation C has a two-level mobile accordion: top-level items expand to reveal section headings, which themselves expand to reveal links — giving users a clear hierarchy without overwhelming them. The original dumps all links flat under the top-level toggle with no further grouping.</li>
+                <li>2. Variation C has a two-level mobile accordion: top-level items expand to reveal section headings, which themselves expand to reveal links — giving users a clear hierarchy without overwhelming them.</li>
                 <li>3. The hover over the main nav has a bolder underline and a slightly bigger background padding.</li>
                 <li>4. Desktop layout is similar to Variation B but with a padded background in the left column and no vertical line.</li>
               </ul>
@@ -106,7 +107,7 @@ export default function Home() {
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation D:</strong>
               <ul>
-                <li><i>Same as Variation C without the left blurb.</i></li>
+                <li><i>Same as Variation C without the left column.</i></li>
                 <li>1. The hover over the main nav has a bolder underline and a slightly more transparent background padding.</li>
                 <li>2. The hover over the main nav flips the chevron icon from pointing down to pointing up.</li>
               </ul>

@@ -174,9 +174,7 @@ const NAV = [
   },
 ];
 
-/* ─────────────────────────────────────────────
-   ICONS
-───────────────────────────────────────────── */
+
 const ChevronIcon = ({ open }) => (
   <svg
     width="11" height="11" viewBox="0 0 24 24" fill="none"
@@ -226,7 +224,7 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
       }}
       className="absolute left-0 right-0 top-full z-[400]"
     >
-      <div className="bg-[#004a8a] border-t border-white/10 border-b-4 border-b-white/30 shadow-[0_24px_64px_rgba(0,0,0,0.3),0_4px_16px_rgba(0,0,0,0.15)]">
+      <div className="bg-[#004a8a] border-t border-white/10">
         <div className="max-w-[1280px] mx-auto px-8 py-10 grid grid-cols-[240px_1fr] gap-x-12 items-start">
 
           {/* Left card */}
@@ -472,7 +470,6 @@ export default function VariationC() {
           background: #fff;
           transform: scaleX(0);
           transform-origin: center;
-          transition: transform 0.2s ease;
         }
         .nav-item:hover,
         .nav-item.active {

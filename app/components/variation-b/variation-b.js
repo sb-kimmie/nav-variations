@@ -174,23 +174,15 @@ const NAV = [
   },
 ];
 
-const IcoClose = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-  </svg>
-);
-const IcoMenu = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-  </svg>
-);
+// ─── VariationB Desktop Icons & Components ────────────────────────────────────
+
 const IcoArrow = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-function Chevron({ open }) {
+function ChevronB({ open }) {
   return (
     <svg
       className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
@@ -206,7 +198,6 @@ function Desktop({ item, onClose }) {
   return (
     <div className="bg-[#f8f8f8] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
-        {/* Left: title + description + view-all link */}
         <div className="flex flex-col gap-3">
           <h2 className="text-[22px] font-bold text-[#002060] m-0 leading-tight">{item.label}</h2>
           {item.description && (
@@ -223,11 +214,7 @@ function Desktop({ item, onClose }) {
             </span>
           </Link>
         </div>
-
-        {/* Divider */}
         <div className="bg-[#e0e0e0] self-stretch min-h-[100px]" aria-hidden="true" />
-
-        {/* Right: sections grid */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
           {item.sections.map((sec) => (
             <div key={sec.heading} className="flex flex-col gap-2">
@@ -259,58 +246,99 @@ function Desktop({ item, onClose }) {
   );
 }
 
-// ─── Mobile Components ────────────────────────────────────────────────────────
+function ChevronA() {
+  return (
+    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
-function MobileSection({ sec }) {
-  if (!sec.heading) {
+function MobileSectionFromSections({ sec }) {
+  const [open, setOpen] = useState(false);
+
+  if (sec.heading) {
     return (
-      <div className="pt-2">
-        {sec.links.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:bg-[rgba(255,255,255,0.1)]"
+      <div className="border-b border-[#dde3f0]">
+        <button
+          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+          style={{ minHeight: '44px' }}
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+        >
+          <span className="flex items-center gap-2 min-w-0">
+            <span
+              className="flex-shrink-0 w-[3px] self-stretch"
+              style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
+              aria-hidden="true"
+            />
+            <span className="truncate">{sec.heading}</span>
+          </span>
+          <ChevronA />
+        </button>
+
+        {open && (
+          <ul
+            className="list-none m-0 p-0 pb-2"
+            style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
+            role="list"
           >
-            {link.label}
-          </Link>
-        ))}
+            {sec.links.map((link) => (
+              <li key={link.label} role="listitem">
+                <Link
+                  href={link.href}
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                  style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+                >
+                  <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }
 
   return (
-    <div className="mb-1">
-      <div className="px-5 pt-5 pb-2">
-        <p className="m-0 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8]">
-          {sec.heading}
-        </p>
-        <div className="mt-[10px] h-px bg-[#0255a3]" />
-      </div>
-      <div>
-        {sec.links.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:underline"
-          >
-            {link.label}
-          </Link>
-        ))}
-      </div>
+    <div className="border-b border-[#dde3f0]">
+      {sec.links.map((link) => (
+        <Link
+          key={link.label}
+          href={link.href}
+          className="flex items-center gap-3 px-5 py-[11px] text-[#1a2a4a] text-[14px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+          style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+        >
+          <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-50" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {link.label}
+        </Link>
+      ))}
     </div>
   );
 }
 
-function MobileAccordionItem({ item }) {
+function MobileAccordionItemA({ item }) {
   const [open, setOpen] = useState(false);
   const hasSections = item.sections?.length > 0;
 
   if (!hasSections) {
     return (
-      <div className="border-b border-[#0462bc]">
+      <div className="border-b border-[#0057a8]">
         <Link
           href={item.href}
-          className="flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white no-underline bg-[#0573D7] hover:bg-[#0462bc]"
+          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+          style={{ minHeight: '52px', background: 'transparent', transition: 'background 0.15s' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
         >
           {item.label}
         </Link>
@@ -319,30 +347,47 @@ function MobileAccordionItem({ item }) {
   }
 
   return (
-    <div className="border-b border-[#0462bc]">
+    <div className="border-b border-[#0057a8]">
       <button
-        className={`w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white text-left border-none cursor-pointer font-[inherit] ${
-          open ? 'bg-[#0462bc]' : 'bg-[#0573D7] hover:bg-[#0462bc]'
-        }`}
+        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+        style={{
+          minHeight: '52px',
+          paddingTop: '14px',
+          paddingBottom: '14px',
+          background: open ? 'rgba(255,255,255,0.1)' : 'transparent',
+          transition: 'background 0.15s',
+        }}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
+        onMouseEnter={e => { if (!open) e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = open ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
       >
         <span>{item.label}</span>
-        <Chevron open={open} />
+        <ChevronA />
       </button>
 
       {open && (
-        <div className="bg-[#013F7E] border-t border-[#0255a3] pb-4">
+        <div
+          className="border-t border-[#0057a8]"
+          style={{ background: '#ffffff' }}
+          role="region"
+          aria-label={`${item.label} submenu`}
+        >
+          <div
+            className="px-5 py-[8px] text-[11px] font-bold uppercase tracking-[0.1em] text-[#0273D7]"
+            style={{ borderBottom: '1px solid #e4eaf5', background: '#f0f5ff' }}
+            aria-hidden="true"
+          >
+            {item.label}
+          </div>
           {item.sections.map((sec, i) => (
-            <MobileSection key={i} sec={sec} />
+            <MobileSectionFromSections key={i} sec={sec} />
           ))}
         </div>
       )}
     </div>
   );
 }
-
-// ─── Main Nav ─────────────────────────────────────────────────────────────────
 
 export default function VariationB() {
   const [activeId,  setActiveId]  = useState(null);
@@ -357,7 +402,7 @@ export default function VariationB() {
   }, []);
 
   useEffect(() => {
-    const fn = () => { if (window.innerWidth > 767) setMobOpen(false); };
+    const fn = () => { if (window.innerWidth > 1023) setMobOpen(false); };
     window.addEventListener('resize', fn, { passive: true });
     return () => window.removeEventListener('resize', fn);
   }, []);
@@ -403,19 +448,19 @@ export default function VariationB() {
                   {item.sections ? (
                     <button
                       className={[
-                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] border-b-transparent hover:border-b-[#004a8a] gap-[6px]',
-                        activeId === item.id ? 'border-b-[#C8A84B]' : 'border-b-transparent hover:border-b-[#004a8a]',
+                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] gap-[6px]',
+                        activeId === item.id ? 'border-b-[#fff]' : 'border-b-transparent',
                       ].join(' ')}
                       aria-expanded={activeId === item.id}
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <Chevron open={false} />
+                      <ChevronB open={false} />
                     </button>
                   ) : (
                     <Link
                       href={item.href}
-                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] border-b-transparent hover:border-b-[#004a8a]"
+                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white no-underline whitespace-nowrap border-b-[3px] border-b-transparent hover:border-b-[#fff]"
                     >
                       {item.label}
                     </Link>
@@ -425,22 +470,34 @@ export default function VariationB() {
             </ul>
           </nav>
 
-          {/* Hamburger — mobile only */}
-          <div className="flex items-center flex-shrink-0 ml-auto">
+          {/* Hamburger */}
+          <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="lg:hidden flex items-center justify-center bg-none border-none cursor-pointer text-white rounded"
-              onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
-              aria-label={mobOpen ? 'Close menu' : 'Open menu'}
+              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-[#0273D7] rounded"
+              onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
+              aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
+              aria-controls="mobile-nav-b"
             >
-              {mobOpen ? <IcoClose /> : <IcoMenu />}
+              <span
+                className="block w-[22px] h-[2px] bg-white rounded-sm"
+                style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobOpen ? 'translateY(7px) rotate(45deg)' : 'none' }}
+              />
+              <span
+                className="block w-[22px] h-[2px] bg-white rounded-sm"
+                style={{ transition: 'opacity 0.2s', opacity: mobOpen ? 0 : 1 }}
+                aria-hidden="true"
+              />
+              <span
+                className="block w-[22px] h-[2px] bg-white rounded-sm"
+                style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }}
+              />
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* ── Desktop mega panel ── */}
       {activeId && activeItem?.sections && (
         <div
           className="absolute left-0 right-0"
@@ -451,14 +508,23 @@ export default function VariationB() {
         </div>
       )}
 
-      {/* ── Mobile menu ── */}
+      {/* Mobile menu */}
       {mobOpen && (
-        <div className="lg:hidden bg-[#0573D7] overflow-y-auto max-h-[calc(100vh-68px)]">
+        <div
+          id="mobile-nav-b"
+          className="lg:hidden overflow-y-auto"
+          style={{ maxHeight: 'calc(100vh - 52px)', background: '#0057a8' }}
+        >
           <nav aria-label="Mobile navigation">
             {NAV.map((item) => (
-              <MobileAccordionItem key={item.id || item.label} item={item} />
+              <MobileAccordionItemA key={item.id || item.label} item={item} />
             ))}
           </nav>
+          <div
+            className="h-[4px]"
+            style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }}
+            aria-hidden="true"
+          />
         </div>
       )}
 
