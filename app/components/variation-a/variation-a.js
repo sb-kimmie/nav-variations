@@ -115,7 +115,7 @@ const navItems = [
         columns: [
           {
             heading: 'Apply and Admissions Requirements',
-            href: 'https://www.csusb.edu/join-the-pack/future-students/apply',
+            href: '',
             links: [
               { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
               { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -123,7 +123,7 @@ const navItems = [
           },
           {
             heading: 'Available Programs',
-            href: '/join-the-pack/counselors/available-programs',
+            href: '',
             links: [
               { label: 'Direct Admissions Program', href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
               { label: 'High School Dual Enrollment', href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
