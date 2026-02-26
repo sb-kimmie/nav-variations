@@ -40,7 +40,6 @@ export default function Home() {
               <strong>Differences between the Original and Variation A:</strong>
               <ul>
                 <li>1. Variation A uses uppercase tracking and a bottom border separator to clearly distinguish column headings from links. </li>
-                <li>2. The hover over menu items in the dropdown are highlighted a lighter shade of blue instead of underlined.</li>
               </ul>
             </h3>
           </div>

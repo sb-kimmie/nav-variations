@@ -386,10 +386,8 @@ export default function VariationA() {
                         col.href ? (
                           <Link
                             href={col.href}
-                            className="block text-[13px] font-bold uppercase tracking-[0.09em] no-underline mb-2 pb-[6px]"
+                            className="block text-[13px] font-bold uppercase tracking-[0.09em] no-underline mb-2 pb-[6px] hover:underline underline-offset-[3px] decoration-[rgba(255,255,255,0.7)] decoration-[1.5px]"
                             style={{ color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.30)' }}
-                            onMouseEnter={e => { e.currentTarget.style.color = '#7ec8ff'; }}
-                            onMouseLeave={e => { e.currentTarget.style.color = '#ffffff'; }}
                           >
                             {col.heading}
                           </Link>
@@ -407,12 +405,20 @@ export default function VariationA() {
                           <li key={link.label}>
                             <Link
                               href={link.href}
-                              className="block px-[6px] py-1 text-[13.5px] font-semibold leading-snug rounded-[3px] no-underline focus:outline-none"
-                              style={{ color: '#d9e8ff', transition: 'background 0.15s, color 0.15s' }}
-                              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.13)'; e.currentTarget.style.color = '#ffffff'; }}
-                              onMouseLeave={e => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#d9e8ff'; }}
-                              onFocus={e => { e.currentTarget.style.outline = '2px solid #7ec8ff'; e.currentTarget.style.outlineOffset = '2px'; e.currentTarget.style.background = 'rgba(255,255,255,0.13)'; e.currentTarget.style.color = '#ffffff'; }}
-                              onBlur={e => { e.currentTarget.style.outline = ''; e.currentTarget.style.outlineOffset = ''; e.currentTarget.style.background = ''; e.currentTarget.style.color = '#d9e8ff'; }}
+                              className="block px-[6px] py-1 text-[13.5px] font-semibold leading-snug rounded-[3px] no-underline hover:underline underline-offset-[3px] decoration-[rgba(255,255,255,0.8)] decoration-[1.5px] focus:outline-none"
+                              style={{ color: '#d9e8ff', transition: 'color 0.15s' }}
+                              onMouseEnter={e => { e.currentTarget.style.color = '#ffffff'; }}
+                              onMouseLeave={e => { e.currentTarget.style.color = '#d9e8ff'; }}
+                              onFocus={e => {
+                                e.currentTarget.style.outline = '2px solid #7ec8ff';
+                                e.currentTarget.style.outlineOffset = '2px';
+                                e.currentTarget.style.color = '#ffffff';
+                              }}
+                              onBlur={e => {
+                                e.currentTarget.style.outline = '';
+                                e.currentTarget.style.outlineOffset = '';
+                                e.currentTarget.style.color = '#d9e8ff';
+                              }}
                             >
                               {link.label}
                             </Link>

@@ -261,7 +261,7 @@ function MobileSectionFromSections({ sec }) {
     return (
       <div className="border-b border-[#dde3f0]">
         <button
-          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+          className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
           style={{ minHeight: '44px' }}
           onClick={() => setOpen(!open)}
           aria-expanded={open}

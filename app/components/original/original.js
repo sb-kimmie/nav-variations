@@ -1,8 +1,6 @@
 'use client';
-
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-
 const menuData = [
   {
     label: 'Home',
@@ -164,13 +162,14 @@ function renderItem(item, ii) {
       </Link>
     );
   }
+  // Regular third-level links: dark blue pill background + underline on hover
   return (
     <Link
       key={ii}
       href={item.href}
       className={[
         'block py-1.5 px-3 rounded text-[13px] text-white/90 no-underline',
-        'bg-[#00346a] hover:bg-[#01346A] transition-colors duration-100',
+        'bg-[#00346a] hover:underline transition-colors duration-100',
         item.indent ? 'ml-4' : '',
         item.isActive ? 'font-semibold text-white' : '',
       ].join(' ')}
@@ -184,26 +183,20 @@ export default function OriginalNav() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileOpenIndex, setMobileOpenIndex] = useState(null);
-
   const closeTimer = useRef(null);
-
   const cancelClose = () => {
     if (closeTimer.current) {
       clearTimeout(closeTimer.current);
       closeTimer.current = null;
     }
   };
-
   const scheduleClose = () => {
     cancelClose();
     closeTimer.current = setTimeout(() => setActiveMenu(null), 150);
   };
-
   const activeItem = menuData.find((n) => n.label === activeMenu);
-
   return (
     <nav role="navigation" aria-label="Join the Pack" className="relative bg-[#0273d7] w-full">
-
       <button
         className="lg:hidden flex items-center justify-center w-full gap-2 text-white rounded px-3 py-2 text-sm"
         onClick={() => setMobileOpen((v) => !v)}
@@ -212,7 +205,6 @@ export default function OriginalNav() {
         <span>☰</span>
         Page Menu
       </button>
-
       <div className="hidden lg:block max-w-[1280px] mx-auto px-8 py-2">
         <ul className="flex flex-row items-stretch list-none m-0 p-0 flex-wrap">
           {menuData.map((item, i) => {
@@ -230,7 +222,7 @@ export default function OriginalNav() {
                     'inline-flex items-center gap-1 text-white no-underline h-full whitespace-nowrap',
                     'text-[13.5px] lg:text-[13.5px] font-medium transition-colors duration-150',
                     'px-[14px] lg:px-[14px] border-b-[3px] border-b-transparent',
-                    isActive ? 'bg-[#01346A]' : 'hover:bg-[#01346A]',
+                    isActive ? 'bg-[#01346A]' : 'hover:bg-[#01346A] hover:underline',
                   ].join(' ')}
                 >
                   {item.label}
@@ -243,7 +235,6 @@ export default function OriginalNav() {
           })}
         </ul>
       </div>
-
       {/* Dropdown panel */}
       {activeMenu && activeItem?.columns && (
         <div
@@ -268,7 +259,6 @@ export default function OriginalNav() {
           </div>
         </div>
       )}
-
       {/* Mobile menu — visible below lg (1024px) */}
       {mobileOpen && (
         <div className="lg:hidden">
@@ -295,7 +285,6 @@ export default function OriginalNav() {
                       </button>
                     )}
                   </div>
-
                   {hasDropdown && isExpanded && (
                     <div className="bg-[#003f7e] px-4 pb-4">
                       {item.columns.map((col, ci) => (
