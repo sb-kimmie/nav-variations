@@ -423,13 +423,13 @@ function MobileAccordionItemA({ item }) {
           role="region"
           aria-label={`${item.label} submenu`}
         >
-          <div
+          {/* <div
             className="px-5 py-[8px] text-[11px] font-bold uppercase tracking-[0.1em] text-[#0273D7]"
             style={{ borderBottom: '1px solid #e4eaf5', background: '#f0f5ff' }}
             aria-hidden="true"
           >
             {item.label}
-          </div>
+          </div> */}
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}
