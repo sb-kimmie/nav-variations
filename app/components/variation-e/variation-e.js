@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useId } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 const NAV = [
@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '/some-link',
+        href: '/its',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -112,7 +112,7 @@ const NAV = [
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: '',
+        href: '/its',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -168,250 +168,180 @@ const NAV = [
   },
 ];
 
-// Always points down — never rotates up
-const ChevronIcon = () => (
-  <svg
-    width="11" height="11" viewBox="0 0 24 24" fill="none"
-    aria-hidden="true" focusable="false"
-    className="shrink-0"
-  >
-    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+const IcoArrow = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const ArrowIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const MenuIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const isExternal = (href) => href?.startsWith('http');
-
-const headingBaseClass = `
-  flex items-center gap-[5px]
-  text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
-  text-white bg-[#01346a] px-3 py-[9px] mb-0
-  border-l-4 border-l-white
-`;
-
-const childLinkClass = `
-  block text-[13px] text-white/80 no-underline leading-[1.4]
-  px-3 py-[6px] font-semibold
-  hover:text-white hover:underline
-`;
-
-function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
+function ChevronDown() {
   return (
-    <div
-      id={`mega-${item.id}`}
-      role="region"
-      aria-label={`${item.label} menu`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      style={{
-        transition: 'opacity 0.18s ease, transform 0.18s ease',
-        opacity: isOpen ? 1 : 0,
-        transform: isOpen ? 'translateY(0)' : 'translateY(-6px)',
-        pointerEvents: isOpen ? 'auto' : 'none',
-      }}
-      className="absolute left-0 right-0 top-full z-[400]"
-    >
-      <div className="bg-[#004a8a] border-t border-white/10">
-        <div className="max-w-[1280px] mx-auto px-8 py-10 grid grid-cols-[240px_1fr] gap-x-12 items-start">
+    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
-          {/* Left card */}
-          <div className="bg-[#01346a] rounded-lg p-6 flex flex-col gap-4 self-stretch">
-            <h2 className="text-2xl font-bold text-white leading-tight m-0">{item.label}</h2>
-            {item.description && (
-              <p className="text-[13.5px] leading-[1.7] text-white/70 m-0 flex-1">{item.description}</p>
-            )}
-            <Link
-              href={item.href}
-              onClick={onClose}
-              className="
-                inline-flex items-center gap-2 w-fit mt-auto
-                text-[12px] font-bold tracking-[0.07em] uppercase
-                text-white no-underline px-4 py-2 rounded
-                border border-white/40
-                hover:bg-white hover:text-[#01346a] hover:border-white hover:gap-3
-                focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-2
-              "
-            >
-              View all <ArrowIcon />
-            </Link>
-          </div>
+function Desktop({ item, onClose }) {
+  return (
+    <div className="bg-[#f1f1f1] border-t border-[#d0d7e2] shadow-[0_8px_24px_rgba(0,52,106,0.10)]">
+      <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10">
 
-          {/* Columns */}
-          <div
-            className="grid gap-x-2"
-            style={{ gridTemplateColumns: `repeat(${item.sections.length}, minmax(0, 280px))` }}
-          >
-            {item.sections.map((sec, i) => (
-              <div key={sec.heading ?? `orphan-${i}`} className="flex flex-col">
+        {/* ── Columns — stretched 1fr ── */}
+        <div
+          className="grid gap-x-6 gap-y-5 content-start"
+          style={{ gridTemplateColumns: `repeat(${item.sections.length}, 1fr)` }}
+        >
+          {item.sections.map((sec, i) => {
 
-                {!sec.heading ? (
-                  <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
+            if (!sec.heading) {
+              return (
+                <div key={`orphan-${i}`} className="flex flex-col gap-1">
+                  <ul className="list-none m-0 p-0">
                     {sec.links.map((lk) => (
-                      <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
+                      <li key={lk.label}>
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className={childLinkClass}
-                          {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          className="block text-[13.5px] font-semibold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]"
                         >
                           {lk.label}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                ) : (
-                  <>
-                    {sec.href ? (
+                </div>
+              );
+            }
+
+            if (sec.href) {
+              return (
+                <div key={sec.heading} className="flex flex-col gap-2">
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    className="group flex items-center gap-[5px] text-[12px] font-extrabold uppercase tracking-[0.08em] no-underline pb-[7px] border-b-2 transition-colors text-[#004A8A] hover:text-[#0273D7] border-[#b0bac8] leading-[1.2] hover:border-[#0273D7]"
+                  >
+                    <span>{sec.heading}</span>
+                    <span className="flex items-center flex-shrink-0 opacity-60 group-hover:translate-x-0.5 transition-transform">
+                      <IcoArrow />
+                    </span>
+                  </Link>
+                  <ul className="list-none m-0 p-0">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label}>
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className="block text-[13.5px] font-extrabold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]"
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            return (
+              <div key={sec.heading} className="flex flex-col gap-2">
+                <span className="block text-[12px] font-extrabold text-[#6b7a8d] uppercase tracking-[0.08em] pb-[7px] border-b-2 border-[#b0bac8]">
+                  {sec.heading}
+                </span>
+                <ul className="list-none m-0 p-0">
+                  {sec.links.map((lk) => (
+                    <li key={lk.label}>
                       <Link
-                        href={sec.href}
+                        href={lk.href}
                         onClick={onClose}
-                        className={`${headingBaseClass} no-underline group
-                          transition-colors duration-150
-                          hover:bg-white hover:text-[#01346a]
-                          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
-                        {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="block text-[13.5px] font-semibold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]"
                       >
-                        <span className="group-hover:underline underline-offset-[2px]">{sec.heading}</span>
-                        <span className="opacity-70 flex items-center group-hover:opacity-100 group-hover:translate-x-[3px] transition-transform duration-150">
-                          <ArrowIcon />
-                        </span>
+                        {lk.label}
                       </Link>
-                    ) : (
-                      <span className={headingBaseClass}>
-                        {sec.heading}
-                      </span>
-                    )}
-
-                    <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
-                      {sec.links.map((lk) => (
-                        <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
-                          <Link
-                            href={lk.href}
-                            onClick={onClose}
-                            className={childLinkClass}
-                            {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                          >
-                            {lk.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
 
-function MobSection({ sec }) {
+// ─── Mobile ───────────────────────────────────────────────────────────────────
+
+function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
-  const uid = useId();
 
   if (!sec.heading) {
     return (
-      <div className="border-b border-white/[0.04]">
-        <ul className="list-none m-0 p-0 bg-black/[0.15]" aria-label="Additional links">
-          {sec.links.map((lk) => (
-            <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
-              <Link
-                href={lk.href}
-                className="
-                  block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                "
-                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {lk.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <div className="border-b border-[#dde3f0]">
+        {sec.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+          >
+            <svg className="flex-shrink-0 w-[6px] h-[10px] opacity-50 text-[#004A8A]" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {link.label}
+          </Link>
+        ))}
       </div>
     );
   }
 
   if (sec.href) {
     return (
-      <div className="border-b border-white/[0.04]">
+      <div className="border-b border-[#dde3f0]">
         <div className="flex items-stretch">
           <Link
             href={sec.href}
-            className="
-              flex-1 flex items-center gap-[5px]
-              text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
-              text-white bg-[#01346a]/60 border-l-[3px] border-l-white/50
-              px-[18px] py-[11px] underline
-              hover:text-white hover:bg-[#01346a]/80
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
-            {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = ''; }}
           >
+            <span className="flex-shrink-0 w-[3px] self-stretch" style={{ background: '#0273D7' }} aria-hidden="true" />
             <span>{sec.heading}</span>
-            <span className="opacity-60 flex items-center">
-              <ArrowIcon />
-            </span>
+            <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-60" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
           <button
-            onClick={() => setOpen((o) => !o)}
+            className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minWidth: '44px', transition: 'background 0.15s' }}
+            onClick={() => setOpen(!open)}
             aria-expanded={open}
-            aria-controls={`mobsec-${uid}`}
             aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
-            className="
-              flex items-center justify-center px-4
-              text-white/75 bg-[#01346a]/60
-              hover:text-white hover:bg-[#01346a]/80 cursor-pointer
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
-            style={{ minWidth: '44px' }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(2,115,215,0.06)'}
+            onMouseLeave={e => e.currentTarget.style.background = ''}
           >
-            <ChevronIcon />
+            <ChevronDown />
           </button>
         </div>
-
         {open && (
-          <ul
-            id={`mobsec-${uid}`}
-            className="list-none m-0 p-0 bg-black/[0.15]"
-            aria-label={`${sec.heading} links`}
-          >
-            {sec.links.map((lk) => (
-              <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+          <ul className="list-none m-0 p-0 pb-2" style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }} role="list">
+            {sec.links.map((link) => (
+              <li key={link.label} role="listitem">
                 <Link
-                  href={lk.href}
-                  className="
-                    block px-[22px] py-[9px] pl-[34px]
-                    text-[13.5px] font-bold text-white/60 no-underline
-                    hover:text-white hover:bg-white/[0.05]
-                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                  "
-                  {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  href={link.href}
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                  style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
                 >
-                  {lk.label}
+                  <svg className="flex-shrink-0 w-[6px] h-[10px] opacity-50 text-[#004A8A]" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {link.label}
                 </Link>
               </li>
             ))}
@@ -422,43 +352,36 @@ function MobSection({ sec }) {
   }
 
   return (
-    <div className="border-b border-white/[0.04]">
+    <div className="border-b border-[#dde3f0]">
       <button
-        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+        style={{ minHeight: '44px' }}
+        onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-controls={`mobsec-${uid}`}
-        className="
-          w-full flex items-center justify-between gap-2
-          text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
-          text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50 border-y-0 border-r-0
-          px-[18px] py-[11px] cursor-pointer
-          hover:text-white hover:bg-[#01346a]/80
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-        "
       >
-        {sec.heading}
-        <ChevronIcon />
+        <span className="flex items-center gap-2 min-w-0">
+          <span className="flex-shrink-0 w-[3px] self-stretch rounded-full" style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }} aria-hidden="true" />
+          <span className="truncate">{sec.heading}</span>
+        </span>
+        <span style={{ color: open ? '#0273D7' : '#1a2a4a', transition: 'color 0.2s' }}>
+          <ChevronDown />
+        </span>
       </button>
-
       {open && (
-        <ul
-          id={`mobsec-${uid}`}
-          className="list-none m-0 p-0 bg-black/[0.15]"
-          aria-label={`${sec.heading} links`}
-        >
-          {sec.links.map((lk) => (
-            <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+        <ul className="list-none m-0 p-0 pb-2" style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }} role="list">
+          {sec.links.map((link) => (
+            <li key={link.label} role="listitem">
               <Link
-                href={lk.href}
-                className="
-                  block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                "
-                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                href={link.href}
+                className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
               >
-                {lk.label}
+                <svg className="flex-shrink-0 w-[6px] h-[10px] opacity-50 text-[#004A8A]" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {link.label}
               </Link>
             </li>
           ))}
@@ -468,22 +391,19 @@ function MobSection({ sec }) {
   );
 }
 
-function MobItem({ item }) {
+function MobileAccordionItemA({ item }) {
   const [open, setOpen] = useState(false);
-  const uid = useId();
+  const hasSections = item.sections?.length > 0;
 
-  if (!item.sections) {
+  if (!hasSections) {
     return (
-      <div className="border-b border-white/[0.06]">
+      <div className="border-b border-[#0057a8]">
         <Link
           href={item.href}
-          className="
-            w-full flex items-center justify-between
-            text-[15px] font-normal text-white/[0.88] no-underline
-            px-[22px] py-[10px]
-            hover:bg-white/[0.05] hover:text-white
-            focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-          "
+          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+          style={{ minHeight: '52px', background: 'transparent', transition: 'background 0.15s' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
         >
           {item.label}
         </Link>
@@ -492,31 +412,28 @@ function MobItem({ item }) {
   }
 
   return (
-    <div className="border-b border-white/[0.06]">
+    <div className="border-b border-[#0057a8]">
       <button
-        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+        style={{
+          minHeight: '52px',
+          paddingTop: '14px',
+          paddingBottom: '14px',
+          background: open ? 'rgba(255,255,255,0.1)' : 'transparent',
+          transition: 'background 0.15s',
+        }}
+        onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-controls={`mobitem-${uid}`}
-        aria-haspopup="true"
-        className="
-          w-full flex items-center justify-between gap-2
-          text-[15px] font-normal text-white/[0.88] text-left
-          bg-transparent border-none px-[22px] py-[10px] cursor-pointer
-          hover:bg-white/[0.05] hover:text-white
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-        "
+        onMouseEnter={e => { if (!open) e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = open ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
       >
-        {item.label}
-        <ChevronIcon />
+        <span>{item.label}</span>
+        <ChevronDown />
       </button>
-
       {open && (
-        <div
-          id={`mobitem-${uid}`}
-          className="bg-black/[0.25] border-t border-white/[0.05]"
-        >
+        <div className="border-t border-[#0057a8]" style={{ background: '#ffffff' }} role="region" aria-label={`${item.label} submenu`}>
           {item.sections.map((sec, i) => (
-            <MobSection key={sec.heading ?? `orphan-${i}`} sec={sec} />
+            <MobileSectionFromSections key={i} sec={sec} />
           ))}
         </div>
       )}
@@ -524,13 +441,20 @@ function MobItem({ item }) {
   );
 }
 
-export default function VariationE() {
-  const [activeId, setActiveId] = useState(null);
-  const [mobOpen,  setMobOpen]  = useState(false);
+export default function VariationE2() {
+  const [activeId,  setActiveId]  = useState(null);
+  const [mobOpen,   setMobOpen]   = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
   const closeTimer = useRef(null);
 
   useEffect(() => {
-    const fn = () => { if (window.innerWidth > 860) setMobOpen(false); };
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+
+  useEffect(() => {
+    const fn = () => { if (window.innerWidth > 1023) setMobOpen(false); };
     window.addEventListener('resize', fn, { passive: true });
     return () => window.removeEventListener('resize', fn);
   }, []);
@@ -548,142 +472,90 @@ export default function VariationE() {
   };
   const scheduleClose = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => setActiveId(null), 140);
+    closeTimer.current = setTimeout(() => setActiveId(null), 120);
   };
 
+  const activeItem = NAV.find((n) => n.id === activeId);
+
   return (
-    <>
-      <style>{`
-        .nav-item {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          height: 100%;
-          padding: 8px 12px;
-          font-size: 13.5px;
-          font-weight: normal;
-          color: #fff;
-          white-space: nowrap;
-          text-decoration: none;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          transition: background 0.15s ease;
-          font-family: inherit;
-        }
-        .nav-item::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 3px;
-          background: #fff;
-          transform: scaleX(0);
-          transform-origin: center;
-        }
-        .nav-item:hover,
-        .nav-item.active {
-          background: #005cbf;
-        }
-        .nav-item:hover::after,
-        .nav-item.active::after {
-          transform: scaleX(1);
-        }
-        .nav-item:focus-visible {
-          outline: 3px solid #fff;
-          outline-offset: -4px;
-        }
-      `}</style>
+    <header
+      className={[
+        'relative sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif]',
+        scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,52,106,0.15)]' : '',
+      ].join(' ')}
+    >
+      <div className="border-b border-black/10">
+        <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
 
-      <header role="banner" className="sticky top-0 z-[500]">
-
-        {/* Primary nav bar */}
-        <div className="bg-[#0573D7] relative">
-          <div className="max-w-[1280px] mx-auto px-4 flex items-stretch" style={{ minHeight: 48 }}>
-
-            {/* Desktop nav */}
-            <nav aria-label="Primary navigation" className="flex-1 flex items-stretch">
-              <ul role="list" className="hidden lg:flex items-stretch list-none m-0 p-0 flex-1">
-                {NAV.map((item) => {
-                  const isActive = activeId === item.id;
-                  return (
-                    <li
-                      key={item.id || item.label}
-                      className="flex items-stretch"
-                      onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
-                      onMouseLeave={scheduleClose}
+          <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">
+            <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
+              {NAV.map((item) => (
+                <li
+                  key={item.id || item.label}
+                  onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
+                  onMouseLeave={scheduleClose}
+                >
+                  {item.sections ? (
+                    <button
+                      className={[
+                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-normal text-white whitespace-nowrap gap-[6px]',
+                        'bg-transparent border-none cursor-pointer font-[inherit]',
+                        'underline-offset-[4px] decoration-white decoration-[1.5px]',
+                        activeId === item.id ? 'underline' : 'no-underline hover:underline',
+                      ].join(' ')}
+                      aria-expanded={activeId === item.id}
+                      aria-haspopup="true"
                     >
-                      {item.sections ? (
-                        <button
-                          aria-haspopup="true"
-                          aria-expanded={isActive}
-                          aria-controls={`mega-${item.id}`}
-                          onClick={() => setActiveId(isActive ? null : item.id)}
-                          className={`nav-item${isActive ? ' active' : ''}`}
-                        >
-                          {item.label}
-                          <ChevronIcon />
-                        </button>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className="nav-item"
-                        >
-                          {item.label}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+                      {item.label}
+                      <ChevronDown />
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-normal text-white whitespace-nowrap no-underline hover:underline underline-offset-[4px] decoration-white decoration-[1.5px]"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            {/* Hamburger */}
+          <div className="ml-auto lg:hidden flex items-center">
             <button
+              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 rounded"
+              onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
-              aria-controls="csusb-mobile-nav"
-              onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
-              className="
-                lg:hidden flex items-center justify-center self-center ml-auto
-                text-white cursor-pointer
-                focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
-              "
+              aria-controls="mobile-nav-e2"
             >
-              {mobOpen ? <CloseIcon /> : <MenuIcon />}
+              <span className="block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-200" style={{ transform: mobOpen ? 'translateY(7px) rotate(45deg)' : 'none' }} />
+              <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-opacity duration-200 ${mobOpen ? 'opacity-0' : 'opacity-100'}`} aria-hidden="true" />
+              <span className="block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-200" style={{ transform: mobOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }} />
             </button>
-
           </div>
 
-          {NAV.filter((n) => n.sections).map((item) => (
-            <Desktop
-              key={item.id}
-              item={item}
-              isOpen={activeId === item.id}
-              onMouseEnter={cancelClose}
-              onMouseLeave={scheduleClose}
-              onClose={() => setActiveId(null)}
-            />
-          ))}
         </div>
+      </div>
 
-        {/* Mobile drawer */}
-        {mobOpen && (
-          <nav
-            id="csusb-mobile-nav"
-            aria-label="Mobile navigation"
-            className="lg:hidden bg-[#004a8a] max-h-[calc(100vh-102px)] overflow-y-auto"
-            style={{ animation: 'mobSlide 0.22s ease' }}
-          >
+      {activeId && activeItem?.sections && (
+        <div className="absolute left-0 right-0" onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
+          <Desktop item={activeItem} onClose={() => setActiveId(null)} />
+        </div>
+      )}
+
+      {mobOpen && (
+        <div id="mobile-nav-e2" className="lg:hidden overflow-y-auto" style={{ maxHeight: 'calc(100vh - 52px)', background: '#0057a8' }}>
+          <nav aria-label="Mobile navigation">
             {NAV.map((item) => (
-              <MobItem key={item.id || item.label} item={item} />
+              <MobileAccordionItemA key={item.id || item.label} item={item} />
             ))}
           </nav>
-        )}
+          <div className="h-[4px]" style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }} aria-hidden="true" />
+        </div>
+      )}
 
-      </header>
-    </>
+    </header>
   );
 }
