@@ -453,7 +453,7 @@ function MobileAccordionItemA({ item }) {
   );
 }
 
-export default function VariationE2() {
+export default function VariationE() {
   const [activeId,  setActiveId]  = useState(null);
   const [mobOpen,   setMobOpen]   = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
