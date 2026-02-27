@@ -359,14 +359,14 @@ function MobileSectionFromSections({ sec }) {
           <Link
             href={sec.href}
             // White text on #004A8A = 10.4:1 ✓ AAA
-            className="flex-1 flex items-center gap-[6px] px-5 py-[13px] text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-white no-underline hover:bg-white/[0.09] transition-colors duration-[120ms] border-l-[3px] border-l-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+            className="flex-1 flex items-center gap-[6px] px-5 py-[13px] text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-white underline hover:bg-white/[0.09] transition-colors duration-[120ms]focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
             style={{ minHeight: '44px' }}
           >
             {sec.heading}
             <span className="opacity-70 flex items-center flex-shrink-0"><IcoArrow /></span>
           </Link>
           <button
-            className="flex items-center justify-center px-4 text-white/70 hover:text-white hover:bg-white/[0.09] border-l border-white/20 cursor-pointer transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+            className="flex items-center justify-center px-4 text-white/70 hover:text-white hover:bg-white/[0.09] cursor-pointer transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
             style={{ minWidth: '44px' }}
             onClick={() => setOpen(!open)}
             aria-expanded={open}
@@ -469,7 +469,7 @@ function MobileAccordionItemA({ item }) {
       </button>
       {open && (
         // Expanded panel: #004A8A
-        <div className="bg-[#004A8A] border-t border-white/10" role="region" aria-label={`${item.label} submenu`}>
+        <div className="bg-[#023369] border-t border-white/10" role="region" aria-label={`${item.label} submenu`}>
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}
@@ -588,7 +588,7 @@ export default function VariationB() {
 
       {/* Mobile menu: #023369 background */}
       {mobOpen && (
-        <div id="mobile-nav-b" className="lg:hidden overflow-y-auto bg-[#023369]" style={{ maxHeight: 'calc(100vh - 52px)' }}>
+        <div id="mobile-nav-b" className="lg:hidden overflow-y-auto bg-[#004A8A]" style={{ maxHeight: 'calc(100vh - 52px)' }}>
           <nav aria-label="Mobile navigation">
             {NAV.map((item) => (
               <MobileAccordionItemA key={item.id || item.label} item={item} />

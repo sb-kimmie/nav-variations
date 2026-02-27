@@ -13,6 +13,7 @@ const navItems = [
         columns: [
           {
             heading: 'Explore CSUSB',
+            href: '',
             links: [
               { label: 'Why Choose CSUSB', href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
               { label: 'Campus Tours', href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
@@ -23,6 +24,7 @@ const navItems = [
           },
           {
             heading: 'Apply',
+            href: '',
             links: [
               { label: 'Application Workshops', href: '/join-the-pack/future-students/apply/application-workshops' },
               { label: 'Freshmen Admissions Requirements', href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
@@ -35,6 +37,7 @@ const navItems = [
           },
           {
             heading: 'Program Specific Requirements',
+            href: '/program-requirements',
             links: [
               { label: 'Transfer Success Pathway', href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
               { label: 'Veteran Admissions Requirements', href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -47,6 +50,7 @@ const navItems = [
           },
           {
             heading: 'Campus Life',
+            href: '',
             links: [
               { label: 'Student Recreation & Wellness Center', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
               { label: 'Living on Campus', href: '/join-the-pack/future-students/living-campus' },
@@ -66,30 +70,21 @@ const navItems = [
     rows: [
       {
         columns: [
-          {
-            heading: null, href: null,
-            links: [
-              { label: 'First-year Students', href: '/join-the-pack/newly-admitted-students/first-year-students' },
-              { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
-              { label: 'International Students', href: 'https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students' },
-            ],
-          },
-          {
-            heading: null, href: null,
-            links: [
-              { label: 'Transfer Students', href: '/join-the-pack/newly-admitted-students/transfer-students' },
-              { label: 'Returning Students', href: '/join-the-pack/newly-admitted-students/returning-students' },
-              { label: 'Graduate Students', href: '/join-the-pack/newly-admitted-students/graduate-students' },
-            ],
-          },
-          {
-            heading: null, href: null,
-            links: [
-              { label: 'Financial Aid, Scholarships & Grants', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
-              { label: 'Orientation Overview', href: '/join-the-pack/newly-admitted-students/orientation-overview' },
-              { label: 'Join Nearpeer', href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
-            ],
-          },
+          { heading: null, href: null, links: [
+            { label: 'First-year Students', href: '/join-the-pack/newly-admitted-students/first-year-students' },
+            { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
+            { label: 'International Students', href: 'https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students' },
+          ]},
+          { heading: null, href: null, links: [
+            { label: 'Transfer Students', href: '/join-the-pack/newly-admitted-students/transfer-students' },
+            { label: 'Returning Students', href: '/join-the-pack/newly-admitted-students/returning-students' },
+            { label: 'Graduate Students', href: '/join-the-pack/newly-admitted-students/graduate-students' },
+          ]},
+          { heading: null, href: null, links: [
+            { label: 'Financial Aid, Scholarships & Grants', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
+            { label: 'Orientation Overview', href: '/join-the-pack/newly-admitted-students/orientation-overview' },
+            { label: 'Join Nearpeer', href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
+          ]},
         ],
       },
     ],
@@ -115,7 +110,7 @@ const navItems = [
         columns: [
           {
             heading: 'Apply and Admissions Requirements',
-            href: '',
+            href: '/its',
             links: [
               { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
               { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -153,15 +148,18 @@ const navItems = [
     rows: [
       {
         columns: [
-          {
-            heading: null, href: null,
-            links: [{ label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' }],
-          },
+          { heading: null, href: null, links: [{ label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' }] },
         ],
       },
     ],
   },
 ];
+
+const IcoArrow = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
 const IcoClose = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -178,16 +176,49 @@ function ChevronB({ open }) {
   return (
     <svg
       className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-      viewBox="0 0 12 8"
-      fill="none"
+      viewBox="0 0 12 8" fill="none"
     >
       <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
+// ─── Mobile section ───────────────────────────────────────────────────────────
 function MobileSectionFromRows({ col }) {
+  const [open, setOpen] = useState(false);
+
   if (col.heading) {
+    // CLICKABLE heading — show as link with arrow, children always visible beneath (no toggle)
+    if (col.href) {
+      return (
+        <div className="mb-1">
+          <div className="px-5 pt-5 pb-2">
+            <Link
+              href={col.href}
+              className="inline-flex items-center gap-[6px] text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8] underline hover:underline transition-colors duration-[120ms]"
+            >
+              {col.heading}
+              <span className="opacity-70 flex items-center flex-shrink-0"><IcoArrow /></span>
+            </Link>
+            <div className="mt-[10px] h-px bg-[#0255a3]" />
+          </div>
+          <div>
+            {col.links.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:underline"
+                style={{ minHeight: '44px' }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // NON-CLICKABLE heading — original accordion behavior
     return (
       <div className="mb-1">
         <div className="px-5 pt-5 pb-2">
@@ -202,6 +233,7 @@ function MobileSectionFromRows({ col }) {
               key={link.label}
               href={link.href}
               className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:underline"
+              style={{ minHeight: '44px' }}
             >
               {link.label}
             </Link>
@@ -211,6 +243,7 @@ function MobileSectionFromRows({ col }) {
     );
   }
 
+  // No heading — flat orphan links
   return (
     <div className="pt-2">
       {col.links.map((link) => (
@@ -218,6 +251,7 @@ function MobileSectionFromRows({ col }) {
           key={link.label}
           href={link.href}
           className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:bg-[rgba(255,255,255,0.1)]"
+          style={{ minHeight: '44px' }}
         >
           {link.label}
         </Link>
@@ -236,6 +270,7 @@ function MobileAccordionItemB({ item }) {
         <Link
           href={item.href}
           className="flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white no-underline bg-[#0573D7] hover:bg-[#0462bc]"
+          style={{ minHeight: '44px' }}
         >
           {item.label}
         </Link>
@@ -251,6 +286,7 @@ function MobileAccordionItemB({ item }) {
         }`}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
+        style={{ minHeight: '44px' }}
       >
         <span>{item.label}</span>
         <ChevronB open={open} />
@@ -271,12 +307,7 @@ function MobileAccordionItemB({ item }) {
 
 function Chevron() {
   return (
-    <svg
-      className="w-[10px] h-[7px] flex-shrink-0"
-      viewBox="0 0 12 8"
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none" aria-hidden="true">
       <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -386,10 +417,13 @@ export default function VariationA() {
                         col.href ? (
                           <Link
                             href={col.href}
-                            className="block text-[13px] font-bold uppercase tracking-[0.09em] no-underline mb-2 pb-[6px] hover:underline underline-offset-[3px] decoration-[rgba(255,255,255,0.7)] decoration-[1.5px]"
-                            style={{ color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.30)' }}
+                            className="group inline-flex items-center gap-[5px] text-[13px] font-bold uppercase tracking-[0.09em] no-underline mb-2 pb-[6px] hover:underline underline-offset-[3px] decoration-[rgba(255,255,255,0.7)] decoration-[1.5px] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[2px]"
+                            style={{ color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.30)', display: 'flex' }}
                           >
-                            {col.heading}
+                            <span>{col.heading}</span>
+                            <span className="opacity-70 flex items-center flex-shrink-0 group-hover:opacity-100 group-hover:translate-x-[3px] transition-all duration-150">
+                              <IcoArrow />
+                            </span>
                           </Link>
                         ) : (
                           <span
@@ -409,16 +443,8 @@ export default function VariationA() {
                               style={{ color: '#d9e8ff', transition: 'color 0.15s' }}
                               onMouseEnter={e => { e.currentTarget.style.color = '#ffffff'; }}
                               onMouseLeave={e => { e.currentTarget.style.color = '#d9e8ff'; }}
-                              onFocus={e => {
-                                e.currentTarget.style.outline = '2px solid #7ec8ff';
-                                e.currentTarget.style.outlineOffset = '2px';
-                                e.currentTarget.style.color = '#ffffff';
-                              }}
-                              onBlur={e => {
-                                e.currentTarget.style.outline = '';
-                                e.currentTarget.style.outlineOffset = '';
-                                e.currentTarget.style.color = '#d9e8ff';
-                              }}
+                              onFocus={e => { e.currentTarget.style.outline = '2px solid #7ec8ff'; e.currentTarget.style.outlineOffset = '2px'; e.currentTarget.style.color = '#ffffff'; }}
+                              onBlur={e => { e.currentTarget.style.outline = ''; e.currentTarget.style.outlineOffset = ''; e.currentTarget.style.color = '#d9e8ff'; }}
                             >
                               {link.label}
                             </Link>
