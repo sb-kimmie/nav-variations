@@ -174,18 +174,6 @@ const IcoArrow = () => (
   </svg>
 );
 
-function ChevronB({ open }) {
-  return (
-    <svg
-      className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-      viewBox="0 0 12 8"
-      fill="none"
-    >
-      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function Desktop({ item, onClose }) {
   return (
     <div className="bg-[#fff] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
@@ -242,7 +230,7 @@ function Desktop({ item, onClose }) {
                   <Link
                     href={sec.href}
                     onClick={onClose}
-                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5] hover:underline transition-colors"
+                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5] hover:underline transition-colors leading-[1.2]"
                   >
                     <span>{sec.heading}</span>
                     <span className="flex items-center flex-shrink-0 opacity-70">
@@ -266,16 +254,10 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            // ── Named section: NON-CLICKABLE heading (label only) ──
+            // ── Named section: NON-CLICKABLE heading ──
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
-                {/*
-                  Dashed border + muted color signals "this is a label, not a link".
-                  Solid border + arrow on clickable headings = interactive.
-                  Dashed border + no arrow + muted text = purely organizational.
-                */}
-                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] pb-[6px] border-b-2 border-[#004a8a]">
-
+                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] pb-[6px] border-b-2 border-[#004a8a] leading-[1.2]">
                   {sec.heading}
                 </span>
                 <ul className="list-none m-0 p-0">
@@ -302,9 +284,14 @@ function Desktop({ item, onClose }) {
 
 // ─── Mobile ───────────────────────────────────────────────────────────────────
 
-function ChevronA() {
+function MobileChevron() {
   return (
-    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+    <svg
+      className="w-[10px] h-[7px] flex-shrink-0"
+      viewBox="0 0 12 8"
+      fill="none"
+      aria-hidden="true"
+    >
       <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -313,7 +300,7 @@ function ChevronA() {
 function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
 
-  // ── Headingless orphan group — flat links, no heading at all ──
+  // ── Headingless orphan group ──
   if (!sec.heading) {
     return (
       <div className="border-b border-[#dde3f0]">
@@ -340,10 +327,6 @@ function MobileSectionFromSections({ sec }) {
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
-        {/*
-          For clickable sections on mobile, we show the heading as a tappable link
-          AND a separate expand toggle for the child links.
-        */}
         <div className="flex items-stretch">
           <Link
             href={sec.href}
@@ -373,7 +356,7 @@ function MobileSectionFromSections({ sec }) {
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(2,115,215,0.06)'}
             onMouseLeave={e => e.currentTarget.style.background = ''}
           >
-            <ChevronA />
+            <MobileChevron />
           </button>
         </div>
 
@@ -422,7 +405,7 @@ function MobileSectionFromSections({ sec }) {
           />
           <span className="truncate">{sec.heading}</span>
         </span>
-        <ChevronA />
+        <MobileChevron />
       </button>
 
       {open && (
@@ -490,7 +473,7 @@ function MobileAccordionItemA({ item }) {
         onMouseLeave={e => { e.currentTarget.style.background = open ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
       >
         <span>{item.label}</span>
-        <ChevronA />
+        <MobileChevron />
       </button>
 
       {open && (
@@ -577,7 +560,7 @@ export default function VariationB() {
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <ChevronB open={activeId === item.id} />
+                      <MobileChevron />
                     </button>
                   ) : (
                     <Link

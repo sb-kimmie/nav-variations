@@ -4,12 +4,14 @@ import Original from "./components/original/original";
 import VariationC from "./components/variation-c/variation-c";
 import VariationD from "./components/variation-d/variation-d";
 import VariationE from "./components/variation-e/variation-e";
+import VariationF from "./components/variation-f/variation-f";
+
 import Image from "next/image";
 import logo from "./imgs/default-img.png";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="bg-white min-h-screen">
       {/* Page header */}
       <div className="bg-[#f0f2f5] border-b border-gray-200 px-10 py-8">
         <h1 className="text-2xl font-bold text-[#002060]">CSUSB Nav Explorations</h1>
@@ -19,7 +21,7 @@ export default function Home() {
       <div className="py-10 flex flex-col gap-12">
 
         {/* Original — highest z so its dropdown is always on top */}
-        <section className="px-10 relative z-30">
+        <section className="px-10 relative z-100">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Original</span>
             <h2 className="text-sm font-semibold text-gray-600">CSUSB Current Navigation</h2>
@@ -32,7 +34,7 @@ export default function Home() {
         </section>
 
         {/* Variation A */}
-        <section className="px-10 relative z-20">
+        <section className="px-10 relative z-90">
           <div className="mb-3 flex items-center gap-3">
             <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation A</h2>
           </div>
@@ -51,7 +53,7 @@ export default function Home() {
         </section>
 
         {/* Variation B */}
-        <section className="px-10 relative z-10">
+        <section className="px-10 relative z-80">
           <div className="mb-3 flex items-center gap-3">
             <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation B</h2>
           </div>
@@ -75,7 +77,7 @@ export default function Home() {
         </section>
 
         {/* Variation C */}
-        <section className="px-10 relative z-9">
+        <section className="px-10 relative z-70">
           <div className="mb-3 flex items-center gap-3">
             <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation C</h2>
           </div>
@@ -83,7 +85,7 @@ export default function Home() {
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation C:</strong>
               <ul>
-                <li><i>Same as Variation B but with a blue desktop background.</i></li>
+                <li><i>Same as Variation B but with a gray desktop background.</i></li>
               </ul>
             </h3>
           </div>
@@ -92,26 +94,17 @@ export default function Home() {
             <VariationC />
           </div>
         </section>
-        <section>
-          <div className="px-10 py-6">
-            </div>
-        </section>
 
         {/* Variation D */}
-        <section className="px-10 relative z-8">
+        <section className="px-10 relative z-60">
           <div className="mb-3 flex items-center gap-3">
             <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation D</h2>
-          </div>
-          <div className="mb-3 flex items-center gap-3">
           </div>
           <div className="mb-3 flex items-center gap-3">
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation D:</strong>
               <ul>
-                <li>1. Section headings in the dropdown have a bold left white border accent and dark background pill, giving clear visual grouping.</li>
-                <li>2. Variation D has a two-level mobile accordion: top-level items expand to reveal section headings, which themselves expand to reveal links — giving users a clear hierarchy without overwhelming them.</li>
-                <li>3. The hover over the main nav has a bolder underline and a slightly bigger background padding.</li>
-                <li>4. Desktop layout is similar to Variation B but with a padded background in the left column and no vertical line.</li>
+                <li><i>Same as Variation B & Variation C but with a blue desktop background.</i></li>
               </ul>
             </h3>
           </div>
@@ -122,15 +115,39 @@ export default function Home() {
         </section>
 
         {/* Variation E */}
-        <section className="px-10 relative z-7">
+        <section className="px-10 relative z-50">
           <div className="mb-3 flex items-center gap-3">
             <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation E</h2>
+          </div>
+          <div className="mb-3 flex items-center gap-3">
           </div>
           <div className="mb-3 flex items-center gap-3">
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation E:</strong>
               <ul>
-                <li><i>Same as Variation C without the left column.</i></li>
+                <li>1. Section headings in the dropdown have a bold left white border accent and dark background pill, giving clear visual grouping.</li>
+                <li>2. Variation E has a two-level mobile accordion: top-level items expand to reveal section headings, which themselves expand to reveal links — giving users a clear hierarchy without overwhelming them.</li>
+                <li>3. The hover over the main nav has a bolder underline and a slightly bigger background padding.</li>
+                <li>4. Desktop layout is similar to Variation B but with a padded background in the left column and no vertical line.</li>
+              </ul>
+            </h3>
+          </div>
+          <div className="">
+            <Image src={logo} alt="default banner" className="" />
+            <VariationE />
+          </div>
+        </section>
+
+        {/* Variation F */}
+        <section className="px-10 relative z-40">
+          <div className="mb-3 flex items-center gap-3">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation F</h2>
+          </div>
+          <div className="mb-3 flex items-center gap-3">
+            <h3 className="text-sm font-normal text-black">
+              <strong>Differences between the Original and Variation F:</strong>
+              <ul>
+                <li><i>Same as Variation E without the left column.</i></li>
                 <li>1. The hover over the main nav has a bolder underline and a slightly more transparent background padding.</li>
                 <li>2. The hover over the main nav flips the chevron icon from pointing down to pointing up.</li>
               </ul>
@@ -138,7 +155,7 @@ export default function Home() {
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
-            <VariationE />
+            <VariationF />
           </div>
         </section>
       </div>
