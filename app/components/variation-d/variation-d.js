@@ -502,7 +502,7 @@ export default function VariationD() {
 
       {/* ── Main bar ── */}
       <div className="border-b border-white/15">
-        <div className="max-w-[1280px] mx-auto px-8 py-[6px] flex items-center">
+        <div className="max-w-[1280px] mx-auto px-8 flex items-center">
 
           {/* Desktop nav */}
           <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">

@@ -524,7 +524,7 @@ function MobItem({ item }) {
   );
 }
 
-export default function VariationF() {
+export default function Variation() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
   const closeTimer = useRef(null);

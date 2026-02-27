@@ -570,7 +570,7 @@ export default function VariationC() {
                   {item.sections ? (
                     <button
                       className={[
-                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-semibold text-white whitespace-nowrap gap-[6px]',
+                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white whitespace-nowrap gap-[6px]',
                         'bg-transparent border-none cursor-pointer font-[inherit]',
                         'underline-offset-[4px] decoration-white decoration-[1.5px]',
                         activeId === item.id ? 'underline' : 'no-underline hover:underline',
@@ -584,7 +584,7 @@ export default function VariationC() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-semibold text-white whitespace-nowrap no-underline hover:underline underline-offset-[4px] decoration-white decoration-[1.5px]"
+                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white whitespace-nowrap no-underline hover:underline underline-offset-[4px] decoration-white decoration-[1.5px]"
                     >
                       {item.label}
                     </Link>
