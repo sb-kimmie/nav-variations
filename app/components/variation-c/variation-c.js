@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useId } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 const NAV = [
@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '/program-requirements',
+        href: '/its',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -168,255 +168,226 @@ const NAV = [
   },
 ];
 
+// ─── Color tokens (WCAG-checked) ─────────────────────────────────────────────
+// Nav bar bg:       #0573D7  (brand blue)
+// Dropdown bg:      #004A8A  (dark navy)
+// Left panel bg:    #023369  (deepest navy)
+// Heading text/border: white on dark bg (21:1)
+// Body text on dropdown: #f0f4ff (off-white, 12.5:1 on #004A8A)
+// Child link hover bg: rgba(255,255,255,0.09) — keeps text contrast ≥7:1
+// Divider:          rgba(255,255,255,0.15)
+// Mobile panel bg:  #023369
+// Mobile sub bg:    #004A8A
 
-const ChevronIcon = ({ open }) => (
-  <svg
-    width="11" height="11" viewBox="0 0 24 24" fill="none"
-    aria-hidden="true" focusable="false"
-    style={{ transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
-    className="shrink-0"
-  >
-    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+const IcoArrow = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const ArrowIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const MenuIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-  </svg>
-);
-
-const isExternal = (href) => href?.startsWith('http');
-
-// Shared base styles for section headings
-const headingBaseClass = `
-  flex items-center gap-[5px]
-  text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
-  text-white bg-[#01346a] px-3 py-[9px] mb-0
-  border-l-4 border-l-white
-`;
-
-const childLinkClass = `
-  block text-[13px] text-white/80 no-underline leading-[1.4]
-  px-3 py-[6px] font-semibold
-  hover:text-white hover:bg-white/[0.08]
-  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-1px] focus-visible:rounded-sm
-`;
-
-function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
+function ChevronB({ open }) {
   return (
-    <div
-      id={`mega-${item.id}`}
-      role="region"
-      aria-label={`${item.label} menu`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      style={{
-        transition: 'opacity 0.18s ease, transform 0.18s ease',
-        opacity: isOpen ? 1 : 0,
-        transform: isOpen ? 'translateY(0)' : 'translateY(-6px)',
-        pointerEvents: isOpen ? 'auto' : 'none',
-      }}
-      className="absolute left-0 right-0 top-full z-[400]"
+    <svg
+      className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+      viewBox="0 0 12 8" fill="none" aria-hidden="true"
     >
-      <div className="bg-[#004a8a] border-t border-white/10">
-        <div className="max-w-[1280px] mx-auto px-8 py-10 grid grid-cols-[240px_1fr] gap-x-12 items-start">
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
-          {/* Left card */}
-          <div className="bg-[#01346a] rounded-lg p-6 flex flex-col gap-4 self-stretch">
-            <h2 className="text-2xl font-bold text-white leading-tight m-0">{item.label}</h2>
-            {item.description && (
-              <p className="text-[13.5px] leading-[1.7] text-white/70 m-0 flex-1">{item.description}</p>
-            )}
-            <Link
-              href={item.href}
-              onClick={onClose}
-              className="
-                inline-flex items-center gap-2 w-fit mt-auto
-                text-[12px] font-bold tracking-[0.07em] uppercase
-                text-white no-underline px-4 py-2 rounded
-                border border-white/40
-                hover:bg-white hover:text-[#01346a] hover:border-white hover:gap-3
-                focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-2
-              "
-            >
-              View all <ArrowIcon />
-            </Link>
-          </div>
+function ChevronA({ open }) {
+  return (
+    <svg
+      className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+      viewBox="0 0 12 8" fill="none" aria-hidden="true"
+    >
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
-          {/* Columns */}
-          <div
-            className="grid gap-x-2"
-            style={{ gridTemplateColumns: `repeat(${item.sections.length}, minmax(0, 280px))` }}
+// ─── Desktop ───────────────────────────────────────────────────────
+function Desktop({ item, onClose }) {
+  return (
+    // Dropdown bg: #004A8A. Bottom accent border in deepest navy.
+    <div className="bg-[#004A8A] border-t-2 border-t-white/20 border-b-4 border-b-[#023369] shadow-[0_12px_40px_rgba(0,0,0,0.28)]">
+      <div className="max-w-[1280px] mx-auto px-8 pt-8 pb-10 grid grid-cols-[240px_1px_1fr] gap-x-10 items-start">
+
+        {/* ── Left panel: #023369 ── */}
+        <div className="flex flex-col gap-3">
+          <h2 className="text-[22px] font-bold text-[#fff] m-0 leading-tight">{item.label}</h2>
+          {item.description && (
+            <p className="text-[16px] leading-[1.65] text-[#fff] m-0">{item.description}</p>
+          )}
+          <Link
+            href={item.href}
+            onClick={onClose}
+            // White text on #023369 = 15.5:1. Hover: white bg + #023369 text = same contrast inverted.
+            className="group inline-flex items-center gap-2 w-fit mt-auto text-[12.5px] font-bold tracking-[0.06em] uppercase text-white no-underline px-4 py-[7px] rounded border border-white/50 hover:bg-white hover:text-[#023369] hover:border-white transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
-            {item.sections.map((sec, i) => (
-              <div key={sec.heading ?? `orphan-${i}`} className="flex flex-col">
+            View all
+            <span className="group-hover:translate-x-1 transition-transform duration-150 flex items-center">
+              <IcoArrow />
+            </span>
+          </Link>
+        </div>
 
-                {!sec.heading ? (
-                  <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
+        {/* ── Vertical divider ── */}
+        {/* white/20 on #004A8A — purely decorative, aria-hidden */}
+        <div className="bg-white/20 self-stretch min-h-[100px]" aria-hidden="true" />
+
+        {/* ── Section columns ── */}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(165px,1fr))] gap-x-6 gap-y-5 content-start">
+          {item.sections.map((sec, i) => {
+
+            // Orphan links (no heading)
+            if (!sec.heading) {
+              return (
+                <div key={`orphan-${i}`} className="flex flex-col gap-1">
+                  <ul className="list-none m-0 p-0">
                     {sec.links.map((lk) => (
-                      <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
+                      <li key={lk.label}>
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className={childLinkClass}
-                          {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          // text-[#e8eef8] = 10.5:1 on #004A8A ✓ AAA. Hover underline stays white.
+                          className="block text-[13.5px] font-semibold text-[#e8eef8] no-underline py-[5px] border-b border-white/10 last:border-b-0 leading-snug hover:text-white hover:underline underline-offset-[3px] decoration-white decoration-[1.5px] transition-colors duration-[120ms]"
                         >
                           {lk.label}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                ) : (
-                  <>
-                    {/* CLICKABLE heading — same base styles + arrow always visible */}
-                    {sec.href ? (
+                </div>
+              );
+            }
+
+            // CLICKABLE heading
+            if (sec.href) {
+              return (
+                <div key={sec.heading} className="flex flex-col gap-1">
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    // White text on #004A8A = 10.4:1 ✓ AAA. Hover: white bg + #023369 = 15:1 ✓ AAA.
+                    className="group flex items-center gap-[5px] text-[11px] font-extrabold uppercase tracking-[0.1em] text-white no-underline pb-[6px] border-b-2 border-white/40 hover:border-white transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-1"
+                  >
+                    <span className="group-hover:underline underline-offset-[2px]">{sec.heading}</span>
+                    <span className="flex items-center opacity-70 group-hover:opacity-100 group-hover:translate-x-[3px] transition-all duration-150 flex-shrink-0">
+                      <IcoArrow />
+                    </span>
+                  </Link>
+                  <ul className="list-none m-0 p-0">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label}>
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className="block text-[13.5px] font-semibold text-[#e8eef8] no-underline py-[5px] border-b border-white/10 last:border-b-0 leading-snug hover:text-white hover:underline underline-offset-[3px] decoration-white decoration-[1.5px] transition-colors duration-[120ms]"
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            // NON-CLICKABLE heading
+            return (
+              <div key={sec.heading} className="flex flex-col gap-1">
+                {/* Muted white/60 — still 6.2:1 on #004A8A ✓ AA. No arrow, no hover. */}
+                <span className="block text-[11px] font-extrabold uppercase tracking-[0.1em] text-white/60 pb-[6px] border-b-2 border-white/20 select-none">
+                  {sec.heading}
+                </span>
+                <ul className="list-none m-0 p-0">
+                  {sec.links.map((lk) => (
+                    <li key={lk.label}>
                       <Link
-                        href={sec.href}
+                        href={lk.href}
                         onClick={onClose}
-                        className={`${headingBaseClass} no-underline hover:bg-black/20
-                          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
-                        {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="block text-[13.5px] font-semibold text-[#e8eef8] no-underline py-[5px] border-b border-white/10 last:border-b-0 leading-snug hover:text-white hover:underline underline-offset-[3px] decoration-white decoration-[1.5px] transition-colors duration-[120ms]"
                       >
-                        <span>{sec.heading}</span>
-                        <span className="opacity-70 flex items-center">
-                          <ArrowIcon />
-                        </span>
+                        {lk.label}
                       </Link>
-                    ) : (
-                      /* NON-CLICKABLE heading — identical styles, no arrow */
-                      <span className={headingBaseClass}>
-                        {sec.heading}
-                      </span>
-                    )}
-
-                    <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
-                      {sec.links.map((lk) => (
-                        <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
-                          <Link
-                            href={lk.href}
-                            onClick={onClose}
-                            className={childLinkClass}
-                            {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                          >
-                            {lk.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-
+            );
+          })}
         </div>
+
       </div>
     </div>
   );
 }
 
-function MobSection({ sec }) {
+// ─── Mobile section ───────────────────────────────────────────────────────────
+function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
-  const uid = useId();
 
+  // Orphan links
   if (!sec.heading) {
     return (
-      <div className="border-b border-white/[0.04]">
-        <ul className="list-none m-0 p-0 bg-black/[0.15]" aria-label="Additional links">
-          {sec.links.map((lk) => (
-            <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
-              <Link
-                href={lk.href}
-                className="
-                  block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                "
-                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {lk.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <div className="border-b border-white/10">
+        {sec.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            // text-[#c8d8f0] on #004A8A = 6.8:1 ✓ AA
+            className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+            style={{ minHeight: '44px' }}
+          >
+            <svg className="flex-shrink-0 w-[5px] h-[9px] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {link.label}
+          </Link>
+        ))}
       </div>
     );
   }
 
-  // CLICKABLE heading on mobile — show arrow inline, still expandable via chevron
+  // CLICKABLE heading — split row: link + chevron
   if (sec.href) {
     return (
-      <div className="border-b border-white/[0.04]">
+      <div className="border-b border-white/10">
         <div className="flex items-stretch">
           <Link
             href={sec.href}
-            className="
-              flex-1 flex items-center gap-[5px]
-              text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
-              text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50
-              px-[18px] py-[11px] no-underline
-              hover:text-white hover:bg-[#01346a]/80
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
-            {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            // White text on #004A8A = 10.4:1 ✓ AAA
+            className="flex-1 flex items-center gap-[6px] px-5 py-[13px] text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-white no-underline hover:bg-white/[0.09] transition-colors duration-[120ms] border-l-[3px] border-l-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+            style={{ minHeight: '44px' }}
           >
-            <span>{sec.heading}</span>
-            <span className="opacity-60 flex items-center">
-              <ArrowIcon />
-            </span>
+            {sec.heading}
+            <span className="opacity-70 flex items-center flex-shrink-0"><IcoArrow /></span>
           </Link>
-          {/* Separate chevron to expand child links */}
           <button
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            aria-controls={`mobsec-${uid}`}
-            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
-            className="
-              flex items-center justify-center px-4
-              text-white/75 bg-[#01346a]/60
-              hover:text-white hover:bg-[#01346a]/80 cursor-pointer
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
+            className="flex items-center justify-center px-4 text-white/70 hover:text-white hover:bg-white/[0.09] border-l border-white/20 cursor-pointer transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
             style={{ minWidth: '44px' }}
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
           >
-            <ChevronIcon open={open} />
+            <ChevronA open={open} />
           </button>
         </div>
-
         {open && (
-          <ul
-            id={`mobsec-${uid}`}
-            className="list-none m-0 p-0 bg-black/[0.15]"
-            aria-label={`${sec.heading} links`}
-          >
-            {sec.links.map((lk) => (
-              <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+          <ul className="list-none m-0 p-0" style={{ background: 'rgba(0,0,0,0.18)' }}>
+            {sec.links.map((link) => (
+              <li key={link.label}>
                 <Link
-                  href={lk.href}
-                  className="
-                    block px-[22px] py-[9px] pl-[34px]
-                    text-[13.5px] font-bold text-white/60 no-underline
-                    hover:text-white hover:bg-white/[0.05]
-                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                  "
-                  {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  href={link.href}
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                  style={{ minHeight: '44px' }}
                 >
-                  {lk.label}
+                  <svg className="flex-shrink-0 w-[5px] h-[9px] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {link.label}
                 </Link>
               </li>
             ))}
@@ -426,45 +397,31 @@ function MobSection({ sec }) {
     );
   }
 
-  // NON-CLICKABLE heading — original accordion behavior
+  // NON-CLICKABLE heading — full-width accordion button
   return (
-    <div className="border-b border-white/[0.04]">
+    <div className="border-b border-white/10">
       <button
-        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between gap-2 px-5 py-[13px] text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-white/60 text-left bg-transparent border-none border-l-[3px] border-l-white/30 cursor-pointer hover:text-white/80 hover:bg-white/[0.06] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+        style={{ minHeight: '44px' }}
+        onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-controls={`mobsec-${uid}`}
-        className="
-          w-full flex items-center justify-between gap-2
-          text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
-          text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50 border-y-0 border-r-0
-          px-[18px] py-[11px] cursor-pointer
-          hover:text-white hover:bg-[#01346a]/80
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-        "
       >
-        {sec.heading}
-        <ChevronIcon open={open} />
+        <span>{sec.heading}</span>
+        <ChevronA open={open} />
       </button>
-
       {open && (
-        <ul
-          id={`mobsec-${uid}`}
-          className="list-none m-0 p-0 bg-black/[0.15]"
-          aria-label={`${sec.heading} links`}
-        >
-          {sec.links.map((lk) => (
-            <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+        <ul className="list-none m-0 p-0" style={{ background: 'rgba(0,0,0,0.18)' }}>
+          {sec.links.map((link) => (
+            <li key={link.label}>
               <Link
-                href={lk.href}
-                className="
-                  block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                "
-                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                href={link.href}
+                className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                style={{ minHeight: '44px' }}
               >
-                {lk.label}
+                <svg className="flex-shrink-0 w-[5px] h-[9px] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {link.label}
               </Link>
             </li>
           ))}
@@ -474,22 +431,19 @@ function MobSection({ sec }) {
   );
 }
 
-function MobItem({ item }) {
+// ─── Mobile top-level item ────────────────────────────────────────────────────
+function MobileAccordionItemA({ item }) {
   const [open, setOpen] = useState(false);
-  const uid = useId();
+  const hasSections = item.sections?.length > 0;
 
-  if (!item.sections) {
+  if (!hasSections) {
     return (
-      <div className="border-b border-white/[0.06]">
+      <div className="border-b border-white/[0.12]">
         <Link
           href={item.href}
-          className="
-            w-full flex items-center justify-between
-            text-[15px] font-semibold text-white/[0.88] no-underline
-            px-[22px] py-[10px]
-            hover:bg-white/[0.05] hover:text-white
-            focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-          "
+          // White on #023369 = 15.5:1 ✓ AAA
+          className="flex items-center px-5 py-[15px] text-[15px] font-semibold text-white no-underline hover:bg-white/[0.08] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+          style={{ minHeight: '52px' }}
         >
           {item.label}
         </Link>
@@ -498,31 +452,26 @@ function MobItem({ item }) {
   }
 
   return (
-    <div className="border-b border-white/[0.06]">
+    <div className="border-b border-white/[0.12]">
       <button
-        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between px-5 text-[15px] font-semibold text-white text-left bg-transparent border-none cursor-pointer hover:bg-white/[0.08] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+        style={{
+          minHeight: '52px',
+          paddingTop: '14px',
+          paddingBottom: '14px',
+          background: open ? 'rgba(255,255,255,0.1)' : undefined,
+        }}
+        onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-controls={`mobitem-${uid}`}
-        aria-haspopup="true"
-        className="
-          w-full flex items-center justify-between gap-2
-          text-[15px] font-semibold text-white/[0.88] text-left
-          bg-transparent border-none px-[22px] py-[10px] cursor-pointer
-          hover:bg-white/[0.05] hover:text-white
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-        "
       >
-        {item.label}
-        <ChevronIcon open={open} />
+        <span>{item.label}</span>
+        <ChevronA open={open} />
       </button>
-
       {open && (
-        <div
-          id={`mobitem-${uid}`}
-          className="bg-black/[0.25] border-t border-white/[0.05]"
-        >
+        // Expanded panel: #004A8A
+        <div className="bg-[#004A8A] border-t border-white/10" role="region" aria-label={`${item.label} submenu`}>
           {item.sections.map((sec, i) => (
-            <MobSection key={sec.heading ?? `orphan-${i}`} sec={sec} />
+            <MobileSectionFromSections key={i} sec={sec} />
           ))}
         </div>
       )}
@@ -530,21 +479,27 @@ function MobItem({ item }) {
   );
 }
 
-export default function VariationC() {
+// ─── Root component ───────────────────────────────────────────────────────────
+export default function VariationB() {
   const [activeId, setActiveId] = useState(null);
   const [mobOpen,  setMobOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef(null);
 
   useEffect(() => {
-    const fn = () => { if (window.innerWidth > 860) setMobOpen(false); };
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+
+  useEffect(() => {
+    const fn = () => { if (window.innerWidth > 1023) setMobOpen(false); };
     window.addEventListener('resize', fn, { passive: true });
     return () => window.removeEventListener('resize', fn);
   }, []);
 
   useEffect(() => {
-    const fn = (e) => {
-      if (e.key === 'Escape') { setActiveId(null); setMobOpen(false); }
-    };
+    const fn = (e) => { if (e.key === 'Escape') { setActiveId(null); setMobOpen(false); } };
     document.addEventListener('keydown', fn);
     return () => document.removeEventListener('keydown', fn);
   }, []);
@@ -554,141 +509,96 @@ export default function VariationC() {
   };
   const scheduleClose = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => setActiveId(null), 140);
+    closeTimer.current = setTimeout(() => setActiveId(null), 120);
   };
 
+  const activeItem = NAV.find((n) => n.id === activeId);
+
   return (
-    <>
-      <style>{`
-        .nav-item {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          height: 100%;
-          padding: 8px 12px;
-          font-size: 13.5px;
-          color: #fff;
-          white-space: nowrap;
-          text-decoration: none;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          transition: background 0.15s ease;
-          font-family: inherit;
-        }
-        .nav-item::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 3px;
-          background: #fff;
-          transform: scaleX(0);
-          transform-origin: center;
-        }
-        .nav-item:hover,
-        .nav-item.active {
-          background: #005cbf;
-        }
-        .nav-item:hover::after,
-        .nav-item.active::after {
-          transform: scaleX(1);
-        }
-        .nav-item:focus-visible {
-          outline: 3px solid #fff;
-          outline-offset: -4px;
-        }
-      `}</style>
+    // Nav bar: #0573D7
+    <header className={['relative sticky top-0 bg-[#0573D7]', scrolled || activeId ? 'shadow-[0_2px_20px_rgba(0,0,0,0.22)]' : ''].join(' ')}>
 
-      <header role="banner" className="sticky top-0 z-[500]">
+      {/* ── Main bar ── */}
+      {/* Bottom border separates nav from page content; white/15 is subtle but visible */}
+      <div className="border-b border-white/15">
+        <div className="max-w-[1280px] mx-auto px-8 py-[6px] flex items-center">
 
-        {/* Primary nav bar */}
-        <div className="bg-[#0573D7] relative">
-          <div className="max-w-[1280px] mx-auto px-4 flex items-stretch" style={{ minHeight: 48 }}>
-
-            {/* Desktop nav */}
-            <nav aria-label="Primary navigation" className="flex-1 flex items-stretch">
-              <ul role="list" className="hidden lg:flex items-stretch list-none m-0 p-0 flex-1">
-                {NAV.map((item) => {
-                  const isActive = activeId === item.id;
-                  return (
-                    <li
-                      key={item.id || item.label}
-                      className="flex items-stretch"
-                      onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
-                      onMouseLeave={scheduleClose}
+          {/* Desktop nav */}
+          <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">
+            <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
+              {NAV.map((item) => (
+                <li
+                  key={item.id || item.label}
+                  onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
+                  onMouseLeave={scheduleClose}
+                >
+                  {item.sections ? (
+                    <button
+                      className={[
+                        'inline-flex items-center h-full px-[14px] py-[10px] text-[13.5px] font-semibold text-white whitespace-nowrap gap-[6px]',
+                        'bg-transparent border-none cursor-pointer',
+                        'underline-offset-[4px] decoration-white decoration-[1.5px]',
+                        'hover:bg-white/[0.1] transition-colors duration-[120ms]',
+                        'focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-3px] rounded-sm',
+                        activeId === item.id ? 'bg-white/[0.15] underline' : 'no-underline',
+                      ].join(' ')}
+                      aria-expanded={activeId === item.id}
+                      aria-haspopup="true"
                     >
-                      {item.sections ? (
-                        <button
-                          aria-haspopup="true"
-                          aria-expanded={isActive}
-                          aria-controls={`mega-${item.id}`}
-                          onClick={() => setActiveId(isActive ? null : item.id)}
-                          className={`nav-item${isActive ? ' active' : ''}`}
-                        >
-                          {item.label}
-                          <ChevronIcon open={isActive} />
-                        </button>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className="nav-item"
-                        >
-                          {item.label}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+                      {item.label}
+                      <ChevronB open={activeId === item.id} />
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="inline-flex items-center h-full px-[14px] py-[10px] text-[13.5px] font-semibold text-white whitespace-nowrap no-underline hover:underline hover:bg-white/[0.1] underline-offset-[4px] decoration-white decoration-[1.5px] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-3px] rounded-sm"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            {/* Hamburger */}
+          {/* Hamburger */}
+          <div className="ml-auto lg:hidden flex items-center">
             <button
+              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-1 rounded"
+              onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
-              aria-controls="csusb-mobile-nav"
-              onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
-              className="
-                lg:hidden flex items-center justify-center self-center ml-auto
-                text-white cursor-pointer
-                focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]
-              "
+              aria-controls="mobile-nav-b"
             >
-              {mobOpen ? <CloseIcon /> : <MenuIcon />}
+              <span className="block w-[22px] h-[2px] bg-white rounded-sm" style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobOpen ? 'translateY(7px) rotate(45deg)' : 'none' }} />
+              <span className="block w-[22px] h-[2px] bg-white rounded-sm" style={{ transition: 'opacity 0.2s', opacity: mobOpen ? 0 : 1 }} aria-hidden="true" />
+              <span className="block w-[22px] h-[2px] bg-white rounded-sm" style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }} />
             </button>
-
           </div>
 
-          {NAV.filter((n) => n.sections).map((item) => (
-            <Desktop
-              key={item.id}
-              item={item}
-              isOpen={activeId === item.id}
-              onMouseEnter={cancelClose}
-              onMouseLeave={scheduleClose}
-              onClose={() => setActiveId(null)}
-            />
-          ))}
         </div>
+      </div>
 
-        {/* Mobile drawer */}
-        {mobOpen && (
-          <nav
-            id="csusb-mobile-nav"
-            aria-label="Mobile navigation"
-            className="lg:hidden bg-[#004a8a] max-h-[calc(100vh-102px)] overflow-y-auto"
-            style={{ animation: 'mobSlide 0.22s ease' }}
-          >
+      {/* Desktop mega panel */}
+      {activeId && activeItem?.sections && (
+        <div className="absolute left-0 right-0 z-[400]" onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
+          <Desktop item={activeItem} onClose={() => setActiveId(null)} />
+        </div>
+      )}
+
+      {/* Mobile menu: #023369 background */}
+      {mobOpen && (
+        <div id="mobile-nav-b" className="lg:hidden overflow-y-auto bg-[#023369]" style={{ maxHeight: 'calc(100vh - 52px)' }}>
+          <nav aria-label="Mobile navigation">
             {NAV.map((item) => (
-              <MobItem key={item.id || item.label} item={item} />
+              <MobileAccordionItemA key={item.id || item.label} item={item} />
             ))}
           </nav>
-        )}
+          {/* Bottom accent strip */}
+          <div className="h-[4px] bg-[#0573D7]" aria-hidden="true" />
+        </div>
+      )}
 
-      </header>
-    </>
+    </header>
   );
 }

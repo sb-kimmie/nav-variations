@@ -242,7 +242,7 @@ function Desktop({ item, onClose }) {
                   <Link
                     href={sec.href}
                     onClick={onClose}
-                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5] transition-colors"
+                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5] hover:underline transition-colors"
                   >
                     <span>{sec.heading}</span>
                     <span className="flex items-center flex-shrink-0 opacity-70">
