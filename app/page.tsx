@@ -62,7 +62,7 @@ export default function Home() {
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation B:</strong>
               <ul>
-                <li>1. Light gray background for the desktop dropdown instead of the blue background.</li>
+                <li>1. White background for the desktop dropdown instead of the blue background.</li>
                 <li>2. Added a border at the bottom of the desktop dropdown menu to create a visual separation from the page area.</li>
                 <li>3. The left-column in Variation B provides context for the section, giving users immediate context for the section.</li>
                 <li>4. Variation B uses horizontal and vertical lines to visually separate sections and items, whereas the Original does not have these visual separators.</li>
