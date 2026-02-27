@@ -168,6 +168,18 @@ const NAV = [
   },
 ];
 
+const MenuIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
 const IcoArrow = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -191,7 +203,7 @@ function ChevronDown() {
 // ─── Desktop ───────────────────────────────────────────────────────
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#004A8A]">
+    <div className="bg-[#004A8A] border-b-4 border-b-[#023369]">
       <div className="max-w-[1280px] mx-auto px-8 pt-8 pb-10 grid grid-cols-[240px_1px_1fr] gap-x-10 items-start">
 
         {/* ── Left panel ── */}
@@ -260,7 +272,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13.5px] font-normal text-[#e8eef8] no-underline py-[5px] border-b border-white/10 last:border-b-0 leading-snug hover:text-white hover:underline underline-offset-[3px] decoration-white decoration-[1.5px] transition-colors duration-[120ms]"
+                          className="block text-[13.5px] font-semibold text-[#e8eef8] no-underline py-[5px] border-b border-white/10 last:border-b-0 leading-snug hover:text-white hover:underline underline-offset-[3px] decoration-white decoration-[1.5px] transition-colors duration-[120ms]"
                         >
                           {lk.label}
                         </Link>
@@ -504,7 +516,7 @@ export default function VariationD() {
                   {item.sections ? (
                     <button
                       className={[
-                        'inline-flex items-center h-full px-[14px] py-[10px] text-[13.5px] font-medium text-white whitespace-nowrap gap-[6px]',
+                        'inline-flex items-center h-full px-[14px] py-[10px] text-[13.5px] font-normal text-white whitespace-nowrap gap-[6px]',
                         'bg-transparent border-none cursor-pointer',
                         'underline-offset-[4px] decoration-white decoration-[1.5px]',
                         'hover:bg-white/[0.1] transition-colors duration-[120ms]',
@@ -520,7 +532,7 @@ export default function VariationD() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="inline-flex items-center h-full px-[14px] py-[10px] text-[13.5px] font-medium text-white whitespace-nowrap no-underline hover:underline hover:bg-white/[0.1] underline-offset-[4px] decoration-white decoration-[1.5px] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-3px] rounded-sm"
+                      className="inline-flex items-center h-full px-[14px] py-[10px] text-[13.5px] font-normal text-white whitespace-nowrap no-underline hover:underline hover:bg-white/[0.1] underline-offset-[4px] decoration-white decoration-[1.5px] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-3px] rounded-sm"
                     >
                       {item.label}
                     </Link>
@@ -533,15 +545,13 @@ export default function VariationD() {
           {/* Hamburger */}
           <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-1 rounded"
+              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-1 rounded"
               onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
               aria-controls="mobile-nav-d"
             >
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm" style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobOpen ? 'translateY(7px) rotate(45deg)' : 'none' }} />
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm" style={{ transition: 'opacity 0.2s', opacity: mobOpen ? 0 : 1 }} aria-hidden="true" />
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm" style={{ transition: 'transform 0.2s, opacity 0.2s', transform: mobOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }} />
+              {mobOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
 

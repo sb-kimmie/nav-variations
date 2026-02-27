@@ -168,6 +168,18 @@ const NAV = [
   },
 ];
 
+const MenuIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
 const IcoArrow = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -524,15 +536,13 @@ export default function VariationE2() {
 
           <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="flex flex-col justify-center items-center gap-[5px] bg-transparent border-none cursor-pointer p-2 w-10 h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 rounded"
+              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 rounded"
               onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
               aria-controls="mobile-nav-e2"
             >
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-200" style={{ transform: mobOpen ? 'translateY(7px) rotate(45deg)' : 'none' }} />
-              <span className={`block w-[22px] h-[2px] bg-white rounded-sm transition-opacity duration-200 ${mobOpen ? 'opacity-0' : 'opacity-100'}`} aria-hidden="true" />
-              <span className="block w-[22px] h-[2px] bg-white rounded-sm transition-transform duration-200" style={{ transform: mobOpen ? 'translateY(-7px) rotate(-45deg)' : 'none' }} />
+              {mobOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
 
