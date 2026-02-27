@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '',
+        href: '/its',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -69,6 +69,8 @@ const NAV = [
     description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
+        heading: 'By Student Type',
+        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -79,6 +81,8 @@ const NAV = [
         ],
       },
       {
+        heading: 'Getting Started',
+        href: '',
         links: [
           { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
           { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
@@ -112,7 +116,7 @@ const NAV = [
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: '',
+        href: '/its',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -178,6 +182,12 @@ const ChevronIcon = ({ open }) => (
   </svg>
 );
 
+const ArrowIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const MenuIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
     <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -193,14 +203,13 @@ const CloseIcon = () => (
 const isExternal = (href) => href?.startsWith('http');
 
 const headingBaseClass = `
-  flex items-center
+  flex items-center gap-[5px]
   text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
   text-white bg-[#01346a]
   px-3 py-[9px] mb-0
   border-l-4 border-l-white
 `;
 
-// Child link classes — shared between normal child links and orphan links
 const childLinkClass = `
   block text-[13px] font-semibold text-white/80 no-underline leading-[1.4]
   px-3 py-[6px]
@@ -226,25 +235,19 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
     >
       <div className="bg-[#004a8a]">
         <div className="max-w-[1280px] mx-auto px-8 py-10">
-
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-x-10">
+          <div
+            className="grid gap-x-10"
+            style={{ gridTemplateColumns: `repeat(${item.sections.length}, minmax(0, 280px))` }}
+          >
             {item.sections.map((sec, i) => (
               <div key={sec.heading ?? `orphan-${i}`} className="flex flex-col">
 
-                {/* childless link */}
                 {!sec.heading ? (
-                  <ul
-                    className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4"
-                    aria-label="Additional links"
-                  >
+                  <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4" aria-label="Additional links">
                     {sec.links.map((lk) => (
                       <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
-                        <Link
-                          href={lk.href}
-                          onClick={onClose}
-                          className={childLinkClass}
-                          {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        >
+                        <Link href={lk.href} onClick={onClose} className={childLinkClass}
+                          {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                           {lk.label}
                         </Link>
                       </li>
@@ -252,7 +255,7 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                   </ul>
                 ) : (
                   <>
-                    {/* Heading: Link if href exists, span if not */}
+                    {/* CLICKABLE heading — arrow always visible */}
                     {sec.href ? (
                       <Link
                         href={sec.href}
@@ -260,27 +263,23 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                         className={`${headingBaseClass} no-underline transition-colors duration-150 hover:bg-black/20 focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
                         {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       >
-                        {sec.heading}
+                        <span>{sec.heading}</span>
+                        <span className="opacity-70 flex items-center">
+                          <ArrowIcon />
+                        </span>
                       </Link>
                     ) : (
+                      /* NON-CLICKABLE heading — no arrow */
                       <span className={headingBaseClass}>
                         {sec.heading}
                       </span>
                     )}
 
-                    {/* Sub-links */}
-                    <ul
-                      className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4"
-                      aria-label={`${sec.heading} links`}
-                    >
+                    <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4" aria-label={`${sec.heading} links`}>
                       {sec.links.map((lk) => (
                         <li key={lk.label} className="border-b border-b-white/[0.07] last:border-b-0">
-                          <Link
-                            href={lk.href}
-                            onClick={onClose}
-                            className={childLinkClass}
-                            {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                          >
+                          <Link href={lk.href} onClick={onClose} className={childLinkClass}
+                            {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                             {lk.label}
                           </Link>
                         </li>
@@ -292,7 +291,6 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </div>
@@ -303,24 +301,15 @@ function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
 
-  // ── Orphan section: no heading property → flat links, no collapsible button ──
   if (!sec.heading) {
     return (
       <div className="border-b border-white/[0.04]">
         <ul className="list-none m-0 p-0 bg-black/[0.15]" aria-label="Additional links">
           {sec.links.map((lk) => (
             <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
-              <Link
-                href={lk.href}
-                className="
-                  block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-normal text-white/60 no-underline
-                  transition-all duration-[120ms]
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                "
-                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
+              <Link href={lk.href}
+                className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                 {lk.label}
               </Link>
             </li>
@@ -330,7 +319,63 @@ function MobSection({ sec }) {
     );
   }
 
-  // ── Named section ──
+  // CLICKABLE heading on mobile — link + separate chevron to expand children
+  if (sec.href) {
+    return (
+      <div className="border-b border-white/[0.04]">
+        <div className="flex items-stretch">
+          <Link
+            href={sec.href}
+            className="
+              flex-1 flex items-center gap-[5px]
+              text-[11px] font-extrabold tracking-[0.12em] uppercase
+              text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50
+              px-[18px] py-[11px] no-underline
+              transition-colors duration-[120ms]
+              hover:text-white hover:bg-[#01346a]/80
+              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+            "
+            {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            <span>{sec.heading}</span>
+            <span className="opacity-60 flex items-center"><ArrowIcon /></span>
+          </Link>
+          <button
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls={`mobsec-${uid}`}
+            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
+            className="
+              flex items-center justify-center px-4
+              text-white/75 bg-[#01346a]/60
+              transition-colors duration-[120ms]
+              hover:text-white hover:bg-[#01346a]/80 cursor-pointer
+              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+            "
+            style={{ minWidth: '44px' }}
+          >
+            <ChevronIcon open={open} />
+          </button>
+        </div>
+
+        {open && (
+          <ul id={`mobsec-${uid}`} className="list-none m-0 p-0 bg-black/[0.15]" aria-label={`${sec.heading} links`}>
+            {sec.links.map((lk) => (
+              <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+                <Link href={lk.href}
+                  className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                  {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                  {lk.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+
+  // NON-CLICKABLE heading — original accordion
   return (
     <div className="border-b border-white/[0.04]">
       <button
@@ -352,24 +397,12 @@ function MobSection({ sec }) {
       </button>
 
       {open && (
-        <ul
-          id={`mobsec-${uid}`}
-          className="list-none m-0 p-0 bg-black/[0.15]"
-          aria-label={`${sec.heading} links`}
-        >
+        <ul id={`mobsec-${uid}`} className="list-none m-0 p-0 bg-black/[0.15]" aria-label={`${sec.heading} links`}>
           {sec.links.map((lk) => (
             <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
-              <Link
-                href={lk.href}
-                className="
-                  block px-[22px] py-[9px] pl-[34px]
-                  text-[13.5px] font-normal text-white/60 no-underline
-                  transition-all duration-[120ms]
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-                "
-                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
+              <Link href={lk.href}
+                className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                 {lk.label}
               </Link>
             </li>
@@ -380,7 +413,6 @@ function MobSection({ sec }) {
   );
 }
 
-
 function MobItem({ item }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
@@ -388,17 +420,8 @@ function MobItem({ item }) {
   if (!item.sections) {
     return (
       <div className="">
-        <Link
-          href={item.href}
-          className="
-            w-full flex items-center justify-between
-            text-[15px] font-semibold text-white/[0.88] no-underline
-            px-[22px] py-[10px]
-            transition-colors duration-[120ms]
-            hover:bg-white/[0.05] hover:text-white
-            focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-          "
-        >
+        <Link href={item.href}
+          className="w-full flex items-center justify-between text-[15px] font-semibold text-white/[0.88] no-underline px-[22px] py-[10px] transition-colors duration-[120ms] hover:bg-white/[0.05] hover:text-white focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]">
           {item.label}
         </Link>
       </div>
@@ -412,24 +435,14 @@ function MobItem({ item }) {
         aria-expanded={open}
         aria-controls={`mobitem-${uid}`}
         aria-haspopup="true"
-        className="
-          w-full flex items-center justify-between gap-2
-          text-[15px] font-semibold text-white/[0.88] text-left
-          bg-transparent border-none px-[22px] py-[10px] cursor-pointer
-          transition-colors duration-[120ms]
-          hover:bg-white/[0.05] hover:text-white
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-        "
+        className="w-full flex items-center justify-between gap-2 text-[15px] font-semibold text-white/[0.88] text-left bg-transparent border-none px-[22px] py-[10px] cursor-pointer transition-colors duration-[120ms] hover:bg-white/[0.05] hover:text-white focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
       >
         {item.label}
         <ChevronIcon open={open} />
       </button>
 
       {open && (
-        <div
-          id={`mobitem-${uid}`}
-          className="bg-black/[0.25] border-t border-white/[0.05]"
-        >
+        <div id={`mobitem-${uid}`} className="bg-black/[0.25] border-t border-white/[0.05]">
           {item.sections.map((sec, i) => (
             <MobSection key={sec.heading ?? `orphan-${i}`} sec={sec} />
           ))}
@@ -438,7 +451,6 @@ function MobItem({ item }) {
     </div>
   );
 }
-
 
 export default function VariationD() {
   const [activeId, setActiveId] = useState(null);
@@ -469,18 +481,16 @@ export default function VariationD() {
 
   return (
     <header role="banner" className="sticky top-0 z-[500]">
-      {/* ── Primary nav bar ── */}
       <div className="bg-[#0573D7] relative">
         <div className="max-w-[1280px] mx-auto px-8 flex items-stretch py-2">
 
-          {/* Desktop nav */}
           <nav aria-label="Primary navigation" className="flex-1 flex items-stretch">
             <ul role="list" className="hidden lg:flex items-stretch list-none m-0 p-0 flex-wrap">
               {NAV.map((item) => (
                 <li
                   key={item.id || item.label}
                   className="flex items-stretch"
-                  onMouseEnter={() => {cancelClose(); setActiveId(item.sections ? item.id : null);}}
+                  onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
                   onMouseLeave={scheduleClose}
                 >
                   {item.sections ? (
@@ -522,16 +532,12 @@ export default function VariationD() {
             </ul>
           </nav>
 
-          {/* Hamburger */}
           <button
             aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobOpen}
             aria-controls="csusb-mobile-nav"
             onClick={() => { setMobOpen((o) => !o); setActiveId(null); }}
-            className="
-              lg:hidden flex items-center justify-center self-center ml-auto
-              text-white cursor-pointer
-            "
+            className="lg:hidden flex items-center justify-center self-center ml-auto text-white cursor-pointer"
           >
             {mobOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -549,7 +555,6 @@ export default function VariationD() {
         ))}
       </div>
 
-      {/* Mobile */}
       {mobOpen && (
         <nav
           id="csusb-mobile-nav"

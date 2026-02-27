@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '',
+        href: '/its',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -112,7 +112,7 @@ const NAV = [
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: '',
+        href: '/its',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -188,7 +188,7 @@ function ChevronB({ open }) {
 
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#f1f1f1] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+    <div className="bg-[#fff] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
         {/* Left panel */}
         <div className="flex flex-col gap-3">
@@ -214,7 +214,7 @@ function Desktop({ item, onClose }) {
         {/* Columns */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
           {item.sections.map((sec, i) => {
-            // No heading at all — childless links.
+            // ── Headingless orphan group — flat links ──
             if (!sec.heading) {
               return (
                 <div key={`orphan-${i}`} className="flex flex-col gap-2">
@@ -235,17 +235,19 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            // ── Named section: clickable heading ──
+            // ── Named section: CLICKABLE heading ──
             if (sec.href) {
               return (
                 <div key={sec.heading} className="flex flex-col gap-2">
                   <Link
                     href={sec.href}
                     onClick={onClose}
-                    className="group flex items-center gap-[4px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5]"
+                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5] transition-colors"
                   >
-                    <span className="group-hover:underline underline-offset-[2px]">{sec.heading}</span>
-                    <IcoArrow />
+                    <span>{sec.heading}</span>
+                    <span className="flex items-center flex-shrink-0 opacity-70">
+                      <IcoArrow />
+                    </span>
                   </Link>
                   <ul className="list-none m-0 p-0">
                     {sec.links.map((lk) => (
@@ -264,10 +266,16 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            // ── Named section: non-clickable heading (label only) ──
+            // ── Named section: NON-CLICKABLE heading (label only) ──
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
+                {/*
+                  Dashed border + muted color signals "this is a label, not a link".
+                  Solid border + arrow on clickable headings = interactive.
+                  Dashed border + no arrow + muted text = purely organizational.
+                */}
                 <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] pb-[6px] border-b-2 border-[#004a8a]">
+
                   {sec.heading}
                 </span>
                 <ul className="list-none m-0 p-0">
@@ -328,7 +336,76 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  // ── Named section ──
+  // ── Named section: CLICKABLE heading ──
+  if (sec.href) {
+    return (
+      <div className="border-b border-[#dde3f0]">
+        {/*
+          For clickable sections on mobile, we show the heading as a tappable link
+          AND a separate expand toggle for the child links.
+        */}
+        <div className="flex items-stretch">
+          <Link
+            href={sec.href}
+            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = ''; }}
+          >
+            <span
+              className="flex-shrink-0 w-[3px] self-stretch"
+              style={{ background: '#0273D7' }}
+              aria-hidden="true"
+            />
+            <span>{sec.heading}</span>
+            {/* Small arrow to signal it's a link */}
+            <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          {/* Separate chevron button to expand child links */}
+          <button
+            className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minWidth: '44px', transition: 'background 0.15s' }}
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(2,115,215,0.06)'}
+            onMouseLeave={e => e.currentTarget.style.background = ''}
+          >
+            <ChevronA />
+          </button>
+        </div>
+
+        {open && (
+          <ul
+            className="list-none m-0 p-0 pb-2"
+            style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
+            role="list"
+          >
+            {sec.links.map((link) => (
+              <li key={link.label} role="listitem">
+                <Link
+                  href={link.href}
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                  style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+                >
+                  <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+
+  // ── Named section: NON-CLICKABLE heading ──
   return (
     <div className="border-b border-[#dde3f0]">
       <button
@@ -423,13 +500,6 @@ function MobileAccordionItemA({ item }) {
           role="region"
           aria-label={`${item.label} submenu`}
         >
-          {/* <div
-            className="px-5 py-[8px] text-[11px] font-bold uppercase tracking-[0.1em] text-[#0273D7]"
-            style={{ borderBottom: '1px solid #e4eaf5', background: '#f0f5ff' }}
-            aria-hidden="true"
-          >
-            {item.label}
-          </div> */}
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}

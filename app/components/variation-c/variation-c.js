@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '',
+        href: '/program-requirements',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -112,7 +112,7 @@ const NAV = [
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: '',
+        href: '/its',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -200,15 +200,14 @@ const CloseIcon = () => (
 
 const isExternal = (href) => href?.startsWith('http');
 
-// Shared heading label classes for both Link and span variants
+// Shared base styles for section headings
 const headingBaseClass = `
-  flex items-center
+  flex items-center gap-[5px]
   text-[10.5px] font-extrabold tracking-[0.14em] uppercase leading-none
   text-white bg-[#01346a] px-3 py-[9px] mb-0
   border-l-4 border-l-white
 `;
 
-// Child link classes — shared between normal child links and orphan links
 const childLinkClass = `
   block text-[13px] text-white/80 no-underline leading-[1.4]
   px-3 py-[6px] font-semibold
@@ -257,12 +256,14 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
             </Link>
           </div>
 
-          {/* Section columns */}
-          <div className="grid grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-2">
+          {/* Columns */}
+          <div
+            className="grid gap-x-2"
+            style={{ gridTemplateColumns: `repeat(${item.sections.length}, minmax(0, 280px))` }}
+          >
             {item.sections.map((sec, i) => (
               <div key={sec.heading ?? `orphan-${i}`} className="flex flex-col">
 
-                {/* Orphan section: no heading property → render links as plain child links */}
                 {!sec.heading ? (
                   <ul className="list-none m-0 p-0 border-l-4 border-l-white/15 mb-4">
                     {sec.links.map((lk) => (
@@ -280,7 +281,7 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                   </ul>
                 ) : (
                   <>
-                    {/* Heading: Link if href exists, span if not */}
+                    {/* CLICKABLE heading — same base styles + arrow always visible */}
                     {sec.href ? (
                       <Link
                         href={sec.href}
@@ -289,9 +290,13 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
                           focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[2px]`}
                         {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       >
-                        {sec.heading}
+                        <span>{sec.heading}</span>
+                        <span className="opacity-70 flex items-center">
+                          <ArrowIcon />
+                        </span>
                       </Link>
                     ) : (
+                      /* NON-CLICKABLE heading — identical styles, no arrow */
                       <span className={headingBaseClass}>
                         {sec.heading}
                       </span>
@@ -324,14 +329,10 @@ function Desktop({ item, isOpen, onMouseEnter, onMouseLeave, onClose }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   MOBILE
-───────────────────────────────────────────── */
 function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
 
-  // ── Orphan section: no heading property → flat links, no collapsible button ──
   if (!sec.heading) {
     return (
       <div className="border-b border-white/[0.04]">
@@ -357,7 +358,75 @@ function MobSection({ sec }) {
     );
   }
 
-  // ── Named section ──
+  // CLICKABLE heading on mobile — show arrow inline, still expandable via chevron
+  if (sec.href) {
+    return (
+      <div className="border-b border-white/[0.04]">
+        <div className="flex items-stretch">
+          <Link
+            href={sec.href}
+            className="
+              flex-1 flex items-center gap-[5px]
+              text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
+              text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50
+              px-[18px] py-[11px] no-underline
+              hover:text-white hover:bg-[#01346a]/80
+              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+            "
+            {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            <span>{sec.heading}</span>
+            <span className="opacity-60 flex items-center">
+              <ArrowIcon />
+            </span>
+          </Link>
+          {/* Separate chevron to expand child links */}
+          <button
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls={`mobsec-${uid}`}
+            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
+            className="
+              flex items-center justify-center px-4
+              text-white/75 bg-[#01346a]/60
+              hover:text-white hover:bg-[#01346a]/80 cursor-pointer
+              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+            "
+            style={{ minWidth: '44px' }}
+          >
+            <ChevronIcon open={open} />
+          </button>
+        </div>
+
+        {open && (
+          <ul
+            id={`mobsec-${uid}`}
+            className="list-none m-0 p-0 bg-black/[0.15]"
+            aria-label={`${sec.heading} links`}
+          >
+            {sec.links.map((lk) => (
+              <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
+                <Link
+                  href={lk.href}
+                  className="
+                    block px-[22px] py-[9px] pl-[34px]
+                    text-[13.5px] font-bold text-white/60 no-underline
+                    hover:text-white hover:bg-white/[0.05]
+                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+                  "
+                  {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {lk.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+
+  // NON-CLICKABLE heading — original accordion behavior
   return (
     <div className="border-b border-white/[0.04]">
       <button
@@ -374,7 +443,7 @@ function MobSection({ sec }) {
         "
       >
         {sec.heading}
-        <ChevronIcon />
+        <ChevronIcon open={open} />
       </button>
 
       {open && (
@@ -405,7 +474,6 @@ function MobSection({ sec }) {
   );
 }
 
-/* MOBILE — top-level item */
 function MobItem({ item }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
@@ -536,7 +604,7 @@ export default function VariationC() {
 
       <header role="banner" className="sticky top-0 z-[500]">
 
-        {/* ── Primary nav bar ── */}
+        {/* Primary nav bar */}
         <div className="bg-[#0573D7] relative">
           <div className="max-w-[1280px] mx-auto px-4 flex items-stretch" style={{ minHeight: 48 }}>
 
@@ -561,7 +629,7 @@ export default function VariationC() {
                           className={`nav-item${isActive ? ' active' : ''}`}
                         >
                           {item.label}
-                          <ChevronIcon />
+                          <ChevronIcon open={isActive} />
                         </button>
                       ) : (
                         <Link
@@ -577,7 +645,7 @@ export default function VariationC() {
               </ul>
             </nav>
 
-            {/* Hamburger — mobile only */}
+            {/* Hamburger */}
             <button
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
