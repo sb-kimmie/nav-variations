@@ -265,7 +265,7 @@ function Desktop({ item, onClose }) {
                     className="group flex items-center gap-[5px] text-[12px] font-extrabold uppercase tracking-[0.08em] no-underline pb-[7px] border-b-2 transition-colors text-[#004A8A] hover:text-[#0273D7] border-[#b0bac8] leading-[1.2] hover:border-[#0273D7] hover:underline"
                   >
                     <span>{sec.heading}</span>
-                    <span className="flex items-center flex-shrink-0 opacity-60 group-hover:translate-x-0.5 transition-transform">
+                    <span className="flex items-center flex-shrink-0 opacity-60">
                       <IcoArrow />
                     </span>
                   </Link>

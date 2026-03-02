@@ -203,7 +203,7 @@ function ChevronDown() {
 // ─── Desktop ───────────────────────────────────────────────────────
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#004A8A] border-b-4 border-b-[#023369]">
+    <div className="bg-[#004A8A]">
       <div className="max-w-[1280px] mx-auto px-8 pt-8 pb-10 grid grid-cols-[240px_1px_1fr] gap-x-10 items-start">
 
         {/* ── Left panel ── */}
