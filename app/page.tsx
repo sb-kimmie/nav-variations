@@ -99,7 +99,7 @@ export default function Home() {
         {/* Variation C */}
         <section className="px-10 relative z-60">
           <div className="mb-3 flex items-center gap-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation C - Added Left Column on Desktop - Gray Background</h2>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation C - Added Left Column on Desktop - Blue Background</h2>
           </div>
           <div className="mb-3 flex items-center gap-3">
             <h3 className="text-sm font-normal text-black">
