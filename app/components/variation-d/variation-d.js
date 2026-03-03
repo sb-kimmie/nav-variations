@@ -324,7 +324,7 @@ function MobileSectionFromSections({ sec }) {
           <Link
             key={link.label}
             href={link.href}
-            className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+            className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
             style={{ minHeight: '44px' }}
           >
             <svg className="flex-shrink-0 w-[5px] h-[9px] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
@@ -366,7 +366,7 @@ function MobileSectionFromSections({ sec }) {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
                   style={{ minHeight: '44px' }}
                 >
                   <svg className="flex-shrink-0 w-[5px] h-[9px] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
@@ -400,7 +400,7 @@ function MobileSectionFromSections({ sec }) {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                className="flex items-center gap-2 px-8 py-[10px] text-[#c8d8f0] text-[13.5px] leading-snug no-underline hover:text-white hover:bg-white/[0.07] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
                 style={{ minHeight: '44px' }}
               >
                 <svg className="flex-shrink-0 w-[5px] h-[9px] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">

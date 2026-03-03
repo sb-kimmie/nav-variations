@@ -37,7 +37,7 @@ const NAV = [
       },
       {
         heading: 'Program Requirements',
-        href: '/its',
+        href: '/some-link',
         links: [
           { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
           { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
@@ -69,8 +69,6 @@ const NAV = [
     description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
     sections: [
       {
-        heading: 'By Student Type',
-        href: '',
         links: [
           { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
           { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
@@ -81,8 +79,6 @@ const NAV = [
         ],
       },
       {
-        heading: 'Getting Started',
-        href: '',
         links: [
           { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
           { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
@@ -116,7 +112,7 @@ const NAV = [
     sections: [
       {
         heading: 'Apply & Admissions',
-        href: '/its',
+        href: '',
         links: [
           { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
           { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
@@ -300,6 +296,7 @@ function MobSection({ sec }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
 
+  // orphan links
   if (!sec.heading) {
     return (
       <div className="border-b border-white/[0.04]">
@@ -307,7 +304,7 @@ function MobSection({ sec }) {
           {sec.links.map((lk) => (
             <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
               <Link href={lk.href}
-                className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
                 {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                 {lk.label}
               </Link>
@@ -318,61 +315,8 @@ function MobSection({ sec }) {
     );
   }
 
-  if (sec.href) {
-    return (
-      <div className="border-b border-white/[0.04]">
-        <div className="flex items-stretch">
-          <Link
-            href={sec.href}
-            className="
-              flex-1 flex items-center gap-[5px]
-              text-[11px] font-extrabold tracking-[0.12em] uppercase
-              text-white bg-[#01346a]/60 border-l-[3px] border-l-white/50
-              px-[18px] py-[11px] underline
-              transition-colors duration-[120ms]
-              hover:text-white hover:bg-[#01346a]/80
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
-            {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          >
-            <span>{sec.heading}</span>
-            <span className="opacity-60 flex items-center"><ArrowIcon /></span>
-          </Link>
-          <button
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            aria-controls={`mobsec-${uid}`}
-            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
-            className="
-              flex items-center justify-center px-4
-              text-white/75 bg-[#01346a]/60
-              transition-colors duration-[120ms]
-              hover:text-white hover:bg-[#01346a]/80 cursor-pointer
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
-            "
-            style={{ minWidth: '44px' }}
-          >
-            <ChevronIcon />
-          </button>
-        </div>
 
-        {open && (
-          <ul id={`mobsec-${uid}`} className="list-none m-0 p-0 bg-black/[0.15]" aria-label={`${sec.heading} links`}>
-            {sec.links.map((lk) => (
-              <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
-                <Link href={lk.href}
-                  className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
-                  {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                  {lk.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    );
-  }
-
+  // Unclickable header with child links
   return (
     <div className="border-b border-white/[0.04]">
       <button
@@ -398,7 +342,7 @@ function MobSection({ sec }) {
           {sec.links.map((lk) => (
             <li key={lk.label} className="border-b border-white/[0.04] last:border-b-0">
               <Link href={lk.href}
-                className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+                className="block px-[22px] py-[9px] pl-[34px] text-[13.5px] font-normal text-white/60 no-underline transition-all duration-[120ms] hover:text-white hover:bg-white/[0.05] focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
                 {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                 {lk.label}
               </Link>
@@ -414,11 +358,12 @@ function MobItem({ item }) {
   const [open, setOpen] = useState(false);
   const uid = useId();
 
+  // Clickable header with no child links  
   if (!item.sections) {
     return (
       <div className="">
         <Link href={item.href}
-          className="w-full flex items-center justify-between text-[15px] font-normal text-white/[0.88] no-underline px-[22px] py-[10px] transition-colors duration-[120ms] hover:bg-white/[0.05] hover:text-white focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]">
+          className="w-full flex items-center justify-between text-[15px] font-normal text-white/[0.88] no-underline px-[22px] py-[10px] transition-colors duration-[120ms] hover:bg-white/[0.05] hover:text-white focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline">
           {item.label}
         </Link>
       </div>
