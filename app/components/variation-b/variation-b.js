@@ -320,7 +320,7 @@ function MobileSectionFromSections({ sec }) {
           <Link
             key={link.label}
             href={link.href}
-            className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
             style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
             onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
             onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
@@ -342,7 +342,7 @@ function MobileSectionFromSections({ sec }) {
         <div className="flex items-stretch">
           <Link
             href={sec.href}
-            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
             style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = ''; }}
@@ -430,7 +430,7 @@ function MobileSectionFromSections({ sec }) {
             <li key={link.label} role="listitem">
               <Link
                 href={link.href}
-                className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
                 style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
                 onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
                 onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
