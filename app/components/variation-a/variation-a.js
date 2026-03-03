@@ -195,7 +195,7 @@ function MobileSectionFromRows({ col }) {
           <div className="px-5 pt-5 pb-2">
             <Link
               href={col.href}
-              className="inline-flex items-center gap-[6px] text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8] underline hover:underline transition-colors duration-[120ms]"
+              className="inline-flex items-center gap-[6px] text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8] underline hover:underline transition-colors duration-[120ms] hover:underline"
             >
               {col.heading}
               <span className="opacity-70 flex items-center flex-shrink-0"><IcoArrow /></span>
@@ -250,7 +250,7 @@ function MobileSectionFromRows({ col }) {
         <Link
           key={link.label}
           href={link.href}
-          className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:bg-[rgba(255,255,255,0.1)]"
+          className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:bg-[rgba(255,255,255,0.1)] hover:underline"
           style={{ minHeight: '44px' }}
         >
           {link.label}
@@ -260,6 +260,7 @@ function MobileSectionFromRows({ col }) {
   );
 }
 
+// clickable header with no child links 
 function MobileAccordionItemB({ item }) {
   const [open, setOpen] = useState(false);
   const hasRows = item.rows?.length > 0;
@@ -269,7 +270,7 @@ function MobileAccordionItemB({ item }) {
       <div className="border-b border-[#0462bc]">
         <Link
           href={item.href}
-          className="flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white no-underline bg-[#0573D7] hover:bg-[#0462bc]"
+          className="flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white no-underline bg-[#0573D7] hover:bg-[#0462bc] hover:underline"
           style={{ minHeight: '44px' }}
         >
           {item.label}
@@ -281,7 +282,7 @@ function MobileAccordionItemB({ item }) {
   return (
     <div className="border-b border-[#0462bc]">
       <button
-        className={`w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white text-left border-none cursor-pointer font-[inherit] ${
+        className={`w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white text-left border-none cursor-pointer font-[inherit] hover:underline ${
           open ? 'bg-[#0462bc]' : 'bg-[#0573D7] hover:bg-[#0462bc]'
         }`}
         onClick={() => setOpen(!open)}
