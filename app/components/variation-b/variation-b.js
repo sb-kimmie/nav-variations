@@ -192,7 +192,7 @@ function Desktop({ item, onClose }) {
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
         {/* Left panel */}
         <div className="flex flex-col gap-3">
-          <h2 className="text-[22px] font-bold text-[#002060] m-0 leading-tight">{item.label}</h2>
+          <h2 className="text-[22px] font-bold text-[#000] m-0 leading-tight">{item.label}</h2>
           {item.description && (
             <p className="text-[14px] leading-[1.65] text-[#555] m-0">{item.description}</p>
           )}
@@ -224,7 +224,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
+                          className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                         >
                           {lk.label}
                         </Link>
@@ -242,7 +242,7 @@ function Desktop({ item, onClose }) {
                   <Link
                     href={sec.href}
                     onClick={onClose}
-                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] no-underline pb-[6px] border-b-2 border-[#004a8a] hover:text-[#003DA5] hover:underline transition-colors leading-[1.2]"
+                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em]no-underline pb-[6px] border-b-2 border-[#004a8a] hover:underline transition-colors leading-[1.2] text-[#004A8A] hover:text-[#0273D7]"
                   >
                     <span>{sec.heading}</span>
                     <span className="flex items-center flex-shrink-0 opacity-70">
@@ -255,7 +255,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
+                          className="block text-[13.5px] font-semibold  no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                         >
                           {lk.label}
                         </Link>
@@ -269,7 +269,7 @@ function Desktop({ item, onClose }) {
             // ── Named section: NON-CLICKABLE heading ──
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
-                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#002060] pb-[6px] border-b-2 border-[#004a8a] leading-[1.2]">
+                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2]">
                   {sec.heading}
                 </span>
                 <ul className="list-none m-0 p-0">
@@ -278,7 +278,7 @@ function Desktop({ item, onClose }) {
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="block text-[13.5px] font-semibold text-[#333] no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px]"
+                        className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                       >
                         {lk.label}
                       </Link>
