@@ -196,7 +196,7 @@ function ChevronDown() {
 
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#f1f1f1] border-t border-[#d0d7e2] shadow-[0_8px_24px_rgba(0,52,106,0.10)]">
+    <div className="bg-[#fff] border-t border-[#d0d7e2] shadow-[0_8px_24px_rgba(0,52,106,0.10)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10">
         <div
           className="grid gap-x-6 gap-y-5 content-start"
