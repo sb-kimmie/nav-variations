@@ -199,7 +199,7 @@ function Desktop({ item, onClose }) {
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-2 text-[14px] font-bold text-[#003DA5] no-underline mt-1 hover:text-[#002060] hover:underline"
+            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 hover:underline text-[#004A8A] hover:text-[#0273D7]"
           >
             {item.label}
             <span className="flex items-center group-hover:translate-x-1 transition-transform">
