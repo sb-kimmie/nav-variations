@@ -214,7 +214,6 @@ function Desktop({ item, onClose }) {
         {/* Columns */}
         <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
           {item.sections.map((sec, i) => {
-            // ── Headingless orphan group — flat links ──
             if (!sec.heading) {
               return (
                 <div key={`orphan-${i}`} className="flex flex-col gap-2">
@@ -235,7 +234,6 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            // ── Named section: CLICKABLE heading ──
             if (sec.href) {
               return (
                 <div key={sec.heading} className="flex flex-col gap-2">
@@ -266,7 +264,6 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            // ── Named section: NON-CLICKABLE heading ──
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
                 <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2]">
@@ -312,7 +309,6 @@ function MobileChevron() {
 function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
 
-  // ── Headingless orphan group ──
   if (!sec.heading) {
     return (
       <div className="border-b border-[#dde3f0]">
@@ -335,7 +331,6 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  // ── Named section: CLICKABLE heading ──
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
@@ -353,12 +348,10 @@ function MobileSectionFromSections({ sec }) {
               aria-hidden="true"
             />
             <span>{sec.heading}</span>
-            {/* Small arrow to signal it's a link */}
             <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
-          {/* Separate chevron button to expand child links */}
           <button
             className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
             style={{ minWidth: '44px', transition: 'background 0.15s' }}
@@ -382,7 +375,7 @@ function MobileSectionFromSections({ sec }) {
               <li key={link.label} role="listitem">
                 <Link
                   href={link.href}
-                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
                   style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
                   onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
@@ -400,11 +393,10 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  // ── Named section: NON-CLICKABLE heading ──
   return (
     <div className="border-b border-[#dde3f0]">
       <button
-        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
         style={{ minHeight: '44px' }}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
@@ -457,7 +449,7 @@ function MobileAccordionItemA({ item }) {
       <div className="border-b border-[#0057a8]">
         <Link
           href={item.href}
-          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white hover:underline"
           style={{ minHeight: '52px', background: 'transparent', transition: 'background 0.15s' }}
           onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
           onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
@@ -471,7 +463,7 @@ function MobileAccordionItemA({ item }) {
   return (
     <div className="border-b border-[#0057a8]">
       <button
-        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white hover:underline"
         style={{
           minHeight: '52px',
           paddingTop: '14px',
@@ -495,6 +487,20 @@ function MobileAccordionItemA({ item }) {
           role="region"
           aria-label={`${item.label} submenu`}
         >
+          {/* ── Left-panel info: label + description ── */}
+          {(item.label || item.description) && (
+            <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
+              <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
+                {item.label}
+              </p>
+              {item.description && (
+                <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">
+                  {item.description}
+                </p>
+              )}
+            </div>
+          )}
+
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}

@@ -386,7 +386,7 @@ function MobileSectionFromSections({ sec }) {
   return (
     <div className="border-b border-white/10">
       <button
-        className="w-full flex items-center justify-between gap-2 px-5 py-[13px] text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-white/60 text-left bg-transparent border-none border-l-[3px] border-l-white/30 cursor-pointer hover:text-white/80 hover:bg-white/[0.06] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+        className="w-full flex items-center justify-between gap-2 px-5 py-[13px] text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-white/60 text-left bg-transparent border-none border-l-[3px] border-l-white/30 cursor-pointer hover:text-white/80 hover:bg-white/[0.06] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
         style={{ minHeight: '44px' }}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
@@ -426,7 +426,7 @@ function MobileAccordionItemA({ item }) {
       <div className="border-b border-white/[0.12]">
         <Link
           href={item.href}
-          className="flex items-center px-5 py-[15px] text-[15px] font-semibold text-white no-underline hover:bg-white/[0.08] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+          className="flex items-center px-5 py-[15px] text-[15px] font-semibold text-white no-underline hover:bg-white/[0.08] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
           style={{ minHeight: '52px' }}
         >
           {item.label}
@@ -438,7 +438,7 @@ function MobileAccordionItemA({ item }) {
   return (
     <div className="border-b border-white/[0.12]">
       <button
-        className="w-full flex items-center justify-between px-5 text-[15px] font-semibold text-white text-left bg-transparent border-none cursor-pointer hover:bg-white/[0.08] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px]"
+        className="w-full flex items-center justify-between px-5 text-[15px] font-semibold text-white text-left bg-transparent border-none cursor-pointer hover:bg-white/[0.08] transition-colors duration-[120ms] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline"
         style={{
           minHeight: '52px',
           paddingTop: '14px',
@@ -453,6 +453,20 @@ function MobileAccordionItemA({ item }) {
       </button>
       {open && (
         <div className="bg-[#023369] border-t border-white/10" role="region" aria-label={`${item.label} submenu`}>
+          {/* ── Left-panel info: label + description ── */}
+          {(item.label || item.description) && (
+            <div className="px-5 py-4 border-b border-white/10" style={{ background: 'rgba(0,0,0,0.2)' }}>
+              <p className="text-[16px] font-bold text-white m-0 leading-tight">
+                {item.label}
+              </p>
+              {item.description && (
+                <p className="text-[13px] leading-[1.6] text-white/70 m-0 mt-[6px]">
+                  {item.description}
+                </p>
+              )}
+            </div>
+          )}
+
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}

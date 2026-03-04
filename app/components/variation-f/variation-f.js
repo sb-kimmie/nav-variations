@@ -342,8 +342,8 @@ function MobSection({ sec }) {
                 className="
                   block px-[22px] py-[9px] pl-[34px]
                   text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
+                  hover:text-white hover:bg-white/[0.05] hover:underline
+                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                 "
                 {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
@@ -356,7 +356,7 @@ function MobSection({ sec }) {
     );
   }
 
-  // Sections with no clickable heading links
+  // Section with clickable heading
   if (sec.href) {
     return (
       <div className="border-b border-white/[0.04]">
@@ -368,7 +368,7 @@ function MobSection({ sec }) {
               text-[11px] font-extrabold tracking-[0.12em] uppercase text-left
               text-white bg-[#01346a]/60 border-l-[3px] border-l-white/50
               px-[18px] py-[11px] underline
-              hover:text-white hover:bg-[#01346a]/80
+              hover:text-white hover:bg-[#01346a]/80 hover:underline
               focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
             "
             {...(isExternal(sec.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -387,7 +387,7 @@ function MobSection({ sec }) {
               flex items-center justify-center px-4
               text-white/75 bg-[#01346a]/60
               hover:text-white hover:bg-[#01346a]/80 cursor-pointer
-              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
+              focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
             "
             style={{ minWidth: '44px' }}
           >
@@ -408,8 +408,8 @@ function MobSection({ sec }) {
                   className="
                     block px-[22px] py-[9px] pl-[34px]
                     text-[13.5px] font-bold text-white/60 no-underline
-                    hover:text-white hover:bg-white/[0.05]
-                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
+                    hover:text-white hover:bg-white/[0.05] hover:underline
+                    focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                   "
                   {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 >
@@ -423,7 +423,7 @@ function MobSection({ sec }) {
     );
   }
 
-  // Header with no clickable header
+  // Section with non-clickable heading
   return (
     <div className="border-b border-white/[0.04]">
       <button
@@ -436,7 +436,7 @@ function MobSection({ sec }) {
           text-white/75 bg-[#01346a]/60 border-l-[3px] border-l-white/50 border-y-0 border-r-0
           px-[18px] py-[11px] cursor-pointer
           hover:text-white hover:bg-[#01346a]/80
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
         "
       >
         {sec.heading}
@@ -455,8 +455,8 @@ function MobSection({ sec }) {
                 className="
                   block px-[22px] py-[9px] pl-[34px]
                   text-[13.5px] font-bold text-white/60 no-underline
-                  hover:text-white hover:bg-white/[0.05]
-                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
+                  hover:text-white hover:bg-white/[0.05] hover:underline
+                  focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
                 "
                 {...(isExternal(lk.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
@@ -483,8 +483,8 @@ function MobItem({ item }) {
             w-full flex items-center justify-between
             text-[15px] font-normal text-white/[0.88] no-underline
             px-[22px] py-[10px]
-            hover:bg-white/[0.05] hover:text-white
-            focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
+            hover:bg-white/[0.05] hover:text-white hover:underline
+            focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
           "
         >
           {item.label}
@@ -505,7 +505,7 @@ function MobItem({ item }) {
           text-[15px] font-normal text-white/[0.88] text-left
           bg-transparent border-none px-[22px] py-[10px] cursor-pointer
           hover:bg-white/[0.05] hover:text-white
-          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px]
+          focus-visible:outline-[3px] focus-visible:outline-white focus-visible:outline-offset-[-2px] hover:underline
         "
       >
         {item.label}
@@ -517,6 +517,20 @@ function MobItem({ item }) {
           id={`mobitem-${uid}`}
           className="bg-black/[0.25] border-t border-white/[0.05]"
         >
+          {/* ── Left-panel info: label + description ── */}
+          {(item.label || item.description) && (
+            <div className="px-[18px] py-4 border-b border-white/[0.08] bg-[#01346a]/40">
+              <p className="text-[15px] font-bold text-white m-0 leading-tight">
+                {item.label}
+              </p>
+              {item.description && (
+                <p className="text-[13px] leading-[1.6] text-white/60 m-0 mt-[6px]">
+                  {item.description}
+                </p>
+              )}
+            </div>
+          )}
+
           {item.sections.map((sec, i) => (
             <MobSection key={sec.heading ?? `orphan-${i}`} sec={sec} />
           ))}
@@ -629,10 +643,7 @@ export default function Variation() {
                           <ChevronIcon />
                         </button>
                       ) : (
-                        <Link
-                          href={item.href}
-                          className="nav-item"
-                        >
+                        <Link href={item.href} className="nav-item">
                           {item.label}
                         </Link>
                       )}

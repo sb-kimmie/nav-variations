@@ -198,25 +198,18 @@ function Desktop({ item, onClose }) {
   return (
     <div className="bg-[#f1f1f1] border-t border-[#d0d7e2] shadow-[0_8px_24px_rgba(0,52,106,0.10)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10">
-
-        {/* ── Columns — stretched 1fr ── */}
         <div
           className="grid gap-x-6 gap-y-5 content-start"
           style={{ gridTemplateColumns: `repeat(${item.sections.length}, 1fr)` }}
         >
           {item.sections.map((sec, i) => {
-
             if (!sec.heading) {
               return (
                 <div key={`orphan-${i}`} className="flex flex-col gap-1">
                   <ul className="list-none m-0 p-0">
                     {sec.links.map((lk) => (
                       <li key={lk.label}>
-                        <Link
-                          href={lk.href}
-                          onClick={onClose}
-                          className="block text-[13.5px] font-semibold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]"
-                        >
+                        <Link href={lk.href} onClick={onClose} className="block text-[13.5px] font-semibold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]">
                           {lk.label}
                         </Link>
                       </li>
@@ -225,28 +218,17 @@ function Desktop({ item, onClose }) {
                 </div>
               );
             }
-
             if (sec.href) {
               return (
                 <div key={sec.heading} className="flex flex-col gap-2">
-                  <Link
-                    href={sec.href}
-                    onClick={onClose}
-                    className="group flex items-center gap-[5px] text-[12px] font-extrabold uppercase tracking-[0.08em] no-underline pb-[7px] border-b-2 transition-colors text-[#004A8A] hover:text-[#0273D7] border-[#b0bac8] leading-[1.2] hover:border-[#0273D7] hover:underline"
-                  >
+                  <Link href={sec.href} onClick={onClose} className="group flex items-center gap-[5px] text-[12px] font-extrabold uppercase tracking-[0.08em] no-underline pb-[7px] border-b-2 transition-colors text-[#004A8A] hover:text-[#0273D7] border-[#b0bac8] leading-[1.2] hover:border-[#0273D7] hover:underline">
                     <span>{sec.heading}</span>
-                    <span className="flex items-center flex-shrink-0 opacity-60 group-hover:translate-x-0.5 transition-transform">
-                      <IcoArrow />
-                    </span>
+                    <span className="flex items-center flex-shrink-0 opacity-60 group-hover:translate-x-0.5 transition-transform"><IcoArrow /></span>
                   </Link>
                   <ul className="list-none m-0 p-0">
                     {sec.links.map((lk) => (
                       <li key={lk.label}>
-                        <Link
-                          href={lk.href}
-                          onClick={onClose}
-                          className="block text-[13.5px] font-extrabold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]"
-                        >
+                        <Link href={lk.href} onClick={onClose} className="block text-[13.5px] font-extrabold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]">
                           {lk.label}
                         </Link>
                       </li>
@@ -255,7 +237,6 @@ function Desktop({ item, onClose }) {
                 </div>
               );
             }
-
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
                 <span className="block text-[12px] font-extrabold text-[#6b7a8d] uppercase tracking-[0.08em] pb-[7px] border-b-2 border-[#b0bac8]">
@@ -264,11 +245,7 @@ function Desktop({ item, onClose }) {
                 <ul className="list-none m-0 p-0">
                   {sec.links.map((lk) => (
                     <li key={lk.label}>
-                      <Link
-                        href={lk.href}
-                        onClick={onClose}
-                        className="block text-[13.5px] font-semibold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]"
-                      >
+                      <Link href={lk.href} onClick={onClose} className="block text-[13.5px] font-semibold no-underline hover:underline py-[6px] leading-snug transition-colors text-[#004A8A] hover:text-[#0273D7]">
                         {lk.label}
                       </Link>
                     </li>
@@ -287,7 +264,6 @@ function Desktop({ item, onClose }) {
 
 function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
-// headless link
 
   if (!sec.heading) {
     return (
@@ -311,7 +287,6 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  // Clickable header
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
@@ -368,7 +343,7 @@ function MobileSectionFromSections({ sec }) {
   return (
     <div className="border-b border-[#dde3f0]">
       <button
-        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
         style={{ minHeight: '44px' }}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
@@ -414,7 +389,7 @@ function MobileAccordionItemA({ item }) {
       <div className="border-b border-[#0057a8]">
         <Link
           href={item.href}
-          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white hover:underline"
           style={{ minHeight: '52px', background: 'transparent', transition: 'background 0.15s' }}
           onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
           onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
@@ -428,7 +403,7 @@ function MobileAccordionItemA({ item }) {
   return (
     <div className="border-b border-[#0057a8]">
       <button
-        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white hover:underline"
         style={{
           minHeight: '52px',
           paddingTop: '14px',
@@ -446,6 +421,20 @@ function MobileAccordionItemA({ item }) {
       </button>
       {open && (
         <div className="border-t border-[#0057a8]" style={{ background: '#ffffff' }} role="region" aria-label={`${item.label} submenu`}>
+          {/* ── Left-panel info: label + description ── */}
+          {(item.label || item.description) && (
+            <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
+              <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
+                {item.label}
+              </p>
+              {item.description && (
+                <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">
+                  {item.description}
+                </p>
+              )}
+            </div>
+          )}
+
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}
