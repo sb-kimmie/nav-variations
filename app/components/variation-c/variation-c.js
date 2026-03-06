@@ -199,7 +199,7 @@ function Desktop({ item, onClose }) {
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 hover:underline text-[#004A8A] hover:text-[#0273D7]"
+            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 hover:underline text-[#004A8A] hover:text-[#0273D7] hover:underline underline-offset-[3px] "
           >
             {item.label}
             <span className="flex items-center group-hover:translate-x-1 transition-transform">
@@ -223,7 +223,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                          className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                         >
                           {lk.label}
                         </Link>
@@ -255,7 +255,7 @@ function Desktop({ item, onClose }) {
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="block text-[13px] font-semibold no-underline py-[5px] leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        className="block text-[13px] font-semibold no-underline py-[5px] leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                       >
                         {lk.label}
                       </Link>
@@ -277,7 +277,7 @@ function Desktop({ item, onClose }) {
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                       >
                         {lk.label}
                       </Link>
