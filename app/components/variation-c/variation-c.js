@@ -194,7 +194,7 @@ function Desktop({ item, onClose }) {
         <div className="flex flex-col gap-3">
           <h2 className="text-[22px] font-bold text-[#000] m-0 leading-tight">{item.label}</h2>
           {item.description && (
-            <p className="text-[14px] leading-[1.65] text-[#555] m-0">{item.description}</p>
+            <p className="text-[13.5px] leading-[1.65] text-[#555] m-0">{item.description}</p>
           )}
           <Link
             href={item.href}
@@ -223,7 +223,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                          className="block text-[12.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                         >
                           {lk.label}
                         </Link>
@@ -234,39 +234,41 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            if (sec.href) {
-              return (
-                <div key={sec.heading} className="flex flex-col gap-2">
-                  <Link
-                    href={sec.href}
-                    onClick={onClose}
-                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em]no-underline pb-[6px] border-b-2 border-[#004a8a] hover:underline transition-colors leading-[1.2] text-[#004A8A] hover:text-[#0273D7]"
-                  >
-                    <span>{sec.heading}</span>
-                    <span className="flex items-center flex-shrink-0 opacity-70">
-                      <IcoArrow />
-                    </span>
-                  </Link>
-                  <ul className="list-none m-0 p-0">
-                    {sec.links.map((lk) => (
-                      <li key={lk.label}>
-                        <Link
-                          href={lk.href}
-                          onClick={onClose}
-                          className="block text-[13.5px] font-semibold  no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
-                        >
-                          {lk.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            }
+          if (sec.href) {
+            return (
+          <div key={sec.heading} className="flex flex-col gap-2">
+            <Link
+              href={sec.href}
+              onClick={onClose}
+              className="group flex items-center justify-between gap-2 text-[13.5px] font-bold uppercase tracking-[0.08em] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2] no-underline text-[#004A8A] hover:text-[#0273D7] hover:border-[#004A8A] transition-colors duration-150"
+            >
+              <span className="hover:underline hover:underline-offset-[3px] hover:decoration-[1.5px]">
+                {sec.heading}
+              </span>
+              <span className="flex-shrink-0 text-[8.5px] text-white font-bold uppercase tracking-[0.1em] px-[5px] py-[2px] rounded-full bg-[#004A8A] border border-current transition-colors duration-150 group-hover:bg-[#0273D7] group-hover:border-[#0273D7] group-hover:text-white">
+                EXPLORE
+              </span>
+            </Link>
+                <ul className="list-none m-0 p-0">
+                  {sec.links.map((lk) => (
+                    <li key={lk.label}>
+                      <Link
+                        href={lk.href}
+                        onClick={onClose}
+                        className="block text-[12.5px] font-semibold no-underline py-[5px] leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                      >
+                        {lk.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }
 
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
-                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2]">
+                <span className="block text-[13.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2]">
                   {sec.heading}
                 </span>
                 <ul className="list-none m-0 p-0">
@@ -275,7 +277,7 @@ function Desktop({ item, onClose }) {
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        className="block text-[12.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#003DA5] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                       >
                         {lk.label}
                       </Link>
