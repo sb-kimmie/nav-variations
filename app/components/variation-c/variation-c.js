@@ -240,7 +240,7 @@ function Desktop({ item, onClose }) {
             <Link
               href={sec.href}
               onClick={onClose}
-              className="group flex items-center justify-between gap-2 text-[13.5px] font-bold uppercase tracking-[0.08em] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2] no-underline text-[#004A8A] hover:text-[#0273D7] hover:border-[#004A8A] transition-colors duration-150"
+              className="group flex items-center justify-between gap-2 text-[13.5px] font-bold uppercase tracking-[0.08em] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2] no-underline text-[#004A8A] hover:text-[#0273D7] hover:border-[#004A8A] transition-colors duration-150"
             >
               <span className="hover:underline hover:underline-offset-[3px] hover:decoration-[1.5px]">
                 {sec.heading}
@@ -268,7 +268,7 @@ function Desktop({ item, onClose }) {
 
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
-                <span className="block text-[13.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-2 border-[#6b7a8d] leading-[1.2]">
+                <span className="block text-[13.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2]">
                   {sec.heading}
                 </span>
                 <ul className="list-none m-0 p-0">
