@@ -490,9 +490,9 @@ function MobileAccordionItemA({ item }) {
           {/* ── Left-panel info: label + description ── */}
           {(item.label || item.description) && (
             <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
-              <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
+              {/* <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
                 {item.label}
-              </p>
+              </p> */}
               {item.description && (
                 <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">
                   {item.description}

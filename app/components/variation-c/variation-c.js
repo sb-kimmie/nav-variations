@@ -333,14 +333,16 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
+  // ── Section with sec.href: renders heading as a link with EXPLORE badge + expand toggle ──
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
-        <div className="flex items-stretch">
+        <div className="flex items-center" style={{ minHeight: '44px' }}>
+          {/* Clickable heading link with EXPLORE badge */}
           <Link
             href={sec.href}
-            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
-            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            className="group flex-1 flex items-center gap-2 pl-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+            style={{ transition: 'color 0.15s, background 0.15s' }}
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = ''; }}
           >
@@ -350,13 +352,14 @@ function MobileSectionFromSections({ sec }) {
               aria-hidden="true"
             />
             <span>{sec.heading}</span>
-            <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <span className="flex-shrink-0 text-[8.5px] font-bold tracking-[0.1em] uppercase text-white bg-[#004A8A] border border-[#004A8A] rounded-full px-[5px] py-[2px] leading-none transition-colors duration-150 group-hover:bg-[#0273D7] group-hover:border-[#0273D7]">
+              EXPLORE
+            </span>
           </Link>
+
+          {/* Expand/collapse chevron — same px-5 right padding as plain accordion rows */}
           <button
-            className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
-            style={{ minWidth: '44px', transition: 'background 0.15s' }}
+            className="flex items-center justify-center bg-transparent border-none cursor-pointer focus:outline-none pr-5 pl-3 self-stretch"
             onClick={() => setOpen(!open)}
             aria-expanded={open}
             aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
@@ -395,6 +398,7 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
+  // ── Section without sec.href: plain accordion ──
   return (
     <div className="border-b border-[#dde3f0]">
       <button
@@ -492,9 +496,9 @@ function MobileAccordionItemA({ item }) {
           {/* ── Left-panel info: label + description ── */}
           {(item.label || item.description) && (
             <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
-              <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
+              {/* <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
                 {item.label}
-              </p>
+              </p> */}
               {item.description && (
                 <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">
                   {item.description}
@@ -598,7 +602,8 @@ export default function VariationB() {
           {/* Hamburger */}
           <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-[#0273D7] rounded"
+              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white outline-none rounded"
+              style={{ outline: 'none', boxShadow: 'none' }}
               onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}
