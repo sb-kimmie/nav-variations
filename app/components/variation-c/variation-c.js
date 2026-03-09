@@ -22,6 +22,14 @@ const NAV = [
           { label: 'CSUSB Traditions & Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
         ],
       },
+          {links: [
+          { label: 'Why Choose CSUSB',            href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
+          { label: 'Campus Tours',                 href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
+          { label: 'Education Abroad',             href: '/join-the-pack/future-students/explore-csusb/education-abroad' },
+          { label: 'Visit San Bernardino',         href: '/join-the-pack/future-students/explore-csusb/visit-san-bernardino' },
+          { label: 'CSUSB Traditions & Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
+        ],
+      },
       {
         heading: 'Apply',
         href: '',
@@ -213,13 +221,13 @@ function Desktop({ item, onClose }) {
         <div className="bg-[#dde6f0] self-stretch" aria-hidden="true" />
 
         {/* ── Section columns ── */}
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(178px,1fr))] gap-x-4 gap-y-5 content-start">
+        <div style={{ columns: '178px', columnGap: '16px' }}>
           {item.sections.map((sec, i) => {
 
             // ── ORPHAN: no heading — bare links with left indent, no card ──
             if (!sec.heading) {
               return (
-                <div key={`orphan-${i}`} className="flex flex-col py-[2px]">
+                <div key={`orphan-${i}`} className="flex flex-col py-[2px] break-inside-avoid mb-5">
                   {sec.links.map((lk) => (
                     <Link
                       key={lk.label}
@@ -237,8 +245,7 @@ function Desktop({ item, onClose }) {
             // ── CLICKABLE HEADER: blue band heading, white link list ──
             if (sec.href) {
               return (
-                <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden">
-                  {/* Blue band — the whole band is clickable */}
+                <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden break-inside-avoid mb-5">
                   <Link
                     href={sec.href}
                     onClick={onClose}
@@ -251,9 +258,11 @@ function Desktop({ item, onClose }) {
                       <span className="text-[7.5px] font-bold tracking-[0.08em] uppercase text-[#0273D7] bg-white rounded-[3px] px-[5px] py-[2px] leading-none">
                         EXPLORE
                       </span>
+                      <span className="text-white opacity-70 group-hover:translate-x-[2px] transition-transform duration-150">
+                        <IcoArrow />
+                      </span>
                     </span>
                   </Link>
-                  {/* Links list */}
                   <ul className="list-none m-0 p-0">
                     {sec.links.map((lk, j) => (
                       <li key={lk.label} className={j > 0 ? 'border-t border-[#edf2f8]' : ''}>
@@ -273,14 +282,12 @@ function Desktop({ item, onClose }) {
 
             // ── NON-CLICKABLE HEADER: grey band, same card structure ──
             return (
-              <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden">
-                {/* Grey band — not clickable */}
+              <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden break-inside-avoid mb-5">
                 <div className="px-4 py-[9px] bg-[#edf2f8]">
                   <span className="text-[11px] font-extrabold uppercase tracking-[0.09em] text-[#6a7d96] leading-none">
                     {sec.heading}
                   </span>
                 </div>
-                {/* Links list */}
                 <ul className="list-none m-0 p-0">
                   {sec.links.map((lk, j) => (
                     <li key={lk.label} className={j > 0 ? 'border-t border-[#edf2f8]' : ''}>
@@ -478,7 +485,7 @@ function MobileAccordionItemA({ item }) {
         <div className="border-t border-[#0057a8]" style={{ background: '#ffffff' }} role="region" aria-label={`${item.label} submenu`}>
           {(item.label || item.description) && (
             <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
-              <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">{item.label}</p>
+              {/* <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">{item.label}</p> */}
               {item.description && (
                 <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">{item.description}</p>
               )}
