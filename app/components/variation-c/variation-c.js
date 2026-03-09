@@ -196,7 +196,7 @@ const IcoArrow = () => (
 
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#f4f7fb] border-b-4 border-b-[#0273D7] shadow-[0_10px_40px_rgba(0,30,80,0.12)]">
+    <div className="bg-[#f4f7fb] shadow-[0_10px_40px_rgba(0,30,80,0.12)]">
       <div className="max-w-[1280px] mx-auto px-8 pt-8 pb-10 grid grid-cols-[210px_1px_1fr] gap-x-10 items-start">
 
         {/* ── Left panel ── */}
