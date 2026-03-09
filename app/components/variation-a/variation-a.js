@@ -3,275 +3,456 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
-const navItems = [
+const NAV = [
   { label: 'Home', href: '/join-the-pack' },
   {
+    id: 'future-students',
     label: 'Future Students',
     href: '/join-the-pack/future-students',
-    rows: [
+    description: 'Discover everything CSUSB has to offer — from exploring campus and choosing a major to applying and understanding the cost of attendance.',
+    sections: [
       {
-        columns: [
-          {
-            heading: 'Explore CSUSB',
-            href: '',
-            links: [
-              { label: 'Why Choose CSUSB', href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
-              { label: 'Campus Tours', href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
-              { label: 'Education Abroad', href: '/join-the-pack/future-students/explore-csusb/education-abroad' },
-              { label: 'Visit San Bernardino', href: '/join-the-pack/future-students/explore-csusb/visit-san-bernardino' },
-              { label: 'CSUSB Traditions and Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
-            ],
-          },
-          {
-            heading: 'Apply',
-            href: '',
-            links: [
-              { label: 'Application Workshops', href: '/join-the-pack/future-students/apply/application-workshops' },
-              { label: 'Freshmen Admissions Requirements', href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
-              { label: 'Transfer Admissions Requirements', href: '/join-the-pack/future-students/apply/transfer-admissions-requirements' },
-              { label: 'Returning Students', href: '/join-the-pack/future-students/apply/returning-students' },
-              { label: 'Graduate Admissions Requirements', href: '/join-the-pack/future-students/apply/graduate-admissions-requirements' },
-              { label: 'International Admissions Requirements', href: 'https://www.csusb.edu/node/540620' },
-              { label: 'After Admission: Your Next Steps', href: '/join-the-pack/future-students/apply/after-admission-your-next-steps' },
-            ],
-          },
-          {
-            heading: 'Program Specific Requirements',
-            href: '/program-requirements',
-            links: [
-              { label: 'Transfer Success Pathway', href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
-              { label: 'Veteran Admissions Requirements', href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
-              { label: 'EOP', href: '/join-the-pack/future-students/program-specific-requirements/educational-opportunity-program-eop' },
-              { label: 'High School Dual Enrollment', href: '/join-the-pack/future-students/program-specific-requirements/high-school-dual-enrollment' },
-              { label: 'Non-degree Programs', href: '/join-the-pack/future-students/program-specific-requirements/non-degree-programs' },
-              { label: 'Over 60 Program', href: '/join-the-pack/future-students/program-specific-requirements/over-60-program' },
-              { label: 'University Honors College', href: '/join-the-pack/future-students/program-specific-requirements/university-honors-college' },
-            ],
-          },
-          {
-            heading: 'Campus Life',
-            href: '',
-            links: [
-              { label: 'Student Recreation & Wellness Center', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
-              { label: 'Living on Campus', href: '/join-the-pack/future-students/living-campus' },
-              { label: 'Connect with an Outreach Counselor', href: '/join-the-pack/future-students/connect-outreach-counselor' },
-              { label: 'Learn about Palm Desert Campus', href: '/join-the-pack/future-students/learn-about-palm-desert-campus' },
-              { label: 'Cost of Attendance', href: '/join-the-pack/future-students/cost-attendance' },
-              { label: 'Tuition Calculator', href: 'https://app.meadowfi.com/csusb' },
-            ],
-          },
+        heading: 'Explore CSUSB',
+        href: '',
+        links: [
+          { label: 'Why Choose CSUSB',            href: '/join-the-pack/future-students/explore-csusb/why-choose-csusb' },
+          { label: 'Campus Tours',                 href: '/join-the-pack/future-students/explore-csusb/campus-tours' },
+          { label: 'Education Abroad',             href: '/join-the-pack/future-students/explore-csusb/education-abroad' },
+          { label: 'Visit San Bernardino',         href: '/join-the-pack/future-students/explore-csusb/visit-san-bernardino' },
+          { label: 'CSUSB Traditions & Landmarks', href: '/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks' },
+        ],
+      },
+      {
+        heading: 'Apply',
+        href: '',
+        links: [
+          { label: 'Application Workshops',                 href: '/join-the-pack/future-students/apply/application-workshops' },
+          { label: 'Freshmen Admissions Requirements',      href: '/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
+          { label: 'Transfer Admissions Requirements',      href: '/join-the-pack/future-students/apply/transfer-admissions-requirements' },
+          { label: 'Returning Students',                    href: '/join-the-pack/future-students/apply/returning-students' },
+          { label: 'Graduate Admissions Requirements',      href: '/join-the-pack/future-students/apply/graduate-admissions-requirements' },
+          { label: 'International Admissions Requirements', href: 'https://www.csusb.edu/node/540620' },
+          { label: 'After Admission: Your Next Steps',      href: '/join-the-pack/future-students/apply/after-admission-your-next-steps' },
+        ],
+      },
+      {
+        heading: 'Program Requirements',
+        href: '/its',
+        links: [
+          { label: 'Transfer Success Pathway',    href: '/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp' },
+          { label: 'Veteran Admissions',          href: '/join-the-pack/future-students/program-specific-requirements/military-veteran-students' },
+          { label: 'EOP',                         href: '/join-the-pack/future-students/program-specific-requirements/educational-opportunity-program-eop' },
+          { label: 'High School Dual Enrollment', href: '/join-the-pack/future-students/program-specific-requirements/high-school-dual-enrollment' },
+          { label: 'Non-degree Programs',         href: '/join-the-pack/future-students/program-specific-requirements/non-degree-programs' },
+          { label: 'Over 60 Program',             href: '/join-the-pack/future-students/program-specific-requirements/over-60-program' },
+          { label: 'University Honors College',   href: '/join-the-pack/future-students/program-specific-requirements/university-honors-college' },
+        ],
+      },
+      {
+        heading: 'Campus Life',
+        href: '',
+        links: [
+          { label: 'Student Recreation & Wellness', href: '/join-the-pack/future-students/campus-life/student-recreation-wellness-center' },
+          { label: 'Living on Campus',              href: '/join-the-pack/future-students/living-campus' },
+          { label: 'Connect with a Counselor',      href: '/join-the-pack/future-students/connect-outreach-counselor' },
+          { label: 'Palm Desert Campus',            href: '/join-the-pack/future-students/learn-about-palm-desert-campus' },
+          { label: 'Cost of Attendance',            href: '/join-the-pack/future-students/cost-attendance' },
+          { label: 'Tuition Calculator',            href: 'https://app.meadowfi.com/csusb' },
         ],
       },
     ],
   },
   {
+    id: 'newly-admitted',
     label: 'Newly Admitted Students',
     href: '/join-the-pack/newly-admitted-students',
-    rows: [
+    description: "Congratulations! You've been admitted to CSUSB. Here's everything you need to complete enrollment and prepare for your first day as a Coyote.",
+    sections: [
       {
-        columns: [
-          { heading: null, href: null, links: [
-            { label: 'First-year Students', href: '/join-the-pack/newly-admitted-students/first-year-students' },
-            { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
-            { label: 'International Students', href: 'https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students' },
-          ]},
-          { heading: null, href: null, links: [
-            { label: 'Transfer Students', href: '/join-the-pack/newly-admitted-students/transfer-students' },
-            { label: 'Returning Students', href: '/join-the-pack/newly-admitted-students/returning-students' },
-            { label: 'Graduate Students', href: '/join-the-pack/newly-admitted-students/graduate-students' },
-          ]},
-          { heading: null, href: null, links: [
-            { label: 'Financial Aid, Scholarships & Grants', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
-            { label: 'Orientation Overview', href: '/join-the-pack/newly-admitted-students/orientation-overview' },
-            { label: 'Join Nearpeer', href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
-          ]},
+        links: [
+          { label: 'First-year Students',     href: '/join-the-pack/newly-admitted-students/first-year-students' },
+          { label: 'EOP First-year Students', href: '/join-the-pack/newly-admitted-students/eop-first-year-students' },
+          { label: 'International Students',  href: 'https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students' },
+          { label: 'Transfer Students',       href: '/join-the-pack/newly-admitted-students/transfer-students' },
+          { label: 'Returning Students',      href: '/join-the-pack/newly-admitted-students/returning-students' },
+          { label: 'Graduate Students',       href: '/join-the-pack/newly-admitted-students/graduate-students' },
+        ],
+      },
+      {
+        links: [
+          { label: 'Financial Aid & Scholarships', href: '/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants' },
+          { label: 'Orientation Overview',         href: '/join-the-pack/newly-admitted-students/orientation-overview' },
+          { label: 'Join Nearpeer',                href: '/join-the-pack/newly-admitted-students/join-the-nearpeer' },
         ],
       },
     ],
   },
   {
+    id: 'parents',
     label: 'Parents & Guardians',
     href: '/join-the-pack/parents-guardians',
-    rows: [
+    description: "Resources to help you support your student's journey to becoming a CSUSB Coyote.",
+    sections: [
       {
-        columns: [
-          { heading: null, href: null, links: [{ label: 'Financial Aid Overview', href: '/join-the-pack/parents-guardians/financial-aid-overview' }] },
-          { heading: null, href: null, links: [{ label: 'Campus Tours & Virtual Visits', href: '/join-the-pack/parents-guardians/campus-tours-virtual-visits' }] },
-          { heading: null, href: null, links: [{ label: 'Campus Safety', href: '/join-the-pack/parents-guardians/campus-safety' }] },
+        heading: 'Resources',
+        href: '',
+        links: [
+          { label: 'Financial Aid Overview',        href: '/join-the-pack/parents-guardians/financial-aid-overview' },
+          { label: 'Campus Tours & Virtual Visits', href: '/join-the-pack/parents-guardians/campus-tours-virtual-visits' },
+          { label: 'Campus Safety',                 href: '/join-the-pack/parents-guardians/campus-safety' },
         ],
       },
     ],
   },
   {
+    id: 'counselors',
     label: 'Counselors',
     href: '/join-the-pack/counselors',
-    rows: [
+    description: 'Tools, programs, and connections to guide your students toward a successful future at Cal State San Bernardino.',
+    sections: [
       {
-        columns: [
-          {
-            heading: 'Apply and Admissions Requirements',
-            href: '/its',
-            links: [
-              { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
-              { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
-            ],
-          },
-          {
-            heading: 'Available Programs',
-            href: '',
-            links: [
-              { label: 'Direct Admissions Program', href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
-              { label: 'High School Dual Enrollment', href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
-              { label: 'Transfer Pathways & Articulation', href: '/join-the-pack/counselors/available-programs/transfer-pathways-articulation' },
-              { label: 'Making College Happen', href: '/join-the-pack/counselors/making-college-happen' },
-              { label: 'Affordability & Financial Aid', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid' },
-              { label: 'Parent & Family Communication', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication' },
-              { label: 'Visiting CSUSB', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#campus-tours' },
-            ],
-          },
-          {
-            heading: null, href: null,
-            links: [
-              { label: 'Palm Desert Campus', href: '/join-the-pack/counselors/palm-desert-campus' },
-              { label: 'Resources', href: '/join-the-pack/counselors/resources' },
-              { label: 'Request an Outreach Counselor', href: '/join-the-pack/counselors/request-outreach-counselor' },
-            ],
-          },
+        heading: 'Apply & Admissions',
+        href: '/its',
+        links: [
+          { label: 'Freshman Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements' },
+          { label: 'Transfer Admissions Requirements', href: 'https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements' },
+        ],
+      },
+      {
+        heading: 'Available Programs',
+        href: '',
+        links: [
+          { label: 'Direct Admissions Program',        href: '/join-the-pack/counselors/available-programs/direct-admissions-program' },
+          { label: 'High School Dual Enrollment',      href: 'https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment' },
+          { label: 'Transfer Pathways & Articulation', href: '/join-the-pack/counselors/available-programs/transfer-pathways-articulation' },
+        ],
+      },
+      {
+        heading: 'Making College Happen',
+        href: '',
+        links: [
+          { label: 'Affordability & Financial Aid', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid' },
+          { label: 'Parent & Family Communication', href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication' },
+          { label: 'Visiting CSUSB',                href: 'https://www.csusb.edu/join-the-pack/counselors/making-college-happen#campus-tours' },
+        ],
+      },
+      {
+        links: [
+          { label: 'Palm Desert Campus',            href: '/join-the-pack/counselors/palm-desert-campus' },
+          { label: 'Resources',                     href: '/join-the-pack/counselors/resources' },
+          { label: 'Request an Outreach Counselor', href: '/join-the-pack/counselors/request-outreach-counselor' },
         ],
       },
     ],
   },
-  { label: 'Admissions Forms', href: '/join-the-pack/admissions-forms' },
   {
+    id: 'admissions-forms',
+    label: 'Admissions Forms',
+    href: '/join-the-pack/admissions-forms',
+    sections: null,
+  },
+  {
+    id: 'program-finder',
     label: 'Program Finder',
     href: 'https://www.csusb.edu/join-the-pack/program-finder',
-    rows: [
+    description: 'Explore over 70 majors, concentrations, and certificate programs at CSUSB.',
+    sections: [
       {
-        columns: [
-          { heading: null, href: null, links: [{ label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' }] },
+        heading: 'Certificates',
+        href: '',
+        links: [
+          { label: 'Why Earn a Certificate at CSUSB?', href: '/join-the-pack/program-finder/certificates' },
         ],
       },
     ],
   },
 ];
 
+const MenuIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
 const IcoArrow = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" className="shrink-0">
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const IcoClose = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-  </svg>
-);
-const IcoMenu = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-  </svg>
-);
-
-function ChevronB({ open }) {
+function Desktop({ item, onClose }) {
   return (
-    <svg
-      className={`w-[10px] h-[7px] flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-      viewBox="0 0 12 8" fill="none"
-    >
-      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-// ─── Mobile section ───────────────────────────────────────────────────────────
-function MobileSectionFromRows({ col }) {
-  const [open, setOpen] = useState(false);
-
-  if (col.heading) {
-    // CLICKABLE heading — show as link with arrow, children always visible beneath (no toggle)
-    if (col.href) {
-      return (
-        <div className="mb-1">
-          <div className="px-5 pt-5 pb-2">
-            <Link
-              href={col.href}
-              className="inline-flex items-center gap-[6px] text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8] underline hover:underline transition-colors duration-[120ms] hover:underline"
-            >
-              {col.heading}
-              <span className="opacity-70 flex items-center flex-shrink-0"><IcoArrow /></span>
-            </Link>
-            <div className="mt-[10px] h-px bg-[#0255a3]" />
-          </div>
-          <div>
-            {col.links.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:underline"
-                style={{ minHeight: '44px' }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+    <div className="bg-[#fff] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+      <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
+        {/* Left panel */}
+        <div className="flex flex-col gap-3">
+          <h2 className="text-[22px] font-bold text-[#000] m-0 leading-tight">{item.label}</h2>
+          {item.description && (
+            <p className="text-[14px] leading-[1.65] text-[#555] m-0">{item.description}</p>
+          )}
+          <Link
+            href={item.href}
+            onClick={onClose}
+            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 text-[#004A8A] hover:text-[#0273D7] hover:underline underline-offset-[3px] "
+          >
+            {item.label}
+            <span className="flex items-center group-hover:translate-x-1 transition-transform">
+              <IcoArrow />
+            </span>
+          </Link>
         </div>
-      );
-    }
 
-    // NON-CLICKABLE heading — original accordion behavior
-    return (
-      <div className="mb-1">
-        <div className="px-5 pt-5 pb-2">
-          <p className="m-0 text-[10.5px] font-bold uppercase tracking-[0.12em] text-[#7eb3e8]">
-            {col.heading}
-          </p>
-          <div className="mt-[10px] h-px bg-[#0255a3]" />
-        </div>
-        <div>
-          {col.links.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:underline"
-              style={{ minHeight: '44px' }}
-            >
-              {link.label}
-            </Link>
-          ))}
+        {/* Vertical divider */}
+        <div className="bg-[#7a91a8] self-stretch min-h-[100px]" aria-hidden="true" />
+
+        {/* Columns */}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
+          {item.sections.map((sec, i) => {
+            if (!sec.heading) {
+              return (
+                <div key={`orphan-${i}`} className="flex flex-col gap-2">
+                  <ul className="list-none m-0 p-0">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label}>
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            if (sec.href) {
+              return (
+                <div key={sec.heading} className="flex flex-col gap-2">
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em]no-underline pb-[6px] border-b-1 border-[#004a8a] hover:underline transition-colors leading-[1.2] text-[#004A8A] hover:text-[#0273D7]"
+                  >
+                    <span>{sec.heading}</span>
+                    <span className="flex items-center flex-shrink-0 opacity-70">
+                      <IcoArrow />
+                    </span>
+                  </Link>
+                  <ul className="list-none m-0 p-0">
+                    {sec.links.map((lk) => (
+                      <li key={lk.label}>
+                        <Link
+                          href={lk.href}
+                          onClick={onClose}
+                          className="block text-[13.5px] font-semibold  no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        >
+                          {lk.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            return (
+              <div key={sec.heading} className="flex flex-col gap-2">
+                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2]">
+                  {sec.heading}
+                </span>
+                <ul className="list-none m-0 p-0">
+                  {sec.links.map((lk) => (
+                    <li key={lk.label}>
+                      <Link
+                        href={lk.href}
+                        onClick={onClose}
+                        className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                      >
+                        {lk.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
-    );
-  }
-
-  // No heading — flat orphan links
-  return (
-    <div className="pt-2">
-      {col.links.map((link) => (
-        <Link
-          key={link.label}
-          href={link.href}
-          className="flex items-center pl-6 pr-5 py-[10px] text-[14.5px] font-semibold text-white no-underline hover:bg-[rgba(255,255,255,0.1)] hover:underline"
-          style={{ minHeight: '44px' }}
-        >
-          {link.label}
-        </Link>
-      ))}
     </div>
   );
 }
 
-// clickable header with no child links 
-function MobileAccordionItemB({ item }) {
-  const [open, setOpen] = useState(false);
-  const hasRows = item.rows?.length > 0;
+// ─── Mobile ───────────────────────────────────────────────────────────────────
 
-  if (!hasRows) {
+function MobileChevron() {
+  return (
+    <svg
+      className="w-[10px] h-[7px] flex-shrink-0"
+      viewBox="0 0 12 8"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MobileSectionFromSections({ sec }) {
+  const [open, setOpen] = useState(false);
+
+  if (!sec.heading) {
     return (
-      <div className="border-b border-[#0462bc]">
+      <div className="border-b border-[#dde3f0]">
+        {sec.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+          >
+            <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    );
+  }
+
+  if (sec.href) {
+    return (
+      <div className="border-b border-[#dde3f0]">
+        <div className="flex items-stretch">
+          <Link
+            href={sec.href}
+            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = ''; }}
+          >
+            <span
+              className="flex-shrink-0 w-[3px] self-stretch"
+              style={{ background: '#0273D7' }}
+              aria-hidden="true"
+            />
+            <span>{sec.heading}</span>
+            <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          <button
+            className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            style={{ minWidth: '44px', transition: 'background 0.15s' }}
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+            aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(2,115,215,0.06)'}
+            onMouseLeave={e => e.currentTarget.style.background = ''}
+          >
+            <MobileChevron />
+          </button>
+        </div>
+
+        {open && (
+          <ul
+            className="list-none m-0 p-0 pb-2"
+            style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
+            role="list"
+          >
+            {sec.links.map((link) => (
+              <li key={link.label} role="listitem">
+                <Link
+                  href={link.href}
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+                  style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+                >
+                  <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                    <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-b border-[#dde3f0]">
+      <button
+        className="w-full flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#1a2a4a] text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+        style={{ minHeight: '44px' }}
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span className="flex items-center gap-2 min-w-0">
+          <span
+            className="flex-shrink-0 w-[3px] self-stretch"
+            style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
+            aria-hidden="true"
+          />
+          <span className="truncate">{sec.heading}</span>
+        </span>
+        <MobileChevron />
+      </button>
+
+      {open && (
+        <ul
+          className="list-none m-0 p-0 pb-2"
+          style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
+          role="list"
+        >
+          {sec.links.map((link) => (
+            <li key={link.label} role="listitem">
+              <Link
+                href={link.href}
+                className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+                style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
+              >
+                <svg className="flex-shrink-0 w-[6px] h-[10px] text-[#0273D7] opacity-60" viewBox="0 0 6 10" fill="none" aria-hidden="true">
+                  <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function MobileAccordionItemA({ item }) {
+  const [open, setOpen] = useState(false);
+  const hasSections = item.sections?.length > 0;
+
+  if (!hasSections) {
+    return (
+      <div className="border-b border-[#0057a8]">
         <Link
           href={item.href}
-          className="flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white no-underline bg-[#0573D7] hover:bg-[#0462bc] hover:underline"
-          style={{ minHeight: '44px' }}
+          className="flex items-center justify-between px-5 py-[15px] text-[15px] font-bold text-white no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white hover:underline"
+          style={{ minHeight: '52px', background: 'transparent', transition: 'background 0.15s' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
         >
           {item.label}
         </Link>
@@ -280,99 +461,130 @@ function MobileAccordionItemB({ item }) {
   }
 
   return (
-    <div className="border-b border-[#0462bc]">
+    <div className="border-b border-[#0057a8]">
       <button
-        className={`w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-bold text-white text-left border-none cursor-pointer font-[inherit] hover:underline ${
-          open ? 'bg-[#0462bc]' : 'bg-[#0573D7] hover:bg-[#0462bc]'
-        }`}
+        className="w-full flex items-center justify-between px-5 text-[15px] font-bold text-white text-left bg-transparent border-none cursor-pointer font-[inherit] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white hover:underline"
+        style={{
+          minHeight: '52px',
+          paddingTop: '14px',
+          paddingBottom: '14px',
+          background: open ? 'rgba(255,255,255,0.1)' : 'transparent',
+          transition: 'background 0.15s',
+        }}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        style={{ minHeight: '44px' }}
+        onMouseEnter={e => { if (!open) e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = open ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
       >
         <span>{item.label}</span>
-        <ChevronB open={open} />
+        <MobileChevron />
       </button>
 
       {open && (
-        <div className="bg-[#013F7E] border-t border-[#0255a3] pb-4">
-          {item.rows.map((row, ri) =>
-            row.columns.map((col, ci) => (
-              <MobileSectionFromRows key={`${ri}-${ci}`} col={col} />
-            ))
+        <div
+          className="border-t border-[#0057a8]"
+          style={{ background: '#ffffff' }}
+          role="region"
+          aria-label={`${item.label} submenu`}
+        >
+          {/* ── Left-panel info: label + description ── */}
+          {(item.label || item.description) && (
+            <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
+              {/* <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
+                {item.label}
+              </p> */}
+              {item.description && (
+                <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">
+                  {item.description}
+                </p>
+              )}
+            </div>
           )}
+
+          {item.sections.map((sec, i) => (
+            <MobileSectionFromSections key={i} sec={sec} />
+          ))}
         </div>
       )}
     </div>
   );
 }
 
-function Chevron() {
-  return (
-    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-const navItemBase =
-  'inline-flex items-center gap-1 px-3 py-2 h-full text-[13.3px] text-white whitespace-nowrap border-b-4 border-b-transparent hover:bg-[#004A8A] hover:border-b-[#003DA5]';
-const navItemActive = 'bg-[#004A8A] border-b-[#003DA5]';
-
-export default function VariationA() {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
+export default function VariationB() {
+  const [activeId,  setActiveId]  = useState(null);
+  const [mobOpen,   setMobOpen]   = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
   const closeTimer = useRef(null);
 
   useEffect(() => {
-    const fn = (e) => { if (e.key === 'Escape') { setActiveMenu(null); setMobileOpen(false); } };
-    document.addEventListener('keydown', fn);
-    return () => document.removeEventListener('keydown', fn);
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
   useEffect(() => {
-    const fn = () => { if (window.innerWidth > 1023) setMobileOpen(false); };
+    const fn = () => { if (window.innerWidth > 1023) setMobOpen(false); };
     window.addEventListener('resize', fn, { passive: true });
     return () => window.removeEventListener('resize', fn);
+  }, []);
+
+  useEffect(() => {
+    const fn = (e) => {
+      if (e.key === 'Escape') { setActiveId(null); setMobOpen(false); }
+    };
+    document.addEventListener('keydown', fn);
+    return () => document.removeEventListener('keydown', fn);
   }, []);
 
   const cancelClose = () => {
     if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; }
   };
-
   const scheduleClose = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => setActiveMenu(null), 150);
+    closeTimer.current = setTimeout(() => setActiveId(null), 120);
   };
 
-  const activeItem = navItems.find((n) => n.label === activeMenu);
+  const activeItem = NAV.find((n) => n.id === activeId);
 
   return (
-    <header className="font-['Source_Sans_Pro',Helvetica,Arial,sans-serif] top-0 shadow-[0_2px_10px_rgba(0,0,0,0.18)]">
+    <header
+      className={[
+        'relative sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif]',
+        scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.12)]' : '',
+      ].join(' ')}
+    >
+      {/* ── Main bar ── */}
+      <div className="border-b border-black/[0.08]">
+        <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
 
-      {/* Nav bar */}
-      <div className="bg-[#0273D7] relative">
-        <div className="max-w-[1280px] mx-auto px-8 flex items-stretch">
-          <nav className="flex-1 hidden lg:block" aria-label="Primary navigation">
-            <ul className="list-none m-0 p-0 flex items-stretch h-full">
-              {navItems.map((item) => (
+          {/* Desktop nav */}
+          <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">
+            <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
+              {NAV.map((item) => (
                 <li
-                  key={item.label}
-                  className="flex items-stretch"
-                  onMouseEnter={() => { cancelClose(); setActiveMenu(item.rows?.length ? item.label : null); }}
+                  key={item.id || item.label}
+                  onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
                   onMouseLeave={scheduleClose}
                 >
-                  {item.rows ? (
+                  {item.sections ? (
                     <button
-                      className={`${navItemBase} bg-transparent border-none cursor-pointer font-[inherit] ${activeMenu === item.label ? navItemActive : ''}`}
-                      onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)}
-                      aria-expanded={activeMenu === item.label}
+                      className={[
+                        'inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white whitespace-nowrap gap-[6px]',
+                        'bg-transparent border-none cursor-pointer font-[inherit]',
+                        'underline-offset-[4px] decoration-white decoration-[1.5px]',
+                        activeId === item.id ? 'underline' : 'no-underline hover:underline',
+                      ].join(' ')}
+                      aria-expanded={activeId === item.id}
                       aria-haspopup="true"
                     >
                       {item.label}
-                      <Chevron />
+                      <MobileChevron />
                     </button>
                   ) : (
-                    <Link href={item.href} className={navItemBase}>
+                    <Link
+                      href={item.href}
+                      className="inline-flex items-center h-full px-[14px] text-[13.5px] font-medium text-white whitespace-nowrap no-underline hover:underline underline-offset-[4px] decoration-white decoration-[1.5px]"
+                    >
                       {item.label}
                     </Link>
                   )}
@@ -381,98 +593,50 @@ export default function VariationA() {
             </ul>
           </nav>
 
-          {/* Mobile hamburger */}
-          <div className="flex items-center flex-shrink-0 ml-auto lg:hidden">
+          {/* Hamburger */}
+          <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="flex items-center justify-center bg-transparent border-none cursor-pointer text-white rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              onClick={() => { setMobileOpen((o) => !o); setActiveMenu(null); }}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-nav-a"
+              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-[#0273D7] rounded"
+              onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
+              aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobOpen}
+              aria-controls="mobile-nav-b"
             >
-              {mobileOpen ? <IcoClose /> : <IcoMenu />}
+              {mobOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
-        </div>
 
-        {/* Desktop dropdown */}
-        {activeMenu && activeItem?.rows && (
-          <div
-            className="absolute top-full left-0 right-0 shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
-            style={{ background: '#004A8A' }}
-            role="region"
-            aria-label={`${activeItem.label} menu`}
-            onMouseEnter={cancelClose}
-            onMouseLeave={scheduleClose}
-          >
-            <div className="max-w-[1380px] mx-auto px-6 pt-[22px] pb-7">
-              {activeItem.rows.map((row, rowIdx) => (
-                <div
-                  key={rowIdx}
-                  className={`grid gap-x-8 grid-cols-[repeat(auto-fit,minmax(180px,1fr))] ${rowIdx > 0 ? 'mt-5 pt-5' : ''}`}
-                  style={rowIdx > 0 ? { borderTop: '1px solid rgba(255,255,255,0.18)' } : {}}
-                >
-                  {row.columns.map((col, colIdx) => (
-                    <div key={colIdx} className="min-w-0">
-                      {col.heading && (
-                        col.href ? (
-                          <Link
-                            href={col.href}
-                            className="group inline-flex items-center gap-[5px] text-[13px] font-bold uppercase tracking-[0.09em] no-underline mb-2 pb-[6px] hover:underline underline-offset-[3px] decoration-[rgba(255,255,255,0.7)] decoration-[1.5px] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-[2px]"
-                            style={{ color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.30)', display: 'flex' }}
-                          >
-                            <span>{col.heading}</span>
-                            <span className="opacity-70 flex items-center flex-shrink-0 group-hover:opacity-100 group-hover:translate-x-[3px] transition-all duration-150">
-                              <IcoArrow />
-                            </span>
-                          </Link>
-                        ) : (
-                          <span
-                            className="block text-[13px] font-bold uppercase tracking-[0.09em] mb-2 pb-[6px]"
-                            style={{ color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.30)' }}
-                          >
-                            {col.heading}
-                          </span>
-                        )
-                      )}
-                      <ul className="list-none m-0 p-0 flex flex-col gap-[2px]">
-                        {col.links.map((link) => (
-                          <li key={link.label}>
-                            <Link
-                              href={link.href}
-                              className="block px-[6px] py-1 text-[13.5px] font-semibold leading-snug rounded-[3px] no-underline hover:underline underline-offset-[3px] decoration-[rgba(255,255,255,0.8)] decoration-[1.5px] focus:outline-none"
-                              style={{ color: '#d9e8ff', transition: 'color 0.15s' }}
-                              onMouseEnter={e => { e.currentTarget.style.color = '#ffffff'; }}
-                              onMouseLeave={e => { e.currentTarget.style.color = '#d9e8ff'; }}
-                              onFocus={e => { e.currentTarget.style.outline = '2px solid #7ec8ff'; e.currentTarget.style.outlineOffset = '2px'; e.currentTarget.style.color = '#ffffff'; }}
-                              onBlur={e => { e.currentTarget.style.outline = ''; e.currentTarget.style.outlineOffset = ''; e.currentTarget.style.color = '#d9e8ff'; }}
-                            >
-                              {link.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
+      {/* Desktop mega panel */}
+      {activeId && activeItem?.sections && (
         <div
-          id="mobile-nav-a"
-          className="lg:hidden bg-[#0573D7] overflow-y-auto"
-          style={{ maxHeight: 'calc(100vh - 52px)' }}
+          className="absolute left-0 right-0"
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+        >
+          <Desktop item={activeItem} onClose={() => setActiveId(null)} />
+        </div>
+      )}
+
+      {/* Mobile menu */}
+      {mobOpen && (
+        <div
+          id="mobile-nav-b"
+          className="lg:hidden overflow-y-auto"
+          style={{ maxHeight: 'calc(100vh - 52px)', background: '#0057a8' }}
         >
           <nav aria-label="Mobile navigation">
-            {navItems.map((item) => (
-              <MobileAccordionItemB key={item.label} item={item} />
+            {NAV.map((item) => (
+              <MobileAccordionItemA key={item.id || item.label} item={item} />
             ))}
           </nav>
+          <div
+            className="h-[4px]"
+            style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }}
+            aria-hidden="true"
+          />
         </div>
       )}
 

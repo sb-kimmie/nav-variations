@@ -1,8 +1,8 @@
+import VariationAOld from "./components/variation-a-old/variation-a-old";
 import VariationA from "./components/variation-a/variation-a";
-import VariationB from "./components/variation-b/variation-b";
 import Original from "./components/original/original";
+import VariationB from "./components/variation-b/variation-b";
 import VariationC from "./components/variation-c/variation-c";
-import VariationD from "./components/variation-d/variation-d";
 import VariationE from "./components/variation-e/variation-e";
 import VariationF from "./components/variation-f/variation-f";
 import VariationG from "./components/variation-g/variation-g";
@@ -73,45 +73,45 @@ export default function Home() {
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
-            <VariationB />
+            <VariationA />
           </div>
         </section>
 
         {/* Variation B */}
         <section className="px-10 relative z-70">
           <div className="mb-3 flex items-center gap-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation B - Added Left Column on Desktop - Gray Background</h2>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation B - Added Left Column on Desktop - Gray Background and Different Clickable Parent Styling</h2>
           </div>
           <div className="mb-3 flex items-center gap-3">
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation B:</strong>
               <ul>
-                <li><i>Same as Variation A but with a gray desktop background.</i></li>
+                <li><i>Same as Variation A but with a gray desktop background and different clickable parent styling.</i></li>
               </ul>
             </h3>
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
-            <VariationC />
+            <VariationB />
           </div>
         </section>
 
         {/* Variation C */}
         <section className="px-10 relative z-60">
           <div className="mb-3 flex items-center gap-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation C - Added Left Column on Desktop - Blue Background</h2>
+            <h2 className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">Variation C - Added Left Column on Desktop - Card Styling</h2>
           </div>
           <div className="mb-3 flex items-center gap-3">
             <h3 className="text-sm font-normal text-black">
               <strong>Differences between the Original and Variation C:</strong>
               <ul>
-                <li><i>Same as Variation A & Variation B but with a blue desktop background.</i></li>
+                <li><i>Same as Variation A & Variation B but with a different parent clickable parent styling.</i></li>
               </ul>
             </h3>
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
-            <VariationD />
+            <VariationC />
           </div>
         </section>
 

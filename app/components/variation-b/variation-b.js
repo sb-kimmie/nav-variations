@@ -194,12 +194,12 @@ function Desktop({ item, onClose }) {
         <div className="flex flex-col gap-3">
           <h2 className="text-[22px] font-bold text-[#000] m-0 leading-tight">{item.label}</h2>
           {item.description && (
-            <p className="text-[14px] leading-[1.65] text-[#555] m-0">{item.description}</p>
+            <p className="text-[13.5px] leading-[1.65] text-[#555] m-0">{item.description}</p>
           )}
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 text-[#004A8A] hover:text-[#0273D7] hover:underline underline-offset-[3px] "
+            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 hover:underline text-[#004A8A] hover:text-[#0273D7] hover:underline underline-offset-[3px] "
           >
             {item.label}
             <span className="flex items-center group-hover:translate-x-1 transition-transform">
@@ -223,7 +223,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                          className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                         >
                           {lk.label}
                         </Link>
@@ -234,39 +234,41 @@ function Desktop({ item, onClose }) {
               );
             }
 
-            if (sec.href) {
-              return (
-                <div key={sec.heading} className="flex flex-col gap-2">
-                  <Link
-                    href={sec.href}
-                    onClick={onClose}
-                    className="group flex items-center gap-[5px] text-[11.5px] font-bold uppercase tracking-[0.08em]no-underline pb-[6px] border-b-1 border-[#004a8a] hover:underline transition-colors leading-[1.2] text-[#004A8A] hover:text-[#0273D7]"
-                  >
-                    <span>{sec.heading}</span>
-                    <span className="flex items-center flex-shrink-0 opacity-70">
-                      <IcoArrow />
-                    </span>
-                  </Link>
-                  <ul className="list-none m-0 p-0">
-                    {sec.links.map((lk) => (
-                      <li key={lk.label}>
-                        <Link
-                          href={lk.href}
-                          onClick={onClose}
-                          className="block text-[13.5px] font-semibold  no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
-                        >
-                          {lk.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            }
+          if (sec.href) {
+            return (
+          <div key={sec.heading} className="flex flex-col gap-2">
+            <Link
+              href={sec.href}
+              onClick={onClose}
+              className="group flex items-center justify-between gap-2 text-[13.5px] font-bold uppercase tracking-[0.08em] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2] no-underline text-[#004A8A] hover:text-[#0273D7] hover:border-[#004A8A] transition-colors duration-150"
+            >
+              <span className="hover:underline hover:underline-offset-[3px] hover:decoration-[1.5px]">
+                {sec.heading}
+              </span>
+              <span className="flex-shrink-0 text-[8.5px] text-white font-bold uppercase tracking-[0.1em] px-[5px] py-[2px] rounded-full bg-[#004A8A] border border-current transition-colors duration-150 group-hover:bg-[#0273D7] group-hover:border-[#0273D7] group-hover:text-white">
+                EXPLORE
+              </span>
+            </Link>
+                <ul className="list-none m-0 p-0">
+                  {sec.links.map((lk) => (
+                    <li key={lk.label}>
+                      <Link
+                        href={lk.href}
+                        onClick={onClose}
+                        className="block text-[13px] font-semibold no-underline py-[5px] leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                      >
+                        {lk.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }
 
             return (
               <div key={sec.heading} className="flex flex-col gap-2">
-                <span className="block text-[11.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2]">
+                <span className="block text-[13.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2]">
                   {sec.heading}
                 </span>
                 <ul className="list-none m-0 p-0">
@@ -275,7 +277,7 @@ function Desktop({ item, onClose }) {
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="block text-[13.5px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
                       >
                         {lk.label}
                       </Link>
@@ -331,14 +333,16 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
+  // ── Section with sec.href: renders heading as a link with EXPLORE badge + expand toggle ──
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
-        <div className="flex items-stretch">
+        <div className="flex items-center" style={{ minHeight: '44px' }}>
+          {/* Clickable heading link with EXPLORE badge */}
           <Link
             href={sec.href}
-            className="flex-1 flex items-center gap-2 px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
-            style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
+            className="group flex-1 flex items-center gap-2 pl-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+            style={{ transition: 'color 0.15s, background 0.15s' }}
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = ''; }}
           >
@@ -348,13 +352,14 @@ function MobileSectionFromSections({ sec }) {
               aria-hidden="true"
             />
             <span>{sec.heading}</span>
-            <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <span className="flex-shrink-0 text-[8.5px] font-bold tracking-[0.1em] uppercase text-white bg-[#004A8A] border border-[#004A8A] rounded-full px-[5px] py-[2px] leading-none transition-colors duration-150 group-hover:bg-[#0273D7] group-hover:border-[#0273D7]">
+              EXPLORE
+            </span>
           </Link>
+
+          {/* Expand/collapse chevron — same px-5 right padding as plain accordion rows */}
           <button
-            className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
-            style={{ minWidth: '44px', transition: 'background 0.15s' }}
+            className="flex items-center justify-center bg-transparent border-none cursor-pointer focus:outline-none pr-5 pl-3 self-stretch"
             onClick={() => setOpen(!open)}
             aria-expanded={open}
             aria-label={`${open ? 'Collapse' : 'Expand'} ${sec.heading} links`}
@@ -375,7 +380,7 @@ function MobileSectionFromSections({ sec }) {
               <li key={link.label} role="listitem">
                 <Link
                   href={link.href}
-                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
+                  className="flex items-center gap-2 px-8 py-[10px] text-[#1a2a4a] text-[13.5px] leading-snug no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
                   style={{ minHeight: '44px', transition: 'color 0.15s, background 0.15s' }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#0273D7'; e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
                   onMouseLeave={e => { e.currentTarget.style.color = ''; e.currentTarget.style.background = ''; }}
@@ -393,6 +398,7 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
+  // ── Section without sec.href: plain accordion ──
   return (
     <div className="border-b border-[#dde3f0]">
       <button
@@ -596,7 +602,8 @@ export default function VariationB() {
           {/* Hamburger */}
           <div className="ml-auto lg:hidden flex items-center">
             <button
-              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-[#0273D7] rounded"
+              className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white outline-none rounded"
+              style={{ outline: 'none', boxShadow: 'none' }}
               onClick={() => { setMobOpen(!mobOpen); setActiveId(null); }}
               aria-label={mobOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobOpen}

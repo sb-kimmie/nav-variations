@@ -188,42 +188,79 @@ const IcoArrow = () => (
 
 function Desktop({ item, onClose }) {
   return (
-    <div className="bg-[#fff] border-t border-[#004a8a] border-b-4 border-b-[#004a8a] shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
-      <div className="max-w-[1280px] mx-auto px-8 pt-9 pb-10 grid grid-cols-[260px_1px_1fr] gap-x-10 items-start">
-        {/* Left panel */}
+    <div className="bg-[#f4f7fb] border-b-4 border-b-[#0273D7] shadow-[0_10px_40px_rgba(0,30,80,0.12)]">
+      <div className="max-w-[1280px] mx-auto px-8 pt-8 pb-10 grid grid-cols-[210px_1px_1fr] gap-x-10 items-start">
+
+        {/* ── Left panel ── */}
         <div className="flex flex-col gap-3">
-          <h2 className="text-[22px] font-bold text-[#000] m-0 leading-tight">{item.label}</h2>
+          <h2 className="text-[19px] font-bold text-[#001e45] m-0 leading-snug">{item.label}</h2>
           {item.description && (
-            <p className="text-[13.5px] leading-[1.65] text-[#555] m-0">{item.description}</p>
+            <p className="text-[12.5px] leading-[1.75] text-[#607080] m-0">{item.description}</p>
           )}
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 hover:underline text-[#004A8A] hover:text-[#0273D7] hover:underline underline-offset-[3px] "
+            className="group inline-flex items-center gap-[6px] text-[12.5px] font-bold no-underline text-[#0273D7] hover:text-[#004a8a] mt-2 transition-colors duration-150"
           >
-            {item.label}
-            <span className="flex items-center group-hover:translate-x-1 transition-transform">
+            View all
+            <span className="flex items-center group-hover:translate-x-[3px] transition-transform duration-150">
               <IcoArrow />
             </span>
           </Link>
         </div>
 
-        {/* Vertical divider */}
-        <div className="bg-[#7a91a8] self-stretch min-h-[100px]" aria-hidden="true" />
+        {/* ── Divider ── */}
+        <div className="bg-[#dde6f0] self-stretch" aria-hidden="true" />
 
-        {/* Columns */}
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(175px,1fr))] gap-x-6 gap-y-5 content-start">
+        {/* ── Section columns ── */}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(178px,1fr))] gap-x-4 gap-y-5 content-start">
           {item.sections.map((sec, i) => {
+
+            // ── ORPHAN: no heading — bare links with left indent, no card ──
             if (!sec.heading) {
               return (
-                <div key={`orphan-${i}`} className="flex flex-col gap-2">
+                <div key={`orphan-${i}`} className="flex flex-col py-[2px]">
+                  {sec.links.map((lk) => (
+                    <Link
+                      key={lk.label}
+                      href={lk.href}
+                      onClick={onClose}
+                      className="group flex items-center gap-[9px] pl-4 pr-2 py-[7px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:text-[#004a8a] transition-colors duration-100"
+                    >
+                      {lk.label}
+                    </Link>
+                  ))}
+                </div>
+              );
+            }
+
+            // ── CLICKABLE HEADER: blue band heading, white link list ──
+            if (sec.href) {
+              return (
+                <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden">
+                  {/* Blue band — the whole band is clickable */}
+                  <Link
+                    href={sec.href}
+                    onClick={onClose}
+                    className="group flex items-center justify-between gap-2 px-4 py-[9px] bg-[#0273D7] hover:bg-[#004a8a] transition-colors duration-150 no-underline"
+                  >
+                    <span className="text-[11px] font-extrabold uppercase tracking-[0.09em] text-white leading-none">
+                      {sec.heading}
+                    </span>
+                    <span className="flex items-center gap-[5px] flex-shrink-0">
+                      <span className="text-[7.5px] font-bold tracking-[0.08em] uppercase text-[#0273D7] bg-white rounded-[3px] px-[5px] py-[2px] leading-none">
+                        EXPLORE
+                      </span>
+                    </span>
+                  </Link>
+                  {/* Links list */}
                   <ul className="list-none m-0 p-0">
-                    {sec.links.map((lk) => (
-                      <li key={lk.label}>
+                    {sec.links.map((lk, j) => (
+                      <li key={lk.label} className={j > 0 ? 'border-t border-[#edf2f8]' : ''}>
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                          className="flex items-center px-4 py-[8px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:bg-[#eef4fd] transition-colors duration-100"
                         >
                           {lk.label}
                         </Link>
@@ -234,50 +271,23 @@ function Desktop({ item, onClose }) {
               );
             }
 
-          if (sec.href) {
+            // ── NON-CLICKABLE HEADER: grey band, same card structure ──
             return (
-          <div key={sec.heading} className="flex flex-col gap-2">
-            <Link
-              href={sec.href}
-              onClick={onClose}
-              className="group flex items-center justify-between gap-2 text-[13.5px] font-bold uppercase tracking-[0.08em] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2] no-underline text-[#004A8A] hover:text-[#0273D7] hover:border-[#004A8A] transition-colors duration-150"
-            >
-              <span className="hover:underline hover:underline-offset-[3px] hover:decoration-[1.5px]">
-                {sec.heading}
-              </span>
-              <span className="flex-shrink-0 text-[8.5px] text-white font-bold uppercase tracking-[0.1em] px-[5px] py-[2px] rounded-full bg-[#004A8A] border border-current transition-colors duration-150 group-hover:bg-[#0273D7] group-hover:border-[#0273D7] group-hover:text-white">
-                EXPLORE
-              </span>
-            </Link>
+              <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden">
+                {/* Grey band — not clickable */}
+                <div className="px-4 py-[9px] bg-[#edf2f8]">
+                  <span className="text-[11px] font-extrabold uppercase tracking-[0.09em] text-[#6a7d96] leading-none">
+                    {sec.heading}
+                  </span>
+                </div>
+                {/* Links list */}
                 <ul className="list-none m-0 p-0">
-                  {sec.links.map((lk) => (
-                    <li key={lk.label}>
+                  {sec.links.map((lk, j) => (
+                    <li key={lk.label} className={j > 0 ? 'border-t border-[#edf2f8]' : ''}>
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="block text-[13px] font-semibold no-underline py-[5px] leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
-                      >
-                        {lk.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          }
-
-            return (
-              <div key={sec.heading} className="flex flex-col gap-2">
-                <span className="block text-[13.5px] font-bold uppercase tracking-[0.08em] text-[#6b7a8d] pb-[6px] border-b-1 border-[#6b7a8d] leading-[1.2]">
-                  {sec.heading}
-                </span>
-                <ul className="list-none m-0 p-0">
-                  {sec.links.map((lk) => (
-                    <li key={lk.label}>
-                      <Link
-                        href={lk.href}
-                        onClick={onClose}
-                        className="block text-[13px] font-semibold no-underline py-[5px] border-b border-[#efefef] last:border-b-0 leading-snug hover:underline underline-offset-[3px] decoration-[#0273D7] decoration-[1.5px] text-[#004A8A] hover:text-[#0273D7]"
+                        className="flex items-center px-4 py-[8px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:bg-[#eef4fd] transition-colors duration-100"
                       >
                         {lk.label}
                       </Link>
@@ -288,6 +298,7 @@ function Desktop({ item, onClose }) {
             );
           })}
         </div>
+
       </div>
     </div>
   );
@@ -333,12 +344,10 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  // ── Section with sec.href: renders heading as a link with EXPLORE badge + expand toggle ──
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
         <div className="flex items-center" style={{ minHeight: '44px' }}>
-          {/* Clickable heading link with EXPLORE badge */}
           <Link
             href={sec.href}
             className="group flex-1 flex items-center gap-2 pl-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
@@ -346,18 +355,12 @@ function MobileSectionFromSections({ sec }) {
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(2,115,215,0.06)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = ''; }}
           >
-            <span
-              className="flex-shrink-0 w-[3px] self-stretch"
-              style={{ background: '#0273D7' }}
-              aria-hidden="true"
-            />
+            <span className="flex-shrink-0 w-[3px] self-stretch" style={{ background: '#0273D7' }} aria-hidden="true" />
             <span>{sec.heading}</span>
             <span className="flex-shrink-0 text-[8.5px] font-bold tracking-[0.1em] uppercase text-white bg-[#004A8A] border border-[#004A8A] rounded-full px-[5px] py-[2px] leading-none transition-colors duration-150 group-hover:bg-[#0273D7] group-hover:border-[#0273D7]">
               EXPLORE
             </span>
           </Link>
-
-          {/* Expand/collapse chevron — same px-5 right padding as plain accordion rows */}
           <button
             className="flex items-center justify-center bg-transparent border-none cursor-pointer focus:outline-none pr-5 pl-3 self-stretch"
             onClick={() => setOpen(!open)}
@@ -369,13 +372,8 @@ function MobileSectionFromSections({ sec }) {
             <MobileChevron />
           </button>
         </div>
-
         {open && (
-          <ul
-            className="list-none m-0 p-0 pb-2"
-            style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
-            role="list"
-          >
+          <ul className="list-none m-0 p-0 pb-2" style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }} role="list">
             {sec.links.map((link) => (
               <li key={link.label} role="listitem">
                 <Link
@@ -398,7 +396,6 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  // ── Section without sec.href: plain accordion ──
   return (
     <div className="border-b border-[#dde3f0]">
       <button
@@ -408,22 +405,13 @@ function MobileSectionFromSections({ sec }) {
         aria-expanded={open}
       >
         <span className="flex items-center gap-2 min-w-0">
-          <span
-            className="flex-shrink-0 w-[3px] self-stretch"
-            style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }}
-            aria-hidden="true"
-          />
+          <span className="flex-shrink-0 w-[3px] self-stretch" style={{ background: open ? '#0273D7' : '#b3c6e8', transition: 'background 0.2s' }} aria-hidden="true" />
           <span className="truncate">{sec.heading}</span>
         </span>
         <MobileChevron />
       </button>
-
       {open && (
-        <ul
-          className="list-none m-0 p-0 pb-2"
-          style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }}
-          role="list"
-        >
+        <ul className="list-none m-0 p-0 pb-2" style={{ background: 'linear-gradient(to bottom, #f0f4fc, #f8f9fd)' }} role="list">
           {sec.links.map((link) => (
             <li key={link.label} role="listitem">
               <Link
@@ -487,26 +475,15 @@ function MobileAccordionItemA({ item }) {
       </button>
 
       {open && (
-        <div
-          className="border-t border-[#0057a8]"
-          style={{ background: '#ffffff' }}
-          role="region"
-          aria-label={`${item.label} submenu`}
-        >
-          {/* ── Left-panel info: label + description ── */}
+        <div className="border-t border-[#0057a8]" style={{ background: '#ffffff' }} role="region" aria-label={`${item.label} submenu`}>
           {(item.label || item.description) && (
             <div className="px-5 py-4 border-b border-[#dde3f0]" style={{ background: '#f0f5fb' }}>
-              {/* <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">
-                {item.label}
-              </p> */}
+              <p className="text-[16px] font-bold text-[#003770] m-0 leading-tight">{item.label}</p>
               {item.description && (
-                <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">
-                  {item.description}
-                </p>
+                <p className="text-[13px] leading-[1.6] text-[#4a5a6e] m-0 mt-[6px]">{item.description}</p>
               )}
             </div>
           )}
-
           {item.sections.map((sec, i) => (
             <MobileSectionFromSections key={i} sec={sec} />
           ))}
@@ -559,11 +536,8 @@ export default function VariationB() {
         scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.12)]' : '',
       ].join(' ')}
     >
-      {/* ── Main bar ── */}
       <div className="border-b border-black/[0.08]">
         <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
-
-          {/* Desktop nav */}
           <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">
             <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
               {NAV.map((item) => (
@@ -599,7 +573,6 @@ export default function VariationB() {
             </ul>
           </nav>
 
-          {/* Hamburger */}
           <div className="ml-auto lg:hidden flex items-center">
             <button
               className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white outline-none rounded"
@@ -612,41 +585,25 @@ export default function VariationB() {
               {mobOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
-
         </div>
       </div>
 
-      {/* Desktop mega panel */}
       {activeId && activeItem?.sections && (
-        <div
-          className="absolute left-0 right-0"
-          onMouseEnter={cancelClose}
-          onMouseLeave={scheduleClose}
-        >
+        <div className="absolute left-0 right-0" onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
           <Desktop item={activeItem} onClose={() => setActiveId(null)} />
         </div>
       )}
 
-      {/* Mobile menu */}
       {mobOpen && (
-        <div
-          id="mobile-nav-b"
-          className="lg:hidden overflow-y-auto"
-          style={{ maxHeight: 'calc(100vh - 52px)', background: '#0057a8' }}
-        >
+        <div id="mobile-nav-b" className="lg:hidden overflow-y-auto" style={{ maxHeight: 'calc(100vh - 52px)', background: '#0057a8' }}>
           <nav aria-label="Mobile navigation">
             {NAV.map((item) => (
               <MobileAccordionItemA key={item.id || item.label} item={item} />
             ))}
           </nav>
-          <div
-            className="h-[4px]"
-            style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }}
-            aria-hidden="true"
-          />
+          <div className="h-[4px]" style={{ background: 'linear-gradient(to right, #0273D7, #004a8a, #7ec8ff)' }} aria-hidden="true" />
         </div>
       )}
-
     </header>
   );
 }
