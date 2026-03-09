@@ -203,12 +203,12 @@ function Desktop({ item, onClose }) {
         <div className="flex flex-col gap-3">
           <h2 className="text-[19px] font-bold text-[#001e45] m-0 leading-snug">{item.label}</h2>
           {item.description && (
-            <p className="text-[12.5px] leading-[1.75] text-[#607080] m-0">{item.description}</p>
+            <p className="text-[13.5px] leading-[1.75] text-[#607080] m-0">{item.description}</p>
           )}
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-[6px] text-[12.5px] font-bold no-underline text-[#0273D7] hover:text-[#004a8a] mt-2 transition-colors duration-150"
+            className="group inline-flex items-center gap-[6px] text-[13.5px] font-bold no-underline text-[#0273D7] hover:text-[#004a8a] mt-2 transition-colors duration-150"
           >
             View all
             <span className="flex items-center group-hover:translate-x-[3px] transition-transform duration-150">
