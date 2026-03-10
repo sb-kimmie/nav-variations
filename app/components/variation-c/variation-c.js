@@ -208,7 +208,7 @@ function Desktop({ item, onClose }) {
           <Link
             href={item.href}
             onClick={onClose}
-            className="group inline-flex items-center gap-[6px] text-[13.5px] font-bold no-underline text-[#0273D7] hover:text-[#004a8a] mt-2 transition-colors duration-150"
+            className="group inline-flex items-center gap-[6px] text-[13.5px] font-bold no-underline text-[#0273D7] hover:text-[#004a8a] mt-2 transition-colors duration-150 hover:underline"
           >
             View all
             <span className="flex items-center group-hover:translate-x-[3px] transition-transform duration-150">
@@ -233,7 +233,7 @@ function Desktop({ item, onClose }) {
                       key={lk.label}
                       href={lk.href}
                       onClick={onClose}
-                      className="group flex items-center gap-[9px] pl-4 pr-2 py-[7px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:text-[#004a8a] transition-colors duration-100"
+                      className="group flex items-center gap-[9px] pl-4 pr-2 py-[7px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:text-[#004a8a] transition-colors duration-100 hover:underline"
                     >
                       {lk.label}
                     </Link>
@@ -249,9 +249,9 @@ function Desktop({ item, onClose }) {
                   <Link
                     href={sec.href}
                     onClick={onClose}
-                    className="group flex items-center justify-between gap-2 px-4 py-[9px] bg-[#0273D7] hover:bg-[#004a8a] transition-colors duration-150 no-underline"
+                    className="group flex items-center justify-between gap-2 px-4 py-[9px] bg-[#0273D7] hover:bg-[#004a8a] transition-colors duration-150 no-underline hover:underline"
                   >
-                    <span className="text-[11px] font-extrabold uppercase tracking-[0.09em] text-white leading-none">
+                    <span className="text-[13px] font-extrabold uppercase tracking-[0.09em] text-white leading-none">
                       {sec.heading}
                     </span>
                     <span className="flex items-center gap-[5px] flex-shrink-0">
@@ -269,7 +269,7 @@ function Desktop({ item, onClose }) {
                         <Link
                           href={lk.href}
                           onClick={onClose}
-                          className="flex items-center px-4 py-[8px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:bg-[#eef4fd] transition-colors duration-100"
+                          className="flex items-center px-4 py-[8px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:text-[#004a8a] hover:underline transition-colors duration-100"
                         >
                           {lk.label}
                         </Link>
@@ -284,7 +284,7 @@ function Desktop({ item, onClose }) {
             return (
               <div key={sec.heading} className="bg-white rounded-lg border border-[#e2eaf4] overflow-hidden break-inside-avoid mb-5">
                 <div className="px-4 py-[9px] bg-[#edf2f8]">
-                  <span className="text-[11px] font-extrabold uppercase tracking-[0.09em] text-[#6a7d96] leading-none">
+                  <span className="text-[13px] font-extrabold uppercase tracking-[0.09em] text-[#6a7d96] leading-none">
                     {sec.heading}
                   </span>
                 </div>
@@ -294,7 +294,7 @@ function Desktop({ item, onClose }) {
                       <Link
                         href={lk.href}
                         onClick={onClose}
-                        className="flex items-center px-4 py-[8px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] hover:bg-[#eef4fd] transition-colors duration-100"
+                        className="flex items-center px-4 py-[8px] text-[13px] font-semibold no-underline leading-snug text-[#0273D7] transition-colors duration-100 hover:underline hover:text-[#004a8a]"
                       >
                         {lk.label}
                       </Link>
