@@ -249,7 +249,7 @@ function Desktop({ item, onClose }) {
                   <Link
                     href={sec.href}
                     onClick={onClose}
-                    className="group flex items-center justify-between gap-2 px-4 py-[9px] bg-[#0273D7] hover:bg-[#004a8a] transition-colors duration-150 no-underline hover:underline"
+                    className="group flex items-center justify-between gap-2 px-4 py-[9px] bg-[#0273D7] hover:bg-[#004a8a] transition-colors duration-150 no-underline hover:underline hover:decoration-white"
                   >
                     <span className="text-[13px] font-extrabold uppercase tracking-[0.09em] text-white leading-none">
                       {sec.heading}
@@ -258,7 +258,7 @@ function Desktop({ item, onClose }) {
                       <span className="text-[7.5px] font-bold tracking-[0.08em] uppercase text-[#0273D7] bg-white rounded-[3px] px-[5px] py-[2px] leading-none">
                         EXPLORE
                       </span>
-                      <span className="text-white opacity-70 group-hover:translate-x-[2px] transition-transform duration-150">
+                      <span className="text-white opacity-70 group-hover:opacity-100">
                         <IcoArrow />
                       </span>
                     </span>
