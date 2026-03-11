@@ -211,7 +211,7 @@ function Desktop({ item, onClose }) {
             className="group inline-flex items-center gap-[6px] text-[13.5px] font-bold no-underline text-[#0273D7] hover:text-[#004a8a] mt-2 transition-colors duration-150 hover:underline"
           >
             View all
-            <span className="flex items-center group-hover:translate-x-[3px] transition-transform duration-150">
+            <span className="flex items-center group-hover:underline">
               <IcoArrow />
             </span>
           </Link>

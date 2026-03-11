@@ -202,7 +202,7 @@ function Desktop({ item, onClose }) {
             className="group inline-flex items-center gap-2 text-[14px] font-bold no-underline mt-1 hover:underline text-[#004A8A] hover:text-[#0273D7] hover:underline underline-offset-[3px] "
           >
             {item.label}
-            <span className="flex items-center group-hover:translate-x-1 transition-transform">
+            <span className="flex items-center">
               <IcoArrow />
             </span>
           </Link>
