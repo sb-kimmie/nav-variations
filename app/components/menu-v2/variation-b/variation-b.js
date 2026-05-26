@@ -84,7 +84,7 @@ function DesktopAccordionSection({ sec, onClose }) {
     'block text-[15px] font-semibold leading-none py-[8px]';
 
   return (
-    <div className="mb-1">
+    <div className="mb-3">
 
       {/* Section heading */}
       {sec.heading && (

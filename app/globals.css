@@ -1,26 +1,60 @@
 @import "tailwindcss";
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Nav — brand */
+  --nav-primary:#0273D7;   /* main blue (header bg, links, accents) */
+  --nav-primary-dark:#003d7a;   /* hover state for links */
+  --nav-primary-deep:#004a8a;   /* gradient stop, mobile bg */
+  --nav-primary-mid:#0057a8;   /* mobile nav bg, borders */
+
+  /* Nav — surface */
+  --nav-bg-panel:#f3f5f8;   /* left panel background */
+  --nav-bg-sub:#f0f4fc;   /* mobile submenu gradient start */
+  --nav-bg-sub-end:#f8f9fd;   /* mobile submenu gradient end */
+  --nav-bg-desc:#f0f5fb;   /* mobile description strip */
+  --nav-bg-card:#eef0f4;   /* VariationA card background */
+
+  /* Nav — text */
+  --nav-text-heading:#1a2a4a;   /* section headings, mobile item labels */
+  --nav-text-body:#555555;   /* description text */
+  --nav-text-meta:#6b7a90;   /* chevron/bullet glyphs, non-linked headings */
+  --nav-text-disabled:#9aa5b4;   /* disabled links and headings */
+  --nav-text-sub:#4a5a6e;   /* mobile description paragraph */
+
+  /* Nav — borders */
+  --nav-border-panel:#dde3ec;   /* dropdown border, column divider */
+  --nav-border-mobile:#dde3f0;   /* mobile section dividers */
+  --nav-line-pill:#c2cad6;   /* VariationB vertical pill line */
+
+  /* Nav — accent */
+  --nav-accent-light:#7ec8ff;   /* gradient end in mobile footer bar */
+  --nav-bar-active:#b3c6e8;   /* inactive left bar on mobile accordion */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-nav-primary:        var(--nav-primary);
+  --color-nav-primary-dark:   var(--nav-primary-dark);
+  --color-nav-primary-deep:   var(--nav-primary-deep);
+  --color-nav-primary-mid:    var(--nav-primary-mid);
+  --color-nav-bg-panel:       var(--nav-bg-panel);
+  --color-nav-bg-sub:         var(--nav-bg-sub);
+  --color-nav-bg-sub-end:     var(--nav-bg-sub-end);
+  --color-nav-bg-desc:        var(--nav-bg-desc);
+  --color-nav-bg-card:        var(--nav-bg-card);
+  --color-nav-text-heading:   var(--nav-text-heading);
+  --color-nav-text-body:      var(--nav-text-body);
+  --color-nav-text-meta:      var(--nav-text-meta);
+  --color-nav-text-disabled:  var(--nav-text-disabled);
+  --color-nav-text-sub:       var(--nav-text-sub);
+  --color-nav-border-panel:   var(--nav-border-panel);
+  --color-nav-border-mobile:  var(--nav-border-mobile);
+  --color-nav-line-pill:      var(--nav-line-pill);
+  --color-nav-accent-light:   var(--nav-accent-light);
+  --color-nav-bar-active:     var(--nav-bar-active);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
