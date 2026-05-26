@@ -1,10 +1,10 @@
-import VariationA from "./components/menu-v2/variation-c/variation-c";
+import VariationA from "./components/menu-v2/variation-a/variation-a";
 import VariationB from "./components/menu-v2/variation-b/variation-b";
 
 import Image from "next/image";
 import logo from "./imgs/default-img.png";
 import Link from "next/link";
-import VariationC from "./components/menu-v2/variation-a/variation-a";
+import VariationC from "./components/menu-v2/variation-c/variation-c";
 
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
       </div>
 
       <div className="py-10 flex flex-col gap-12">
-        <div className="px-10 flex items-center gap-2 mt-1">
+        {/* <div className="px-10 flex items-center gap-2 mt-1">
           <Link href="/" className="text-sm text-[#002060] font-extrabold">
             Menu V2
           </Link>
@@ -25,7 +25,7 @@ export default function Home() {
           <Link href="/menu-v1" className="text-sm text-[#002060] font-extrabold">
             Menu V1
           </Link>
-        </div>
+        </div> */}
 
         {/* Original — highest z so its dropdown is always on top
         <section className="px-10 relative z-100">
