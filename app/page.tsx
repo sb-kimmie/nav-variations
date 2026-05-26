@@ -43,7 +43,18 @@ export default function Home() {
         <section className="px-10 relative z-50">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">A</span>
-            <h2 className="text-sm font-semibold text-gray-600">Similar to current</h2>
+            <h2 className="text-sm font-semibold text-gray-600">Gray Left Column</h2>
+          </div>
+          <div className="">
+            <Image src={logo} alt="default banner" className="" />
+            <VariationC />
+          </div>
+        </section>
+
+        <section className="px-10 relative z-40">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">B</span>
+            <h2 className="text-sm font-semibold text-gray-600">Gray Border</h2>
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
@@ -51,25 +62,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-10 relative z-40">
-          <div className="mb-3 flex items-center gap-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">B</span>
-            <h2 className="text-sm font-semibold text-gray-600">Pill</h2>
-          </div>
-          <div className="">
-            <Image src={logo} alt="default banner" className="" />
-            <VariationB />
-          </div>
-        </section>
-
         <section className="px-10 relative z-20 mb-20">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">C</span>
-            <h2 className="text-sm font-semibold text-gray-600">Gray Left Column</h2>
+            <h2 className="text-sm font-semibold text-gray-600">Pill</h2>
           </div>
           <div className="mb-20">
             <Image src={logo} alt="default banner" className="" />
-            <VariationC />
+            <VariationB />
           </div>
         </section>
       </div>
