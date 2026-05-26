@@ -43,7 +43,7 @@ function DesktopAccordionSection({ sec, onClose }) {
         // gray hex = #9aa5b4
         <div
           key={lk.label}
-          className="flex items-start gap-[5px] pl-2 py-[4px] leading-snug mb-1"
+          className="flex items-start gap-[5px] py-[4px] leading-snug mb-1"
           style={{ color: '#9aa5b4', fontSize: '16px', lineHeight: '1' }}
         >
           <span className="flex-shrink-0" style={{ color: '#6b7a90' }} aria-hidden="true">›</span>
@@ -57,7 +57,7 @@ function DesktopAccordionSection({ sec, onClose }) {
         key={lk.label}
         href={lk.href}
         onClick={onClose}
-        className="flex items-start gap-[5px] pl-2 py-[4px] leading-snug no-underline text-[#0273D7] hover:text-[#003d7a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0273D7] group mb-1"
+        className="flex items-start gap-[5px] py-[4px] leading-snug no-underline text-[#0273D7] hover:text-[#003d7a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0273D7] group mb-1"
         style={{ fontSize: '16px', lineHeight: '1' }}
       >
         <span className="flex-shrink-0" style={{ color: '#6b7a90' }} aria-hidden="true">›</span>
