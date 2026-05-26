@@ -20,7 +20,7 @@
           { "label": "Campus Tours", "href": "/join-the-pack/future-students/explore-csusb/campus-tours" },
           { "label": "Education Abroad", "href": "/join-the-pack/future-students/explore-csusb/education-abroad" },
           { "label": "Visit San Bernardino", "href": "/join-the-pack/future-students/explore-csusb/visit-san-bernardino" },
-          { "label": "CSUSB Traditions & Landmarks", "href": "/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks" }
+          { "label": "CSUSB Traditions and Landmarks", "href": "/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks" }
         ]
       },
       {
@@ -44,7 +44,7 @@
         "card": true,
         "links": [
           { "label": "Transfer Success Pathway", "href": "/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp" },
-          { "label": "Veteran Admissions", "href": "/join-the-pack/future-students/program-specific-requirements/military-veteran-students" },
+          { "label": "Veteran Admissions Requirements", "href": "/join-the-pack/future-students/program-specific-requirements/military-veteran-students" },
           { "label": "EOP", "href": "/join-the-pack/future-students/program-specific-requirements/educational-opportunity-program-eop" },
           { "label": "High School Dual Enrollment", "href": "/join-the-pack/future-students/program-specific-requirements/high-school-dual-enrollment" },
           { "label": "Non-degree Programs", "href": "/join-the-pack/future-students/program-specific-requirements/non-degree-programs" },
@@ -56,17 +56,30 @@
         "col": 4,
         "heading": "Campus Life",
         "href": "/join-the-pack/campus-life",
+        "card": true,
         "links": [
-          { "label": "Student Recreation & Wellness", "href": "/join-the-pack/future-students/campus-life/student-recreation-wellness-center", "card": true },
+          { "label": "Student Recreation & Wellness Center", "href": "/join-the-pack/future-students/campus-life/student-recreation-wellness-center"}
+        ]
+      },
+      {
+        "col": 4,
+        "links": [
           { "label": "Living on Campus", "href": "/join-the-pack/future-students/living-campus" },
-          { "label": "Connect with a Counselor", "href": "/join-the-pack/future-students/connect-outreach-counselor" },
-          { "label": "Palm Desert Campus", "href": "/join-the-pack/future-students/learn-about-palm-desert-campus" },
-          { "label": "Cost of Attendance", "href": "/join-the-pack/future-students/cost-attendance" },
-          { "label": "Tuition Calculator", "href": "https://app.meadowfi.com/csusb", "card": true }
+          { "label": "Connect with an Outreach Counselor", "href": "/join-the-pack/future-students/connect-outreach-counselor" },
+          { "label": "Learn about Palm Desert Campus", "href": "/join-the-pack/future-students/learn-about-palm-desert-campus" }
+        ]
+      },
+      {
+        "col": 4,
+        "heading": "Cost of Attendance",
+        "href": "/join-the-pack/future-students/cost-attendance",
+        "card": true,
+        "links": [
+          { "label": "CSUSB Net Price Calculator / Tuition Calculator", "href": "https://app.meadowfi.com/csusb", "card": true }
         ]
       }
-    ]
-  },
+      ]
+      },
   {
     "id": "newly-admitted",
     "label": "Newly Admitted Students",
@@ -128,7 +141,7 @@
       {
         "col": 1,
         "heading": "Apply & Admissions",
-        "href": "/its",
+        "href": "/join-the-pack/counselors/apply-admissions",
         "card": true,
         "links": [
           { "label": "Freshman Admissions Requirements", "href": "https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements" },
@@ -179,7 +192,7 @@
       {
         "col": 1,
         "heading": "Apply & Admissions",
-        "href": "/its",
+        "href": "/join-the-pack/admissions-forms/apply-admissions",
         "card": true,
         "links": [
           { "label": "Freshman Admissions Requirements", "href": "https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements" },

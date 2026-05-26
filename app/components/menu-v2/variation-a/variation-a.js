@@ -56,9 +56,9 @@ function DesktopAccordionSection({ sec, onClose }) {
   const hasCard = !!sec.card;
 
   const cardLinkCls =
-    'block text-[15px] font-normal no-underline leading-none py-[10px] border-b border-[#e2e5ea] last:border-b-0 text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px]';
+    'block text-[15px] font-normal no-underline leading-none py-[10px] last:border-b-0 text-[#0273D7] hover:text-[#003d7a] hover:underline';
   const cardLinkDisabledCls =
-    'block text-[15px] font-normal leading-none py-[10px] border-b border-[#e2e5ea] last:border-b-0';
+    'block text-[15px] font-normal leading-none py-[10px] border-[#e2e5ea] last:border-b-0';
   const plainLinkCls =
     'block text-[16.5px] font-semibold no-underline leading-none py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px]';
   const plainLinkDisabledCls =

@@ -62,7 +62,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-10 relative z-20 mb-20">
+        <section className="px-10 relative z-20 pb-[520px] mb-20">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">C</span>
             <h2 className="text-sm font-semibold text-gray-600">Pill</h2>

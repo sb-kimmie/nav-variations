@@ -21,7 +21,7 @@ const CloseIcon = () => (
 const ChevronIcon = ({ open }) => (
   <svg
     width="12" height="12" viewBox="0 0 12 8" fill="none" aria-hidden="true"
-    style={{ transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}
+    style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}
   >
     <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
@@ -52,100 +52,98 @@ function NavLink({ lk, onClose, className, style, children }) {
   );
 }
 
+// ─── Desktop link atom ────────────────────────────────────────────────────────
+
+function DesktopLink({ lk, onClose, className }) {
+  if (lk.disabled) {
+    return (
+      <span className={className} style={{ color: '#6b7a90', cursor: 'default' }}>
+        {lk.label}
+      </span>
+    );
+  }
+  return (
+    <Link href={lk.href} onClick={onClose} className={className}>
+      {lk.label}
+    </Link>
+  );
+}
+
 // ─── Desktop section ──────────────────────────────────────────────────────────
 
 function DesktopAccordionSection({ sec, onClose }) {
-  const hasHeading = !!sec.heading;
   const hasCard = !!sec.card;
 
-  const cardLinkCls = (disabled) =>
-    disabled
-      ? 'flex items-center px-4 py-[9px] text-[14px] font-medium leading-snug last:border-b-0 cursor-default'
-      : 'flex items-center px-4 py-[9px] text-[14px] font-medium leading-snug last:border-b-0 no-underline text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]';
-
-  const pill = (disabled) => (
-    <span
-      className="w-[3px] self-stretch rounded-full flex-shrink-0"
-      style={{ background: disabled ? '#d0d8e4' : '#0273D7' }}
-      aria-hidden="true"
-    />
-  );
-
-  const renderLinks = () => (
-    hasCard ? (
-      <div className="mx-3 mb-3 rounded-lg bg-[#eaecf1] overflow-hidden">
-        {sec.links.map((lk) =>
-          lk.card ? (
-            <div key={lk.label} className="mx-2 my-2 rounded-md bg-[#dde3ec]">
-              <NavLink lk={lk} onClose={onClose} className={cardLinkCls(lk.disabled)}
-                style={lk.disabled ? { color: '#9aa5b4' } : {}} />
-            </div>
-          ) : (
-            <NavLink key={lk.label} lk={lk} onClose={onClose} className={cardLinkCls(lk.disabled)}
-              style={lk.disabled ? { color: '#9aa5b4' } : {}} />
-          )
-        )}
-      </div>
-    ) : (
-      <div className="mb-3">
-        {sec.links.map((lk) =>
-          lk.card ? (
-            <div key={lk.label} className="mx-3 mb-2 rounded-md bg-[#eaecf1]">
-              <NavLink lk={lk} onClose={onClose} className={cardLinkCls(lk.disabled)}
-                style={lk.disabled ? { color: '#9aa5b4' } : {}} />
-            </div>
-          ) : (
-            <NavLink
-              key={lk.label}
-              lk={lk}
-              onClose={onClose}
-              className={
-                lk.disabled
-                  ? 'flex items-center gap-3 px-4 py-[9px] text-[14px] font-semibold leading-snug cursor-default last:border-b-0'
-                  : 'flex items-center gap-3 px-4 py-[9px] text-[14px] font-semibold leading-snug no-underline text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px] last:border-b-0'
-              }
-              style={lk.disabled ? { color: '#9aa5b4' } : {}}
-            >
-              {pill(lk.disabled)}
-              {lk.label}
-            </NavLink>
-          )
-        )}
-      </div>
-    )
-  );
+  const cardLinkCls =
+    'block text-[15px] font-normal no-underline leading-snug py-[9px] text-[#0273D7] hover:text-[#003d7a] hover:underline';
+  const cardLinkDisabledCls =
+    'block text-[15px] font-normal leading-snug py-[9px]';
+  const plainLinkCls =
+    'block text-[15px] font-semibold no-underline leading-snug py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline';
+  const plainLinkDisabledCls =
+    'block text-[15px] font-semibold leading-snug py-[8px]';
 
   return (
-    <div className="border-b border-[#edf0f4] last:border-b-0">
+    <div className="mb-1">
 
-      {hasHeading && (
+      {/* Section heading */}
+      {sec.heading && (
         sec.disabled ? (
-          <div className="flex items-center gap-3 px-4 py-[11px]">
-            <span className="w-[3px] self-stretch rounded-full flex-shrink-0" style={{ background: '#d0d8e4' }} aria-hidden="true" />
-            <span className="text-[14px] font-semibold leading-snug" style={{ color: '#9aa5b4' }}>
-              {sec.heading}
-            </span>
-          </div>
+          <span className="block text-[16.5px] font-bold leading-snug mb-2" style={{ color: '#6b7a90', cursor: 'default' }}>
+            {sec.heading}
+          </span>
         ) : sec.href ? (
           <Link
             href={sec.href}
             onClick={onClose}
-            className="flex items-center gap-3 px-4 py-[11px] text-[14px] font-semibold leading-snug no-underline text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
+            className="block text-[16.5px] font-bold no-underline leading-snug mb-2 text-[#0273D7] hover:text-[#003d7a] hover:underline"
           >
-            <span className="w-[3px] self-stretch rounded-full flex-shrink-0" style={{ background: '#0273D7' }} aria-hidden="true" />
             {sec.heading}
           </Link>
         ) : (
-          <div className="flex items-center gap-3 px-4 py-[11px]">
-            <span className="w-[3px] self-stretch rounded-full flex-shrink-0" style={{ background: '#6b7a90' }} aria-hidden="true" />
-            <span className="text-[14px] font-semibold leading-snug" style={{ color: '#6b7a90' }}>
-              {sec.heading}
-            </span>
-          </div>
+          <span className="block text-[16.5px] font-bold leading-snug mb-2" style={{ color: '#6b7a90' }}>
+            {sec.heading}
+          </span>
         )
       )}
 
-      {!sec.disabled && renderLinks()}
+      {/* Links */}
+      {!sec.disabled && (
+        hasCard ? (
+          // sec.card = all links share one continuous vertical pill line
+          <div className="relative pl-[14px]">
+            <span
+              className="absolute top-0 bottom-0 left-0 w-px"
+              style={{ background: '#c2cad6' }}
+              aria-hidden="true"
+            />
+            {sec.links.map((lk) => (
+              <DesktopLink
+                key={lk.label}
+                lk={lk}
+                onClose={onClose}
+                className={lk.disabled ? cardLinkDisabledCls : cardLinkCls}
+              />
+            ))}
+          </div>
+        ) : (
+          // no sec.card = all links are standalone parents, no pill line
+          <div className="flex flex-col">
+            {(sec.links ?? []).map((lk) => (
+              <DesktopLink
+                key={lk.label}
+                lk={lk}
+                onClose={onClose}
+                className={
+                  lk.disabled
+                    ? 'block text-[16.5px] font-bold leading-snug py-[8px]'
+                    : 'block text-[16.5px] font-bold no-underline leading-snug py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline'
+                }
+              />
+            ))}
+          </div>
+        )
+      )}
     </div>
   );
 }
@@ -168,14 +166,26 @@ function Desktop({ item, onClose }) {
   const columns = Array.from(colMap.values());
 
   return (
-    <div className="bg-white shadow-[0_6px_24px_rgba(0,0,0,0.10)] border-t border-b border-[#dde3ec] py-2">
-      <div className="max-w-[1280px] mx-auto px-8 flex items-stretch">
+    <div className="bg-white shadow-[0_6px_24px_rgba(0,0,0,0.10)] border-t border-b border-[#dde3ec]" style={{ position: 'relative' }}>
+
+      {/* Full-bleed gray background for the left column */}
+      {hasLeftPanel && (
+        <div style={{
+          position: 'absolute', top: 0, bottom: 0, left: 0,
+          width: 'calc((100% - 1280px) / 2 + 252px)',
+          background: '#f3f5f8',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }} aria-hidden="true" />
+      )}
+
+      <div className="max-w-[1280px] mx-auto px-8 flex items-stretch" style={{ position: 'relative', zIndex: 1 }}>
 
         {hasLeftPanel && (
           <>
             <div
-              className="flex flex-col gap-2 py-6 flex-shrink-0"
-              style={{ width: '220px', paddingRight: '2rem' }}
+              className="flex flex-col gap-2 py-8 flex-shrink-0 self-stretch"
+              style={{ width: '220px', paddingRight: '2rem', background: '#f3f5f8' }}
             >
               {item.left_title && (
                 <h2
@@ -204,11 +214,11 @@ function Desktop({ item, onClose }) {
                 </Link>
               )}
             </div>
-            <div className="w-px flex-shrink-0 my-6" style={{ background: '#dde3ec' }} aria-hidden="true" />
+            <div className="w-px flex-shrink-0" style={{ background: '#dde3ec' }} aria-hidden="true" />
           </>
         )}
 
-        <div className="py-4 pl-8">
+        <div className="py-8 pl-8">
           <div
             className="grid gap-x-8 items-start"
             style={{ gridTemplateColumns: `repeat(${Math.min(columns.length, 4)}, 220px)` }}
