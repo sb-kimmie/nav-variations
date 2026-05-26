@@ -4,24 +4,31 @@
     "href": "/join-the-pack"
   },
   {
+    "id": "future-students",
     "label": "Future Students",
     "href": "/join-the-pack/future-students",
-    "children": [
+    "left_title": "Future Students",
+    "description": "Discover everything CSUSB has to offer — from exploring campus and choosing a major to applying and understanding the cost of attendance.",
+    "cta": { "label": "View", "href": "/join-the-pack/future-students" },
+    "sections": [
       {
-        "label": "Explore CSUSB",
-        "href": "/join-the-pack/future-students/explore-csusb",
-        "children": [
-          { "label": "Why Choose CSUSB", "href": "/join-the-pack/future-students/explore-csusb/why-choose-csusb" },
+        "col": 1,
+        "heading": "Explore CSUSB",
+        "card": true,
+        "links": [
+          { "label": "Why Choose CSUSB", "href": "/join-the-pack/future-students/explore-csusb/why-choose-csusb", "disabled": true },
           { "label": "Campus Tours", "href": "/join-the-pack/future-students/explore-csusb/campus-tours" },
           { "label": "Education Abroad", "href": "/join-the-pack/future-students/explore-csusb/education-abroad" },
           { "label": "Visit San Bernardino", "href": "/join-the-pack/future-students/explore-csusb/visit-san-bernardino" },
-          { "label": "CSUSB Traditions and Landmarks", "href": "/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks" }
+          { "label": "CSUSB Traditions & Landmarks", "href": "/join-the-pack/future-students/explore-csusb/csusb-traditions-and-landmarks" }
         ]
       },
       {
-        "label": "Apply",
-        "href": "/join-the-pack/future-students/apply",
-        "children": [
+        "col": 2,
+        "heading": "Apply",
+        "href": "/join-the-pack/apply",
+        "card": true,
+        "links": [
           { "label": "Application Workshops", "href": "/join-the-pack/future-students/apply/application-workshops" },
           { "label": "Freshmen Admissions Requirements", "href": "/join-the-pack/future-students/apply/freshmen-admissions-requirements" },
           { "label": "Transfer Admissions Requirements", "href": "/join-the-pack/future-students/apply/transfer-admissions-requirements" },
@@ -32,11 +39,12 @@
         ]
       },
       {
-        "label": "Program Specific Requirements",
-        "href": "/join-the-pack/future-students/program-specific-requirements",
-        "children": [
+        "col": 3,
+        "heading": "Program Specific Requirements",
+        "card": true,
+        "links": [
           { "label": "Transfer Success Pathway", "href": "/join-the-pack/future-students/program-specific-requirements/transfer-success-pathway-tsp" },
-          { "label": "Veteran Admissions Requirements", "href": "/join-the-pack/future-students/program-specific-requirements/military-veteran-students" },
+          { "label": "Veteran Admissions", "href": "/join-the-pack/future-students/program-specific-requirements/military-veteran-students" },
           { "label": "EOP", "href": "/join-the-pack/future-students/program-specific-requirements/educational-opportunity-program-eop" },
           { "label": "High School Dual Enrollment", "href": "/join-the-pack/future-students/program-specific-requirements/high-school-dual-enrollment" },
           { "label": "Non-degree Programs", "href": "/join-the-pack/future-students/program-specific-requirements/non-degree-programs" },
@@ -45,101 +53,174 @@
         ]
       },
       {
-        "label": "Campus Life",
-        "href": "/join-the-pack/future-students/campus-life",
-        "children": [
-          { "label": "Student Recreation & Wellness Center", "href": "/join-the-pack/future-students/campus-life/student-recreation-wellness-center" }
-        ]
-      },
-      { "label": "Living on Campus", "href": "/join-the-pack/future-students/living-campus" },
-      { "label": "Connect with an Outreach Counselor", "href": "/join-the-pack/future-students/connect-outreach-counselor" },
-      { "label": "Learn about Palm Desert Campus", "href": "/join-the-pack/future-students/learn-about-palm-desert-campus" },
-      {
-        "label": "Cost of Attendance",
-        "href": "/join-the-pack/future-students/cost-attendance",
-        "children": [
-          { "label": "CSUSB Net Price Calculator / Tuition Calculator", "href": "https://app.meadowfi.com/csusb" }
+        "col": 4,
+        "heading": "Campus Life",
+        "href": "/join-the-pack/campus-life",
+        "links": [
+          { "label": "Student Recreation & Wellness", "href": "/join-the-pack/future-students/campus-life/student-recreation-wellness-center", "card": true },
+          { "label": "Living on Campus", "href": "/join-the-pack/future-students/living-campus" },
+          { "label": "Connect with a Counselor", "href": "/join-the-pack/future-students/connect-outreach-counselor" },
+          { "label": "Palm Desert Campus", "href": "/join-the-pack/future-students/learn-about-palm-desert-campus" },
+          { "label": "Cost of Attendance", "href": "/join-the-pack/future-students/cost-attendance" },
+          { "label": "Tuition Calculator", "href": "https://app.meadowfi.com/csusb", "card": true }
         ]
       }
     ]
   },
   {
+    "id": "newly-admitted",
     "label": "Newly Admitted Students",
     "href": "/join-the-pack/newly-admitted-students",
-    "children": [
+    "sections": [
       {
-        "label": "First-year Students",
-        "href": "/join-the-pack/newly-admitted-students/first-year-students"
+        "col": 1,
+        "links": [
+          { "label": "First-year Students", "href": "/join-the-pack/newly-admitted-students/first-year-students" },
+          { "label": "EOP First-year Students", "href": "/join-the-pack/newly-admitted-students/eop-first-year-students" },
+          { "label": "International Students", "href": "https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students" }
+        ]
       },
       {
-        "label": "EOP First-year Students",
-        "href": "/join-the-pack/newly-admitted-students/eop-first-year-students"
+        "col": 2,
+        "links": [
+          { "label": "Financial Aid & Scholarships", "href": "/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants" },
+          { "label": "Orientation Overview", "href": "/join-the-pack/newly-admitted-students/orientation-overview" },
+          { "label": "Join Nearpeer", "href": "/join-the-pack/newly-admitted-students/join-the-nearpeer" }
+        ]
       },
       {
-        "label": "International Students",
-        "href": "https://www.csusb.edu/international-education/programs/partnership-programs/students/new-students"
-      },
-      { "label": "Transfer Students", "href": "/join-the-pack/newly-admitted-students/transfer-students" },
-      { "label": "Returning Students", "href": "/join-the-pack/newly-admitted-students/returning-students" },
-      { "label": "Graduate Students", "href": "/join-the-pack/newly-admitted-students/graduate-students" },
-      { "label": "Financial Aid, Scholarships & Grants", "href": "/join-the-pack/newly-admitted-students/financial-aid-scholarships-grants" },
-      { "label": "Orientation Overview", "href": "/join-the-pack/newly-admitted-students/orientation-overview" },
-      { "label": "Join Nearpeer", "href": "/join-the-pack/newly-admitted-students/join-the-nearpeer" }
+        "col": 3,
+        "links": [
+          { "label": "Transfer Students", "href": "/join-the-pack/newly-admitted-students/transfer-students" },
+          { "label": "Returning Students", "href": "/join-the-pack/newly-admitted-students/returning-students" },
+          { "label": "Graduate Students", "href": "/join-the-pack/newly-admitted-students/graduate-students" }
+        ]
+      }
     ]
   },
   {
+    "id": "parents",
     "label": "Parents & Guardians",
     "href": "/join-the-pack/parents-guardians",
-    "children": [
-      { "label": "Financial Aid Overview", "href": "/join-the-pack/parents-guardians/financial-aid-overview" },
-      { "label": "Campus Tours & Virtual Visits", "href": "/join-the-pack/parents-guardians/campus-tours-virtual-visits" },
-      { "label": "Campus Safety", "href": "/join-the-pack/parents-guardians/campus-safety" }
+    "left_title": "Parents & Guardians",
+    "description": "Resources to help you support your student's journey to becoming a CSUSB Coyote.",
+    "sections": [
+      {
+        "col": 1,
+        "heading": "Resources",
+        "card": true,
+        "links": [
+          { "label": "Financial Aid Overview", "href": "/join-the-pack/parents-guardians/financial-aid-overview" },
+          { "label": "Campus Tours & Virtual Visits", "href": "/join-the-pack/parents-guardians/campus-tours-virtual-visits" },
+          { "label": "Campus Safety", "href": "/join-the-pack/parents-guardians/campus-safety" }
+        ]
+      }
     ]
   },
   {
+    "id": "counselors",
     "label": "Counselors",
     "href": "/join-the-pack/counselors",
-    "children": [
+    "left_title": "Counselors",
+    "description": "Tools, programs, and connections to guide your students toward a successful future at Cal State San Bernardino.",
+    "cta": { "label": "View all resources", "href": "/join-the-pack/counselors" },
+    "sections": [
       {
-        "label": "Apply and Admissions Requirements",
-        "href": "https://www.csusb.edu/join-the-pack/future-students/apply",
-        "children": [
+        "col": 1,
+        "heading": "Apply & Admissions",
+        "href": "/its",
+        "card": true,
+        "links": [
           { "label": "Freshman Admissions Requirements", "href": "https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements" },
           { "label": "Transfer Admissions Requirements", "href": "https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements" }
         ]
       },
       {
-        "label": "Available Programs",
-        "href": "/join-the-pack/counselors/available-programs",
-        "children": [
+        "col": 2,
+        "heading": "Available Programs",
+        "card": true,
+        "links": [
           { "label": "Direct Admissions Program", "href": "/join-the-pack/counselors/available-programs/direct-admissions-program" },
           { "label": "High School Dual Enrollment", "href": "https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment" },
           { "label": "Transfer Pathways & Articulation", "href": "/join-the-pack/counselors/available-programs/transfer-pathways-articulation" }
         ]
       },
       {
-        "label": "Making College Happen",
-        "href": "/join-the-pack/counselors/making-college-happen",
-        "children": [
+        "col": 3,
+        "heading": "Making College Happen",
+        "card": true,
+        "links": [
           { "label": "Affordability & Financial Aid", "href": "https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid" },
           { "label": "Parent & Family Communication", "href": "https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication" },
           { "label": "Visiting CSUSB", "href": "https://www.csusb.edu/join-the-pack/counselors/making-college-happen#campus-tours" }
         ]
       },
-      { "label": "Palm Desert Campus", "href": "/join-the-pack/counselors/palm-desert-campus" },
-      { "label": "Resources", "href": "/join-the-pack/counselors/resources" },
-      { "label": "Request an Outreach Counselor", "href": "/join-the-pack/counselors/request-outreach-counselor" }
+      {
+        "col": 1,
+        "links": [
+          { "label": "Palm Desert Campus", "href": "/join-the-pack/counselors/palm-desert-campus" },
+          { "label": "Resources", "href": "/join-the-pack/counselors/resources" },
+          { "label": "Request an Outreach Counselor", "href": "/join-the-pack/counselors/request-outreach-counselor" }
+        ]
+      }
     ]
   },
   {
+    "id": "admissions-forms",
     "label": "Admissions Forms",
-    "href": "/join-the-pack/admissions-forms"
+    "href": "/join-the-pack/admissions-forms",
+    "sections": [
+      {
+        "col": 1,
+        "links": [
+          { "label": "Palm Desert Campus", "href": "/join-the-pack/counselors/palm-desert-campus" }
+        ]
+      },
+      {
+        "col": 1,
+        "heading": "Apply & Admissions",
+        "href": "/its",
+        "card": true,
+        "links": [
+          { "label": "Freshman Admissions Requirements", "href": "https://www.csusb.edu/join-the-pack/future-students/apply/freshmen-admissions-requirements" },
+          { "label": "Transfer Admissions Requirements", "href": "https://www.csusb.edu/join-the-pack/future-students/apply/transfer-admissions-requirements" }
+        ]
+      },
+      {
+        "col": 1,
+        "heading": "Available Programs",
+        "card": true,
+        "links": [
+          { "label": "Direct Admissions Program", "href": "/join-the-pack/counselors/available-programs/direct-admissions-program" },
+          { "label": "High School Dual Enrollment", "href": "https://www.csusb.edu/join-the-pack/counselors/available-programs#hsdualenrollment" },
+          { "label": "Transfer Pathways & Articulation", "href": "/join-the-pack/counselors/available-programs/transfer-pathways-articulation" }
+        ]
+      },
+      {
+        "col": 2,
+        "heading": "Making College Happen",
+        "card": true,
+        "links": [
+          { "label": "Affordability & Financial Aid", "href": "https://www.csusb.edu/join-the-pack/counselors/making-college-happen#affordability-financial-aid" },
+          { "label": "Parent & Family Communication", "href": "https://www.csusb.edu/join-the-pack/counselors/making-college-happen#parent-family-communication" },
+          { "label": "Visiting CSUSB", "href": "https://www.csusb.edu/join-the-pack/counselors/making-college-happen#campus-tours" }
+        ]
+      }
+    ]
   },
   {
+    "id": "program-finder",
     "label": "Program Finder",
     "href": "https://www.csusb.edu/join-the-pack/program-finder",
-    "children": [
-      { "label": "Why Earn a Certificate at CSUSB?", "href": "/join-the-pack/program-finder/certificates" }
+    "sections": [
+      {
+        "col": 1,
+        "heading": "Certificates",
+        "card": true,
+        "links": [
+          { "label": "Why Earn a Certificate at CSUSB?", "href": "/join-the-pack/program-finder/certificates" }
+        ]
+      }
     ]
   }
 ]
