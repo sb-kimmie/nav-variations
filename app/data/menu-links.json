@@ -66,7 +66,7 @@
         "links": [
           { "label": "Living on Campus", "href": "/join-the-pack/future-students/living-campus" },
           { "label": "Connect with an Outreach Counselor", "href": "/join-the-pack/future-students/connect-outreach-counselor" },
-          { "label": "Learn about Palm Desert Campus", "href": "/join-the-pack/future-students/learn-about-palm-desert-campus" }
+          { "label": "Learn about Palm Desert Campus", "href": "/join-the-pack/future-students/learn-about-palm-desert-campus", "disabled": true  }
         ]
       },
       {
