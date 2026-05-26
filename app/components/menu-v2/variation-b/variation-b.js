@@ -75,13 +75,13 @@ function DesktopAccordionSection({ sec, onClose }) {
   const hasCard = !!sec.card;
 
   const cardLinkCls =
-    'block text-[15px] font-normal no-underline leading-snug py-[9px] text-[#0273D7] hover:text-[#003d7a] hover:underline';
+    'block text-[15px] font-normal no-underline leading-none py-[9px] text-[#0273D7] hover:text-[#003d7a] hover:underline';
   const cardLinkDisabledCls =
-    'block text-[15px] font-normal leading-snug py-[9px]';
+    'block text-[15px] font-normal leading-none py-[9px]';
   const plainLinkCls =
-    'block text-[15px] font-semibold no-underline leading-snug py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline';
+    'block text-[15px] font-semibold no-underline leading-none py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline';
   const plainLinkDisabledCls =
-    'block text-[15px] font-semibold leading-snug py-[8px]';
+    'block text-[15px] font-semibold leading-none py-[8px]';
 
   return (
     <div className="mb-1">
@@ -89,19 +89,19 @@ function DesktopAccordionSection({ sec, onClose }) {
       {/* Section heading */}
       {sec.heading && (
         sec.disabled ? (
-          <span className="block text-[16.5px] font-bold leading-snug mb-2" style={{ color: '#6b7a90', cursor: 'default' }}>
+          <span className="block text-[16.5px] font-bold leading-none mb-2" style={{ color: '#6b7a90', cursor: 'default' }}>
             {sec.heading}
           </span>
         ) : sec.href ? (
           <Link
             href={sec.href}
             onClick={onClose}
-            className="block text-[16.5px] font-bold no-underline leading-snug mb-2 text-[#0273D7] hover:text-[#003d7a] hover:underline"
+            className="block text-[16.5px] font-bold no-underline leading-none mb-2 text-[#0273D7] hover:text-[#003d7a] hover:underline"
           >
             {sec.heading}
           </Link>
         ) : (
-          <span className="block text-[16.5px] font-bold leading-snug mb-2" style={{ color: '#6b7a90' }}>
+          <span className="block text-[16.5px] font-bold leading-none mb-2" style={{ color: '#6b7a90' }}>
             {sec.heading}
           </span>
         )
@@ -136,8 +136,8 @@ function DesktopAccordionSection({ sec, onClose }) {
                 onClose={onClose}
                 className={
                   lk.disabled
-                    ? 'block text-[16.5px] font-bold leading-snug py-[8px]'
-                    : 'block text-[16.5px] font-bold no-underline leading-snug py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline'
+                    ? 'block text-[16.5px] font-bold leading-none py-[8px]'
+                    : 'block text-[16.5px] font-bold no-underline leading-none py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline'
                 }
               />
             ))}

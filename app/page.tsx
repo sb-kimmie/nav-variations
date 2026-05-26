@@ -1,10 +1,10 @@
-import VariationA from "./components/menu-v2/variation-a/variation-a";
+import VariationA from "./components/menu-v2/variation-c/variation-c";
 import VariationB from "./components/menu-v2/variation-b/variation-b";
 
 import Image from "next/image";
 import logo from "./imgs/default-img.png";
 import Link from "next/link";
-import VariationC from "./components/menu-v2/variation-c/variation-c";
+import VariationC from "./components/menu-v2/variation-a/variation-a";
 
 
 export default function Home() {
@@ -47,29 +47,29 @@ export default function Home() {
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
-            <VariationC />
+            <VariationA />
           </div>
         </section>
 
         <section className="px-10 relative z-40">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">B</span>
-            <h2 className="text-sm font-semibold text-gray-600">Gray Border</h2>
+            <h2 className="text-sm font-semibold text-gray-600">Pill</h2>
           </div>
           <div className="">
             <Image src={logo} alt="default banner" className="" />
-            <VariationA />
+            <VariationB />
           </div>
         </section>
 
         <section className="px-10 relative z-20 pb-[520px] mb-20">
           <div className="mb-3 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-white bg-[#2f5986] px-3 py-1 rounded-full">C</span>
-            <h2 className="text-sm font-semibold text-gray-600">Pill</h2>
+            <h2 className="text-sm font-semibold text-gray-600">Gray Border</h2>
           </div>
           <div className="mb-20">
             <Image src={logo} alt="default banner" className="" />
-            <VariationB />
+            <VariationC />
           </div>
         </section>
       </div>
