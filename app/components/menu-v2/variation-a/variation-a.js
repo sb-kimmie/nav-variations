@@ -4,6 +4,21 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import nav from '@/app/data/menu-links.json';
 
+// ─── VariationA ───────────────────────────────────────────────────────────────
+//
+// Nav data is imported directly from @/app/data/menu-links.json.
+// To update the menu, edit that file — no changes needed here.
+//
+// Section shape:
+//   { col, heading?, href?, card?, disabled?, links[] }
+//
+// Link shape:
+//   { label, href, card?, disabled? }
+//
+// col      – desktop column number (1-based). Same col = stack vertically.
+// card     – true wraps links in a gray rounded card (section or per-link).
+// disabled – true renders as non-clickable gray text (section heading or link).
+
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
 const MenuIcon = () => (
@@ -18,104 +33,100 @@ const CloseIcon = () => (
   </svg>
 );
 
-const ChevronIcon = ({ open }) => (
-  <svg
-    width="12" height="12" viewBox="0 0 12 8" fill="none" aria-hidden="true"
-    style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}
-  >
-    <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+// ─── Desktop link atom ────────────────────────────────────────────────────────
 
-const ArrowIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+function DesktopLink({ lk, onClose, className }) {
+  if (lk.disabled) {
+    return (
+      <span className={className} style={{ color: '#6b7a90', cursor: 'default' }}>
+        {lk.label}
+      </span>
+    );
+  }
+  return (
+    <Link href={lk.href} onClick={onClose} className={className}>
+      {lk.label}
+    </Link>
+  );
+}
 
-// ─── Desktop section ──────────────────────────────────────────────────────────
+// ─── Desktop: single section block ───────────────────────────────────────────
 
 function DesktopAccordionSection({ sec, onClose }) {
-  const renderChildLink = (lk) => {
-    if (lk.disabled) {
-      return (
-        // non-clickable child links
-        // gray hex = #9aa5b4
-        <div
-          key={lk.label}
-          className="flex items-start gap-[5px] py-[4px] leading-snug mb-1"
-          style={{ color: '#9aa5b4', fontSize: '16px', lineHeight: '1' }}
-        >
-          <span className="flex-shrink-0" style={{ color: '#6b7a90' }} aria-hidden="true">›</span>
-          <span>{lk.label}</span>
-        </div>
-      );
-    }
-    return (
-      // child links
-      <Link
-        key={lk.label}
-        href={lk.href}
-        onClick={onClose}
-        className="flex items-start gap-[5px] py-[4px] leading-snug no-underline text-[#0273D7] hover:text-[#003d7a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0273D7] group mb-1"
-        style={{ fontSize: '16px', lineHeight: '1' }}
-      >
-        <span className="flex-shrink-0" style={{ color: '#6b7a90' }} aria-hidden="true">›</span>
-        <span className="group-hover:underline">{lk.label}</span>
-      </Link>
-    );
-  };
+  const hasCard = !!sec.card;
 
-  // stadalone links
-  const renderStandaloneLink = (lk) => {
-    if (lk.disabled) {
-      return (
-        <p key={lk.label} className="text-[16.5px] font-bold leading-none mb-2 py-[5px]" style={{ color: '#9aa5b4' }}>
-          {lk.label}
-        </p>
-      );
-    }
-    return (
-      <Link
-        key={lk.label}
-        href={lk.href}
-        onClick={onClose}
-        className="block text-[16.5px] font-bold leading-none py-[5px] no-underline text-[#0273D7] mb-2 hover:underline hover:text-[#003d7a]"
-      >
-        {lk.label}
-      </Link>
-    );
-  };
+  const cardLinkCls =
+    'block text-[15px] font-normal no-underline leading-none py-[10px] last:border-b-0 text-[#0273D7] hover:text-[#003d7a] hover:underline';
+  const cardLinkDisabledCls =
+    'block text-[15px] font-normal leading-none py-[10px] border-[#e2e5ea] last:border-b-0';
+  const plainLinkCls =
+    'block text-[16.5px] font-semibold no-underline leading-none py-[8px] text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px]';
+  const plainLinkDisabledCls =
+    'block text-[16.5px] font-semibold leading-none py-[8px]';
 
-  const hasHeading = !!sec.heading;
-
-  // headers
   return (
-    <div className="mb-3 last:mb-0">
-      {hasHeading && (
-        sec.disabled ? (
-          <p className="text-[16.5px] font-bold leading-none mb-2 m-0" style={{ color: '#9aa5b4' }}>
-            {sec.heading}
-          </p>
-        ) : sec.href ? (
-          <Link
-            href={sec.href}
-            onClick={onClose}
-            className="block text-[16.5px] font-bold leading-none mb-2 no-underline text-[#0273D7] hover:underline hover:text-[#003d7a] underline-offset-[2px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0273D7]"
-          >
-            {sec.heading}
-          </Link>
-        ) : (
-          <p className="text-[16.5px] font-bold leading-none mb-2 m-0" style={{ color: '#6b7a90' }}>
-            {sec.heading}
-          </p>
-        )
+    <div className="flex flex-col gap-[8px] mb-3">
+
+      {/* Section heading */}
+      {sec.heading && (
+        sec.disabled
+          ? (
+            <span className="block text-[16.5px] font-bold leading-none" style={{ color: '#6b7a90', cursor: 'default' }}>
+              {sec.heading}
+            </span>
+          ) : sec.href
+          ? (
+            // clickable parent — light blue, hover dark blue
+            <Link
+              href={sec.href}
+              onClick={onClose}
+              className="inline-flex items-center gap-1 text-[16.5px] font-bold no-underline leading-none text-[#0273D7] hover:text-[#003d7a] hover:underline"
+            >
+              {sec.heading}
+            </Link>
+          ) : (
+            // non-clickable parent — gray
+            <span className="block text-[16.5px] font-bold leading-none" style={{ color: '#6b7a90' }}>
+              {sec.heading}
+            </span>
+          )
       )}
 
-      {!sec.disabled && (
-        <div className="flex flex-col gap-0">
+      {/* Links */}
+      {hasCard ? (
+        <div className="rounded-sm bg-[#eef0f4] px-4 py-2 flex flex-col">
+          {sec.links.map((lk) => (
+            <DesktopLink
+              key={lk.label}
+              lk={lk}
+              onClose={onClose}
+              className={lk.disabled ? cardLinkDisabledCls : cardLinkCls}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-1">
           {sec.links.map((lk) =>
-            hasHeading ? renderChildLink(lk) : renderStandaloneLink(lk)
+            lk.card ? (
+              <div key={lk.label} className="rounded-sm bg-[#eef0f4] px-4 py-3">
+                <DesktopLink
+                  lk={lk}
+                  onClose={onClose}
+                  className={
+                    lk.disabled
+                      ? 'block text-[15px] font-normal leading-none'
+                      : 'block text-[15px] font-normal no-underline leading-none text-[#0273D7] hover:text-[#003d7a] hover:underline underline-offset-[3px]'
+                  }
+                />
+              </div>
+            ) : (
+              <DesktopLink
+                key={lk.label}
+                lk={lk}
+                onClose={onClose}
+                className={lk.disabled ? plainLinkDisabledCls : plainLinkCls}
+              />
+            )
           )}
         </div>
       )}
@@ -123,10 +134,10 @@ function DesktopAccordionSection({ sec, onClose }) {
   );
 }
 
-// ─── Desktop dropdown panel ───────────────────────────────────────────────────
+// ─── Desktop mega panel ───────────────────────────────────────────────────────
 
 function Desktop({ item, onClose }) {
-  const hasLeftPanel = !!(item.left_title || item.description || item.cta);
+  const hasLeftPanel = item.showLeftPanel !== false && !!(item.left_title || item.description || item.cta);
 
   let fallback = 1;
   const assigned = item.sections.map((sec) => ({
@@ -141,74 +152,75 @@ function Desktop({ item, onClose }) {
   const columns = Array.from(colMap.values());
 
   return (
-    // Outer div — no py-2
-<div className="bg-white shadow-[0_6px_24px_rgba(0,0,0,0.10)] border-t border-b border-[#dde3ec]" style={{ position: 'relative' }}>
+    <div className="bg-white shadow-[0_6px_24px_rgba(0,0,0,0.10)] border-t border-b border-[#dde3ec] py-2">
+      <div className="max-w-[1280px] mx-auto px-8 flex items-stretch">
 
-  {hasLeftPanel && (
-    <div style={{
-      position: 'absolute', top: 0, bottom: 0, left: 0,
-      width: 'calc((100% - 1280px) / 2 + 220px)',
-      background: '#f3f5f8',
-      zIndex: 0,
-      pointerEvents: 'none',
-    }} aria-hidden="true" />
-  )}
-
-  <div className="max-w-[1280px] mx-auto px-8 flex items-stretch" style={{ position: 'relative', zIndex: 1 }}>
-
-    {hasLeftPanel && (
-      <>
-        <div
-          className="flex flex-col gap-2 py-8 flex-shrink-0 self-stretch"
-          style={{ width: '220px', paddingRight: '2rem', background: '#f3f5f8' }}
-        >
-          {item.left_title && (
-            <h2 className="font-bold mb-2" style={{ fontSize: '18px', lineHeight: '1.3', color: '#1a2a4a' }}>
-              {item.left_title}
-            </h2>
-          )}
-          {item.description && (
-            <p className="mb-2" style={{ fontSize: '15px', lineHeight: '1.3', color: '#555' }}>
-              {item.description}
-            </p>
-          )}
-          {item.cta && (
-            <Link
-              href={item.cta.href}
-              onClick={onClose}
-              className="inline-flex items-center gap-1 font-bold no-underline text-[#0273D7] hover:underline hover:text-[#003d7a] underline-offset-[2px] mt-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0273D7]"
-              style={{ fontSize: '15px', lineHeight: '1.3' }}
+        {hasLeftPanel && (
+          <>
+            <div
+              className="flex flex-col gap-2 py-6 flex-shrink-0"
+              style={{ width: '220px', paddingRight: '2rem' }}
             >
-              {item.cta.label}
-            </Link>
-          )}
-        </div>
-        <div className="w-px flex-shrink-0" style={{ background: '#dde3ec' }} aria-hidden="true" />
-      </>
-    )}
+              {item.left_title && (
+                <h2
+                  className="font-bold mb-2"
+                  style={{ fontSize: '18px', lineHeight: '1.3', color: '#1a2a4a' }}
+                >
+                  {item.left_title}
+                </h2>
+              )}
+              {item.description && (
+                <p
+                  className="mb-2"
+                  style={{ fontSize: '15px', lineHeight: '1.3', color: '#555' }}
+                >
+                  {item.description}
+                </p>
+              )}
+              {item.cta && (
+                <Link
+                  href={item.cta.href}
+                  onClick={onClose}
+                  className="inline-flex items-center gap-1 font-bold no-underline text-[#0273D7] hover:underline hover:text-[#003d7a] underline-offset-[2px] mt-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0273D7]"
+                  style={{ fontSize: '15px', lineHeight: '1.3' }}
+                >
+                  {item.cta.label}
+                </Link>
+              )}
+            </div>
+            <div className="w-px flex-shrink-0 my-6" style={{ background: '#dde3ec' }} aria-hidden="true" />
+          </>
+        )}
 
-    {/* py-8 here gives top/bottom space on the right column only */}
-    <div className="py-8 pl-8">
-      <div
-        className="grid gap-x-8 items-start"
-        style={{ gridTemplateColumns: `repeat(${Math.min(columns.length, 4)}, 220px)` }}
-      >
-        {columns.slice(0, 4).map((secs, colIdx) => (
-          <div key={colIdx}>
-            {secs.map((sec, i) => (
-              <DesktopAccordionSection key={i} sec={sec} onClose={onClose} />
+        <div className="py-6 pl-8">
+          <div
+            className="grid gap-x-8 items-start"
+            style={{ gridTemplateColumns: `repeat(${Math.min(columns.length, 4)}, 220px)` }}
+          >
+            {columns.slice(0, 4).map((secs, colIdx) => (
+              <div key={colIdx}>
+                {secs.map((sec, i) => (
+                  <DesktopAccordionSection key={i} sec={sec} onClose={onClose} />
+                ))}
+              </div>
             ))}
           </div>
-        ))}
+        </div>
+
       </div>
     </div>
-
-  </div>
-</div>
   );
 }
 
 // ─── Mobile ───────────────────────────────────────────────────────────────────
+
+function MobileChevron() {
+  return (
+    <svg className="w-[10px] h-[7px] flex-shrink-0" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+      <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 function MobileSectionFromSections({ sec }) {
   const [open, setOpen] = useState(false);
@@ -257,21 +269,6 @@ function MobileSectionFromSections({ sec }) {
     );
   }
 
-  if (sec.href && !sec.links?.length) {
-    return (
-      <div className="border-b border-[#dde3f0]">
-        <Link
-          href={sec.href}
-          className="flex items-center justify-between px-5 py-[14px] text-[14px] font-semibold text-[#0273D7] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7] hover:underline"
-          style={{ minHeight: '44px' }}
-        >
-          {sec.heading}
-          <ArrowIcon />
-        </Link>
-      </div>
-    );
-  }
-
   if (sec.href) {
     return (
       <div className="border-b border-[#dde3f0]">
@@ -285,7 +282,9 @@ function MobileSectionFromSections({ sec }) {
           >
             <span className="flex-shrink-0 w-[3px] self-stretch" style={{ background: '#0273D7' }} aria-hidden="true" />
             <span>{sec.heading}</span>
-            <ArrowIcon />
+            <svg className="w-[10px] h-[10px] flex-shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </Link>
           <button
             className="flex items-center justify-center px-4 bg-transparent border-none border-l border-[#dde3f0] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0273D7]"
@@ -296,7 +295,7 @@ function MobileSectionFromSections({ sec }) {
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(2,115,215,0.06)'}
             onMouseLeave={e => e.currentTarget.style.background = ''}
           >
-            <ChevronIcon open={open} />
+            <MobileChevron />
           </button>
         </div>
         {open && <LinkList links={sec.links} />}
@@ -320,7 +319,7 @@ function MobileSectionFromSections({ sec }) {
           />
           <span className="truncate">{sec.heading}</span>
         </span>
-        <ChevronIcon open={open} />
+        <MobileChevron />
       </button>
       {open && <LinkList links={sec.links} />}
     </div>
@@ -364,7 +363,7 @@ function MobileAccordionItem({ item }) {
         onMouseLeave={e => { e.currentTarget.style.background = open ? 'rgba(255,255,255,0.1)' : 'transparent'; }}
       >
         <span>{item.label}</span>
-        <ChevronIcon open={open} />
+        <MobileChevron />
       </button>
 
       {open && (
@@ -390,7 +389,7 @@ function MobileAccordionItem({ item }) {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
-export default function VariationC() {
+export default function VariationA() {
   const [activeId,  setActiveId]  = useState(null);
   const [mobOpen,   setMobOpen]   = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
@@ -421,53 +420,47 @@ export default function VariationC() {
   };
   const scheduleClose = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => setActiveId(null), 150);
+    closeTimer.current = setTimeout(() => setActiveId(null), 120);
   };
 
   const activeItem = nav.find((n) => n.id === activeId);
 
-  // top level nav
   return (
     <header
       className={[
-        'sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif] z-999',
+        'sticky top-0 bg-[#0273D7] font-["Source_Sans_Pro",Helvetica,Arial,sans-serif]',
         scrolled || activeId ? 'shadow-[0_2px_16px_rgba(0,0,0,0.12)]' : '',
       ].join(' ')}
     >
+      {/* ── Main bar ── */}
       <div className="border-b border-black/[0.08]">
-        <div className="max-w-[1280px] mx-auto px-8 py-1 flex items-center">
+        <div className="max-w-[1280px] mx-auto px-8 py-2 flex items-center">
+
+          {/* Desktop nav */}
           <nav className="flex-1 overflow-hidden hidden lg:block" aria-label="Primary navigation">
-            <ul className="list-none m-0 p-0 flex items-stretch flex-wrap" role="menubar">
+            <ul className="list-none m-0 p-0 flex items-stretch flex-wrap">
               {nav.map((item) => (
                 <li
                   key={item.id || item.label}
-                  role="none"
-                  onMouseEnter={() => {
-                    cancelClose();
-                    if (item.sections) setActiveId(item.id);
-                    else setActiveId(null);
-                  }}
+                  onMouseEnter={() => { cancelClose(); setActiveId(item.sections ? item.id : null); }}
                   onMouseLeave={scheduleClose}
                 >
                   {item.sections ? (
                     <button
-                      role="menuitem"
-                      aria-haspopup="true"
-                      aria-expanded={activeId === item.id}
                       className={[
-                        'inline-flex items-center h-full px-[14px] py-2 text-[15px] font-medium text-white whitespace-nowrap gap-[5px]',
-                        'bg-transparent border-none cursor-default font-[inherit]',
+                        'inline-flex items-center h-full px-[14px] text-[15px] font-medium text-white whitespace-nowrap gap-[6px]',
                         activeId === item.id ? 'underline' : 'no-underline hover:underline',
                       ].join(' ')}
+                      aria-expanded={activeId === item.id}
+                      aria-haspopup="true"
                     >
                       {item.label}
-                      <ChevronIcon open={activeId === item.id} />
+                      <MobileChevron />
                     </button>
                   ) : (
                     <Link
-                      role="menuitem"
                       href={item.href}
-                      className="inline-flex items-center h-full px-[14px] py-2 text-[15px] font-medium text-white whitespace-nowrap no-underline hover:underline"
+                      className="inline-flex items-center h-full px-[14px] text-[15px] font-medium text-white whitespace-nowrap no-underline hover:underline"
                     >
                       {item.label}
                     </Link>
@@ -477,6 +470,7 @@ export default function VariationC() {
             </ul>
           </nav>
 
+          {/* Hamburger */}
           <div className="ml-auto lg:hidden flex items-center">
             <button
               className="flex items-center justify-center bg-transparent border-none cursor-pointer p-2 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-[#0273D7] rounded"
@@ -492,18 +486,18 @@ export default function VariationC() {
         </div>
       </div>
 
+      {/* Desktop mega panel */}
       {activeId && activeItem?.sections && (
         <div
-          className="absolute left-0 right-0 z-999"
+          className="absolute left-0 right-0"
           onMouseEnter={cancelClose}
           onMouseLeave={scheduleClose}
-          role="region"
-          aria-label={`${activeItem.label} menu`}
         >
           <Desktop item={activeItem} onClose={() => setActiveId(null)} />
         </div>
       )}
 
+      {/* Mobile menu */}
       {mobOpen && (
         <div
           id="mobile-nav"
