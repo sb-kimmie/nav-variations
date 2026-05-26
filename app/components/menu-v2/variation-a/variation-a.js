@@ -44,7 +44,7 @@ function DesktopAccordionSection({ sec, onClose }) {
         <div
           key={lk.label}
           className="flex items-start gap-[5px] py-[4px] leading-snug mb-1"
-          style={{ color: '#9aa5b4', fontSize: '16px', lineHeight: '1' }}
+          style={{ color: '#6b7a90', fontSize: '16px', lineHeight: '1' }}
         >
           <span className="flex-shrink-0" style={{ color: '#6b7a90' }} aria-hidden="true">›</span>
           <span>{lk.label}</span>
@@ -70,7 +70,7 @@ function DesktopAccordionSection({ sec, onClose }) {
   const renderStandaloneLink = (lk) => {
     if (lk.disabled) {
       return (
-        <p key={lk.label} className="text-[16.5px] font-bold leading-none mb-2 py-[5px]" style={{ color: '#9aa5b4' }}>
+        <p key={lk.label} className="text-[16.5px] font-bold leading-none mb-2 py-[5px]" style={{ color: '#6b7a90' }}>
           {lk.label}
         </p>
       );
@@ -94,7 +94,7 @@ function DesktopAccordionSection({ sec, onClose }) {
     <div className="mb-3 last:mb-0">
       {hasHeading && (
         sec.disabled ? (
-          <p className="text-[16.5px] font-bold leading-none mb-2 m-0" style={{ color: '#9aa5b4' }}>
+          <p className="text-[16.5px] font-bold leading-none mb-2 m-0" style={{ color: '#6b7a90' }}>
             {sec.heading}
           </p>
         ) : sec.href ? (
